@@ -1,0 +1,93 @@
+# RATCHET
+
+**Evidence-gated progress that survives interruption.**
+
+A ratchet moves freely forward and never slips back. Each click is a verified step; the pawl that holds it is *evidence on disk*. Ratchet is a software development methodology for coding agents built on two observations: agent projects fail in predictable ways, and the conversation is the worst possible place to keep the truth.
+
+## The failure modes, and the mechanism that answers each
+
+A mechanism is a concrete, checkable behavior — never a value statement.
+
+
+| #   | Failure mode                                                                  | Mechanism                                                                                                                                                                 | Skill                                         |
+| --- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| 1   | **Building the wrong thing** — guessing at ambiguous intent                   | No Tier 2+ build until a brief exists with *observable acceptance checks* and an out-of-scope list, confirmed by the user                                                 | `writing-the-brief`                           |
+| 2   | **Silent scope creep** — "while I'm here" additions                           | Out-of-scope list written at sizing; the done-gate diffs the change against declared scope; out-of-scope edits require a logged escalation                                | `sizing-the-task`, `verifying-done`           |
+| 3   | **Completion theater** — claiming done without proof                          | Completion claims are blocked until a freshly-run verification command and its output are recorded in the worklog; subagent reports are never accepted as evidence        | `verifying-done`, `delegating-to-agents`      |
+| 4   | **Untested happy path**                                                       | Per-tier mandatory test classes (happy / failure / edge); test-first is the default where seams exist                                                                     | `testing-by-default`                          |
+| 5   | **Context loss between sessions**                                             | `.ratchet/STATE.md` — a current-state snapshot updated at every phase boundary, sufficient for a cold session to resume; append-only `WORKLOG.md` for history             | `keeping-state`, `resuming-work`              |
+| 6   | **Confident wrong fixes**                                                     | No fix proposed before the failure is reproduced and a single written hypothesis names the cause; three failed fixes forces an architecture question, not a fourth fix    | `debugging-to-root-cause`                     |
+| 7   | **Plans that drift from reality**                                             | Plans are hypotheses: when reality contradicts a step, execution *stops*, the surprise is logged, the plan is amended with a reason, and remaining steps are re-validated | `replanning-on-surprise`                      |
+| 8   | **Breaking legacy code** — changing what you can't test                       | In code without tests: pin current behavior with characterization tests at a seam *before* any change; create the seam first if none exists                               | `characterizing-legacy-code`, `finding-seams` |
+| 9   | **Mis-sized process** — ceremony tax on small tasks, recklessness on big ones | Sizing is an explicit first step with objective criteria; tier can be escalated (or lowered) mid-task by defined triggers, costing one worklog entry                      | `sizing-the-task`                             |
+| 10  | **Repeating project-specific mistakes**                                       | Post-task retrospective writes testable rules to `.ratchet/LESSONS.md`; every session loads it at start                                                                   | `retrospecting`                               |
+| 11  | **Documentation drift** — docs contradict shipped code, misleading users and future sessions | A diff-driven docs audit runs at landing for Tier 2/3: factual fixes auto-applied, narrative changes gated by the user, coverage gaps flagged but never auto-generated | `syncing-the-docs`                            |
+
+
+## The spine
+
+Every task — typo to subsystem — walks the same five beats. Only the middle inflates.
+
+```
+ORIENT → SIZE → BUILD (tier-scaled) → VERIFY → RECORD
+```
+
+- **ORIENT** — read `.ratchet/STATE.md` and `LESSONS.md` if they exist. If STATE.md shows work in flight, that's a resume (`resuming-work`), not a new task.
+- **SIZE** — classify the task into a tier using the criteria below (`sizing-the-task`). One sentence in the worklog for Tier 0–1; a sizing record for Tier 2+.
+- **BUILD** — the tier decides the weight:
+
+
+|                                                                   | **Tier 0 — Patch**                                                                                                                                                       | **Tier 1 — Task**                                                                                                                                          | **Tier 2 — Feature**                                                                          | **Tier 3 — Project**                                                                  |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Criteria (all must hold for the tier; first failure bumps you up) | ≤2 files, no interface or dependency change, acceptance check statable in one sentence without asking anyone, revertible with one `git revert`, touches no risk surface* | One subsystem, ≤~5 files, intent unambiguous (you can write the acceptance checks yourself and the user would not be surprised), no architectural decision | Multiple subsystems or new components, real ambiguity, new dependencies, or any risk surface* | Doesn't fit one session, or requires decomposition into multiple features             |
+| Process                                                           | Just do it                                                                                                                                                               | Definition of Done (goal + checks + out-of-scope) in worklog → implement test-first → gate                                                                 | Brief → plan → checkpointed execution → review → gate → retro                                 | Tier 2 plus: decompose into milestones; STATE.md becomes long-lived; decisions logged |
+| Human gates                                                       | none                                                                                                                                                                     | none (DoD is visible, not blocking)                                                                                                                        | brief approval; merge                                                                         | brief + decomposition approval; per-milestone                                         |
+
+
+**Risk surface** (any one ⇒ minimum Tier 2): auth/authz, payments, data migration or deletion, secrets, concurrency primitives, public API contracts.
+
+- **VERIFY** — the gate (`verifying-done`). Done means, per tier: T0 — the proving command ran and its output is in the log; T1 — that, plus new tests passing including a failure-path test, plus diff-vs-scope check; T2/3 — that, plus full suite, plus review (`reviewing-the-diff`), plus every acceptance check in the brief demonstrated. No evidence, no "done" — the claim is structurally blocked, not discouraged.
+- **RECORD** — worklog entry; STATE.md updated (to idle, or to the next step); retro if the tier or a surprise demands it (`retrospecting`); land the change per project convention (`landing-the-change`).
+
+**The escape hatch is part of the spine:** the moment an escalation trigger fires (file count exceeds estimate, an acceptance check can't be written, a second surprise on the same task, a risk surface appears), you stop, log it, re-run sizing, and continue at the new tier — keeping all work that survives. De-escalation is equally legal with a stated reason.
+
+## Principles
+
+1. **Disk beats conversation.** Anything a fresh session would need is written to `.ratchet/` at the moment it's known, not at the end.
+2. **Evidence is the only currency of done.** Output of a command you just ran, a diff you just read, a demo you just performed. "Should work" is a null value.
+3. **Plans are hypotheses with a change-log.** Following a plan that reality has falsified is the same failure as having no plan.
+4. **Ceremony must pay rent.** Every artifact and gate exists to defeat a named failure mode. A step that defeats nothing for this task at this tier is skipped *by rule, not by guilt*.
+5. **Tests are the default, not the religion.** Test-first where seams exist; characterize-first where they don't; spike-then-stabilize where you're exploring — each is a defined discipline, not an exception begged from the user.
+6. **The codebase you have, not the one you wish you had.** Brownfield is the normal case. Red baselines, missing tests, and tangled seams get workflows, not apologies.
+7. **Agents lie accidentally.** Your own past self, your subagents, your reviewers — all reports are claims until checked against the repo.
+
+## What Ratchet refuses to do
+
+- **It refuses to interview you about a typo.** Tier 0 exists so the spine costs seconds when the task warrants seconds.
+- **It refuses to write code twice.** Plans specify intent, files, and verification per step — not the implementation pre-written in the plan body.
+- **It refuses to block on theatrical approval.** Human gates exist where decisions are irreversible or intent is genuinely unknowable — not at every phase boundary.
+- **It refuses to moralize.** Gates are structural ("the claim requires the evidence line") rather than rhetorical ("lying means replacement"). Rules that matter are few, so they stay loud.
+- **It refuses to depend on memory** — the agent's or the model's. If the system prompt injection fails, `.ratchet/STATE.md` sitting in the repo root is still there, and any agent that lists the directory finds its orders.
+
+## Divergences from superpowers — with reasons
+
+
+| Divergence                                                                                                                                                                                                          | Reason                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tiered process instead of one pipeline for everything**                                                                                                                                                           | Superpowers sends a config change through design→spec→plan→approval; the overhead is fixed while the task shrinks. Ceremony that doesn't scale gets skipped in practice — unpredictably. Ratchet makes the skipping rule-governed.                                                                                             |
+| **Durable state file instead of conversation-resident state**                                                                                                                                                       | Superpowers' only resume artifact is a checkbox plan nobody is required to update. Compaction or a crash mid-run loses the controller's knowledge. STATE.md makes resume a read, not a reconstruction.                                                                                                                         |
+| **Plan-as-hypothesis with a replan protocol, instead of plan-as-contract**                                                                                                                                          | Superpowers' spec reviewer pushes implementations back toward the stale plan and offers no amendment path. Discovered knowledge must update the plan, auditable, mid-flight.                                                                                                                                                   |
+| **Brownfield workflows (characterize, find seams) as first-class skills**                                                                                                                                           | Superpowers assumes a green baseline and testable seams; legacy code gets one row in a rationalization table. Most real code is legacy code.                                                                                                                                                                                   |
+| **Testing as a decision ladder (test-first / characterize / spike-then-stabilize) instead of universal TDD with ask-the-human exceptions**                                                                          | Strict TDD has no answer for seamless legacy code, performance work, or exploration. Defining the alternative disciplines keeps rigor without exception-begging.                                                                                                                                                               |
+| **One review with two checklists instead of two reviewer subagents per task, every task**                                                                                                                           | Two-stage review triples agent cost per task with no outcome evidence; superpowers' own data measures compliance, not results. Risk decides review depth (Tier 2+ gets review; risk surfaces get a second reviewer).                                                                                                           |
+| **Project-local lessons loop**                                                                                                                                                                                      | Superpowers improves its *skills* globally but learns nothing about *your project* between sessions. LESSONS.md is the missing memory.                                                                                                                                                                                         |
+| **Structural gates over persuasion pressure**                                                                                                                                                                       | Superpowers' compliance prose is an arms race against its own agent (its repo history shows the loopholes being patched). Ratchet keeps rationalization tables only for the few load-bearing disciplines, and prefers mechanisms that fail visibly (missing evidence line, missing state file) over prose that fails silently. |
+| **No worktree liturgy**                                                                                                                                                                                             | Workspace isolation is a harness/tool choice, not methodology. Ratchet requires "never edit the default branch directly past Tier 0" and otherwise defers to native tooling.                                                                                                                                                   |
+| **Kept: the verification gate, root-cause debugging with 3-strikes escalation, zero-context plan readability, fresh-context delegation with distrust of reports, descriptions-as-triggers, progressive disclosure** | These survived the critique: each defeats a real failure mode (completion theater, fix-thrashing, executor ambiguity, context pollution, under-triggering) and the CSO/disclosure guidance is the best-evidenced part of the original. They are restructured into Ratchet's tiers rather than applied unconditionally.         |
+
+
+## The skill catalog
+
+Load `using-ratchet` first; it routes. Spine: `sizing-the-task` → (`writing-the-brief` → `planning-the-work`) → `executing-with-checkpoints` → `verifying-done` → `landing-the-change` → `retrospecting`. Cross-cutting: `keeping-state`, `resuming-work`, `replanning-on-surprise`, `testing-by-default`, `characterizing-legacy-code`, `finding-seams`, `debugging-to-root-cause`, `delegating-to-agents`, `reviewing-the-diff`, `prototyping-to-decide` (evidence for design choices that can't be settled on paper), `syncing-the-docs` (diff-driven docs audit at landing).
+
+Nineteen skills. Each declares which failure mode it prevents; a skill that prevented nothing was deleted. Workspace/agent isolation mechanics remain deliberately outside the catalog: projects with special isolation needs define their own runbook skill (e.g., per-agent dev-container stacks), and `executing-with-checkpoints`/`delegating-to-agents` defer to it by rule.
