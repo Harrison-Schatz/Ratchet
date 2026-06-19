@@ -11,7 +11,7 @@ A prototype is **throwaway code that answers a question**. It is the structured 
 
 ## Step 0 — Declare the spike (before writing any code)
 
-Append to `.ratchet/WORKLOG.md`:
+Append to the task's `.ratchet/worklog/<task-id>.md`:
 
 ```
 ## [time] <task-id> — decision (spike opened)

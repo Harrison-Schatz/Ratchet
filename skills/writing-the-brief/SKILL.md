@@ -17,13 +17,17 @@ Spend a few minutes in the codebase first: relevant modules, existing patterns, 
 
 - One question per message; prefer concrete options over open-ended ("A: store tokens in session, B: in DB — B survives restarts, costs a table. I'd pick B").
 - Ask only about: purpose, hard constraints, success criteria, and any risk-surface decisions (auth, data, money). Skip what the codebase or conventions already answer.
+- **Never ask the user to answer a UI/UX question in words.** Layout, interaction flow, "does this feel right," visual hierarchy — these cannot be answered accurately in text by either party. If a question on your list is really a UI/UX question, don't ask it; route it to `prototyping-to-decide` and replace the question with a one-line note: "UX question — will resolve via prototype, not Q&A." The user reacts to something rendered, never to a description of it.
 - 2–5 questions is normal. Zero is fine if the request was detailed. Fifteen means the task is really Tier 3 — say so and decompose.
 
 ## Step 3 — Propose approaches when there's a real choice
 
 If two or more genuinely different designs exist, present 2–3 with trade-offs and your recommendation first. If there's only one sensible approach, don't manufacture alternatives — say what you'll do.
 
-When the choice can't be settled on paper — a data model that "looks right but feels uncertain," or a UI/UX question no written acceptance check can capture — invoke `prototyping-to-decide`: a declared, timeboxed throwaway that produces *evidence* for the Approach section instead of a guess baked into the brief.
+Decisions split into two kinds:
+
+- **Paper-decidable** — data models, API shapes, storage choices, algorithms. Argue these in the Approach section with trade-offs. If one still "looks right but feels uncertain," invoke `prototyping-to-decide` to settle it with evidence.
+- **Not paper-decidable — all UI/UX decisions.** Layout, navigation, interaction patterns, anything a user will see or touch. These are never decided on paper, no matter how confident the written argument feels — a prose description of a UI is a guess wearing a suit. Invoke `prototyping-to-decide` by default: a declared, timeboxed throwaway the user can react to, producing evidence for the Approach section. The only exemptions are trivial conformance cases (the design system or an existing screen already dictates the answer) — and then you're not deciding, you're following.
 
 ## Step 4 — Write the brief
 
@@ -73,8 +77,11 @@ On approval: update `.ratchet/STATE.md` (phase: `planning`), then invoke `planni
 
 ## Rationalization check
 
-| Thought | Reality |
-|---|---|
-| "The request was clear enough" | Then the brief takes ten minutes and the user confirms in one word. Cheap insurance on multi-day work. |
-| "I'll clarify as I go" | Mid-build clarification means rework. The checks you can't write now are the rework you'll do later. |
-| "More features would make it better" | Write them in Out of scope. That's where they belong until asked for. |
+
+| Thought                              | Reality                                                                                                |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| "The request was clear enough"       | Then the brief takes ten minutes and the user confirms in one word. Cheap insurance on multi-day work. |
+| "I'll clarify as I go"               | Mid-build clarification means rework. The checks you can't write now are the rework you'll do later.   |
+| "More features would make it better" | Write them in Out of scope. That's where they belong until asked for.                                  |
+
+

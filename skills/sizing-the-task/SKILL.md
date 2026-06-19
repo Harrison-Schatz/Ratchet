@@ -44,7 +44,7 @@ When honestly unsure between two tiers, take the higher one — escalating later
 ## Step 3 — Record the sizing
 
 - **Tier 0:** no record needed before the work; the worklog line at the end covers it.
-- **Tier 1:** append a **Definition of Done** to `.ratchet/WORKLOG.md` (create `.ratchet/` if missing — see `keeping-state`):
+- **Tier 1:** append a **Definition of Done** to the task's `.ratchet/worklog/<task-id>.md` (create `.ratchet/` + `worklog/` if missing — see `keeping-state`):
   ```
   ## [2026-06-09 14:30] 2026-06-09-rate-limit-fix — sizing
   Tier 1. Goal: <one sentence>.

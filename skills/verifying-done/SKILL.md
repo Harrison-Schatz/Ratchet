@@ -15,7 +15,7 @@ description: Use BEFORE saying "done", "fixed", "complete", "passing", "works no
 2. **Run them fresh.** Output from before your last edit is void. "It passed earlier" is history, not evidence.
 3. **Read the output.** Exit code AND content. Count failures. A pass with new warnings is a finding, not a pass.
 4. **Diff against declared scope.** `git diff <base>...HEAD --stat`. Every touched file traceable to the task's goal/plan? Anything matching the out-of-scope list? Out-of-scope edits → either revert them or escalate honestly to the user. Undeclared-but-defensible edits (drive-by typo fix) → declare them in the report.
-5. **Write the evidence entry** in `.ratchet/WORKLOG.md`:
+5. **Write the evidence entry** in the task's `.ratchet/worklog/<task-id>.md`:
    ```
    ## [time] <task-id> — evidence (gate, T<n>)
    ran: npm test → 142 passed, 0 failed, exit 0

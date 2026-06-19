@@ -11,9 +11,11 @@ Ratchet is the operating methodology for this project. It exists because agent w
 
 ## Step 0 — Orient (always, before anything else)
 
-1. Check for `.ratchet/STATE.md`.
-   - **Exists and shows a task in flight** → this is a resume, not a new task. Invoke `resuming-work`. STOP here; that skill takes over.
-   - **Exists and idle, or doesn't exist** → continue.
+1. Check for `.ratchet/STATE.md` (the roster of active tasks).
+   - **Lists a task this session owns, or the user names an active task** → this is a resume. Invoke `resuming-work` with that task-id. STOP here; that skill takes over.
+   - **Lists other active tasks, none of them yours** → fine; they're other agents'. Stay out of their owned paths (`keeping-state` > Ownership), then continue to start yours.
+   - **Empty roster, or doesn't exist** → continue.
+   (A legacy single-snapshot STATE.md is a one-row roster: a task in flight there is the one to resume.)
 2. Check for `.ratchet/LESSONS.md`. If it exists, read it now — it contains project-specific rules earned from past failures. They override your defaults.
 3. If `.ratchet/` doesn't exist and the task will be Tier 1+, create it when sizing (see `keeping-state` for the layout).
 
@@ -38,8 +40,8 @@ ORIENT → SIZE → BUILD → VERIFY → RECORD
 
 The tier set by `sizing-the-task` determines the BUILD path:
 
-- **Tier 0 (patch):** implement directly → `verifying-done` (T0 evidence) → one worklog line. Done. No brief, no plan, no questions.
-- **Tier 1 (task):** write Definition of Done in worklog → implement per `testing-by-default` → `verifying-done` (T1) → `landing-the-change`.
+- **Tier 0 (patch):** implement directly → `verifying-done` (T0 evidence) → one line in its worklog file (`worklog/<task-id>.md`, or the commit message if no `.ratchet/` yet). Done. No brief, no plan, no questions.
+- **Tier 1 (task):** write Definition of Done in the task's worklog file → implement per `testing-by-default` → `verifying-done` (T1) → `landing-the-change`.
 - **Tier 2 (feature):** `writing-the-brief` → `planning-the-work` → `executing-with-checkpoints` → `verifying-done` (T2) → `landing-the-change` → `retrospecting`.
 - **Tier 3 (project):** as Tier 2, plus decomposition into milestones inside the brief; each milestone runs the Tier 2 loop.
 
@@ -63,8 +65,8 @@ The tier set by `sizing-the-task` determines the BUILD path:
 
 These hold at every tier, with no exceptions to remember because they're cheap:
 
-1. **No completion claim without an evidence line in the worklog.** If `verifying-done` hasn't produced one, the claim is blocked.
-2. **STATE.md is updated at every phase boundary.** A session that dies right now should be resumable from disk alone.
+1. **No completion claim without an evidence line in the task's worklog file** (`.ratchet/worklog/<task-id>.md`). If `verifying-done` hasn't produced one, the claim is blocked.
+2. **Your task's `state/<task-id>.md` is updated at every phase boundary** (and its roster row kept current). A session that dies right now should be resumable from disk alone.
 3. **Never edit the default branch directly past Tier 0.** Branch first; the harness's native isolation tools are fine.
 
 ## If you're tempted to skip routing
