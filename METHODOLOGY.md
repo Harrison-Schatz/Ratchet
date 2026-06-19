@@ -15,7 +15,7 @@ A mechanism is a concrete, checkable behavior — never a value statement.
 | 2   | **Silent scope creep** — "while I'm here" additions                           | Out-of-scope list written at sizing; the done-gate diffs the change against declared scope; out-of-scope edits require a logged escalation                                | `sizing-the-task`, `verifying-done`           |
 | 3   | **Completion theater** — claiming done without proof                          | Completion claims are blocked until a freshly-run verification command and its output are recorded in the worklog; subagent reports are never accepted as evidence        | `verifying-done`, `delegating-to-agents`      |
 | 4   | **Untested happy path**                                                       | Per-tier mandatory test classes (happy / failure / edge); test-first is the default where seams exist                                                                     | `testing-by-default`                          |
-| 5   | **Context loss between sessions**                                             | `.ratchet/STATE.md` — a current-state snapshot updated at every phase boundary, sufficient for a cold session to resume; append-only `WORKLOG.md` for history             | `keeping-state`, `resuming-work`              |
+| 5   | **Context loss between sessions**                                             | `.ratchet/STATE.md` — a roster of active tasks; each task's `state/<task-id>.md` snapshot updated at every phase boundary, sufficient for a cold session to resume; per-task append-only `worklog/<task-id>.md` for history             | `keeping-state`, `resuming-work`              |
 | 6   | **Confident wrong fixes**                                                     | No fix proposed before the failure is reproduced and a single written hypothesis names the cause; three failed fixes forces an architecture question, not a fourth fix    | `debugging-to-root-cause`                     |
 | 7   | **Plans that drift from reality**                                             | Plans are hypotheses: when reality contradicts a step, execution *stops*, the surprise is logged, the plan is amended with a reason, and remaining steps are re-validated | `replanning-on-surprise`                      |
 | 8   | **Breaking legacy code** — changing what you can't test                       | In code without tests: pin current behavior with characterization tests at a seam *before* any change; create the seam first if none exists                               | `characterizing-legacy-code`, `finding-seams` |
@@ -32,7 +32,7 @@ Every task — typo to subsystem — walks the same five beats. Only the middle 
 ORIENT → SIZE → BUILD (tier-scaled) → VERIFY → RECORD
 ```
 
-- **ORIENT** — read `.ratchet/STATE.md` and `LESSONS.md` if they exist. If STATE.md shows work in flight, that's a resume (`resuming-work`), not a new task.
+- **ORIENT** — read `.ratchet/STATE.md` and `LESSONS.md` if they exist. If the STATE.md roster lists an active task, that's a resume (`resuming-work`), not a new task.
 - **SIZE** — classify the task into a tier using the criteria below (`sizing-the-task`). One sentence in the worklog for Tier 0–1; a sizing record for Tier 2+.
 - **BUILD** — the tier decides the weight:
 
@@ -47,7 +47,7 @@ ORIENT → SIZE → BUILD (tier-scaled) → VERIFY → RECORD
 **Risk surface** (any one ⇒ minimum Tier 2): auth/authz, payments, data migration or deletion, secrets, concurrency primitives, public API contracts.
 
 - **VERIFY** — the gate (`verifying-done`). Done means, per tier: T0 — the proving command ran and its output is in the log; T1 — that, plus new tests passing including a failure-path test, plus diff-vs-scope check; T2/3 — that, plus full suite, plus review (`reviewing-the-diff`), plus every acceptance check in the brief demonstrated. No evidence, no "done" — the claim is structurally blocked, not discouraged.
-- **RECORD** — worklog entry; STATE.md updated (to idle, or to the next step); retro if the tier or a surprise demands it (`retrospecting`); land the change per project convention (`landing-the-change`).
+- **RECORD** — worklog entry; the task's state file + roster row updated (the row leaves on landing); retro if the tier or a surprise demands it (`retrospecting`); land the change per project convention (`landing-the-change`).
 
 **The escape hatch is part of the spine:** the moment an escalation trigger fires (file count exceeds estimate, an acceptance check can't be written, a second surprise on the same task, a risk surface appears), you stop, log it, re-run sizing, and continue at the new tier — keeping all work that survives. De-escalation is equally legal with a stated reason.
 

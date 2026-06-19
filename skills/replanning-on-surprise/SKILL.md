@@ -11,7 +11,7 @@ Plans are hypotheses. A surprise is data that part of the hypothesis failed. Bot
 
 ## Step 1 — Stop and record (before deciding anything)
 
-Append to `.ratchet/WORKLOG.md`:
+Append to the task's `.ratchet/worklog/<task-id>.md`:
 
 ```
 ## [time] <task-id> — surprise

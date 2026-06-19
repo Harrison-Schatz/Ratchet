@@ -2,7 +2,7 @@
 
 **Evidence-gated progress that survives interruption.**
 
-Ratchet is a software development methodology for coding agents, packaged as 19 composable skills. A ratchet moves freely forward and never slips back: each click is a verified step, and the pawl that holds it is *evidence on disk* — not the agent's memory, not the conversation, not a confident claim.
+Ratchet is a software development methodology for coding agents, packaged as 20 composable skills. A ratchet moves freely forward and never slips back: each click is a verified step, and the pawl that holds it is *evidence on disk* — not the agent's memory, not the conversation, not a confident claim.
 
 It is built on two observations:
 
@@ -72,8 +72,9 @@ Everything a fresh session needs lives in `.ratchet/` at the repo root:
 
 ```
 .ratchet/
-├── STATE.md      # current snapshot — task, tier, phase, step, NEXT ACTION (one imperative sentence)
-├── WORKLOG.md    # append-only journal: sizings, decisions, surprises, evidence, escalations
+├── STATE.md      # roster of active tasks (one row each) — id, tier, phase, step, NEXT ACTION, pointers
+├── state/        # <task-id>.md — per-task snapshot (cold-resume detail per active task)
+├── worklog/      # <task-id>.md — per-task append-only journal: sizings, decisions, surprises, evidence
 ├── LESSONS.md    # project rules earned from retrospectives, loaded at every session start
 ├── briefs/       # confirmed intent: goals, observable acceptance checks, out-of-scope lists
 └── plans/        # step sequences with proofs and a change log
@@ -144,7 +145,7 @@ Every divergence from the original has a written reason. Every skill answers "wh
 
 ```
 METHODOLOGY.md      # the one-page manifesto — start here
-skills/             # the 19 skills (SKILL.md + optional references/)
+skills/             # the 20 skills (SKILL.md + optional references/)
 analysis/           # the study and critique that produced the design
 stress-tests.md     # the five dry-run traces
 ```

@@ -41,8 +41,8 @@ Whatever lands: never force-push shared branches; never delete work without the 
 
 ## Step 3 — Close the record
 
-1. Worklog `done` entry: task id, what landed (merge SHA / PR URL), evidence pointer.
-2. STATE.md → `status: idle`, task block cleared, "Next action" empty (or pointing at the next milestone, Tier 3).
+1. Worklog `done` entry (in the task's `.ratchet/worklog/<task-id>.md`): task id, what landed (merge SHA / PR URL), evidence pointer.
+2. Remove this task's row from the roster (STATE.md) — move it to "Recently landed" if useful — and archive/delete its `.ratchet/state/<task-id>.md`. The task's `.ratchet/worklog/<task-id>.md` STAYS in place as the permanent record (the journal is not deleted; only the ephemeral state snapshot is). Do NOT flip a global idle while other tasks are active; only THIS task closes. (Tier 3 with milestones remaining: keep the row, point its "Next action" at the next milestone.)
 3. Uncommitted strays in the tree that aren't yours → leave them, mention them; yours → they should not exist (the scope check would have caught them — if one appears now, resolve it before closing).
 
 ## Step 4 — Trigger the retro

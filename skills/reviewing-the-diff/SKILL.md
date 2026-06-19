@@ -11,9 +11,11 @@ Review is a fresh set of eyes on the diff before it becomes permanent. Ratchet r
 
 ## Motion A — Running a review (Tier 2+, or any risk surface)
 
-### Step 1 — Set up a fresh-eyes reviewer
+### Step 1 — Set up fresh-eyes reviewers (two, in parallel)
 
 Dispatch a subagent (per `delegating-to-agents`) with: the brief (verbatim), the plan's step list + change log, `BASE..HEAD`, and the checklists below. Deliberately exclude your session narrative — a reviewer who heard you reason yourself into the bug will reason the same way past it. No subagent available → review it yourself in a deliberately separate pass: re-read the brief FIRST, then the diff file-by-file, never diff-then-brief (or you'll review what you built instead of what was asked).
+
+**In parallel, dispatch a second reviewer — `ponytail-review` — over the same `BASE..HEAD`.** It judges a different axis: not "is this right?" but "should any of this exist?" — the lazy-senior-dev / minimalism lens. Send it the diff, the decision ladder, and a one-line statement of what the change is for; NOT the brief's full text or your narrative (intent context only softens its YAGNI rung). The two reviewers run concurrently and independently (parallel-safe per `delegating-to-agents`: both read-only over the same diff, disjoint outputs). It hands back a **delete-list** that feeds Step 4. No subagent available → after your own intent+quality pass, run the ponytail lens as a separate second self-pass over the diff.
 
 ### Step 2 — Checklist 1: Intent (against the brief, not the code)
 
@@ -33,6 +35,8 @@ Dispatch a subagent (per `delegating-to-agents`) with: the brief (verbatim), the
 ### Step 4 — Triage and resolve
 
 Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient).
+
+**Ponytail's delete-list** merges into this same triage. Default each item to **Minor** — a simplification, not a defect. Escalate to **Important** when the diff introduced a new dependency or a new abstraction that a lower ladder rung (stdlib, native platform, an already-installed dep, or a one-liner) already covered: unnecessary surface area is a cost paid forever. Never **Critical** — removing over-engineering doesn't break intent, data, or security, and the floor (trust-boundary validation, data-loss, security, accessibility) is off ponytail's list by construction. Apply each item only after verifying it against the repo per Motion B — a reviewer that only deletes is as dangerous as one that only adds.
 
 ## Motion B — Receiving review feedback
 

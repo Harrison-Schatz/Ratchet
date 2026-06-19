@@ -11,15 +11,16 @@ A fresh session knows nothing. The previous session wrote everything needed to d
 
 ## Step 1 — Read the record
 
-In order:
-1. `.ratchet/STATE.md` — task, tier, phase, step, next action, blockers.
+First identify WHICH task you're resuming: the user names it, you own a row in the
+roster, or there's exactly one active row. Then, in order:
+1. `.ratchet/STATE.md` (roster) → find your task's row, then read `.ratchet/state/<task-id>.md` — phase, step, next action, blockers, owned paths.
 2. `.ratchet/LESSONS.md` — rules that bind you this session.
-3. The current task's brief and plan (pointers in STATE.md), including the plan's **change log**.
-4. The task's worklog entries (grep WORKLOG.md for the task id) — decisions and surprises are context the plan alone won't give you.
+3. That task's brief and plan (pointers in its state file), including the plan's **change log**.
+4. The task's worklog file `.ratchet/worklog/<task-id>.md` — decisions and surprises are context the plan alone won't give you.
 
 ## Step 2 — Verify reality matches the record
 
-STATE.md is a *claim*. Check it:
+The state file is a *claim*. Check it:
 
 ```
 git status                  # uncommitted changes? on the recorded branch?
@@ -29,14 +30,14 @@ git log --oneline -10       # do commits match the plan's checkpointed steps?
 
 | Finding | Meaning | Action |
 |---|---|---|
-| Repo matches STATE.md exactly | clean death at a checkpoint | continue from "Next action" |
-| Work exists beyond the last recorded step (uncommitted changes, extra commits) | died mid-step, after working but before recording | Read the diff. If the partial step is verifiable, finish its checkpoint (commit + evidence + STATE tick). If half-broken, prefer reverting to the last checkpoint over guessing intent — the plan can re-derive the step; a misunderstood half-edit can't be trusted. |
-| STATE.md claims more than the repo shows | recorded optimistically, or wrong branch | trust the repo; correct STATE.md; log a `decision` entry noting the correction |
+| Repo matches the state file exactly | clean death at a checkpoint | continue from "Next action" |
+| Work exists beyond the last recorded step (uncommitted changes, extra commits) | died mid-step, after working but before recording | Read the diff. If the partial step is verifiable, finish its checkpoint (commit + evidence + state-file tick). If half-broken, prefer reverting to the last checkpoint over guessing intent — the plan can re-derive the step; a misunderstood half-edit can't be trusted. |
+| The state file claims more than the repo shows | recorded optimistically, or wrong branch | trust the repo; correct the state file; log a `decision` entry noting the correction |
 | Tests now fail that the last evidence entry showed passing | environment drift or unrecorded change | `debugging-to-root-cause` before any new work |
 
 ## Step 3 — Reconcile and announce
 
-1. Correct STATE.md to match verified reality (this is the one case where you rewrite it outside a phase boundary).
+1. Correct your task's state file (and its roster row) to match verified reality (this is the one case where you rewrite outside a phase boundary). Touch only your task's files — never another active task's.
 2. Append a worklog entry: `— decision: resumed; repo state <matched | reconciled: how>`.
 3. Tell the user in 2–4 sentences where things stand: task, step N of M, anything reconciled, what you'll do next. Do not re-litigate decisions already recorded in the brief/worklog — they were made; the record is the memory.
 
@@ -46,17 +47,17 @@ git log --oneline -10       # do commits match the plan's checkpointed steps?
 - phase `executing` → re-enter `executing-with-checkpoints` at the recorded step.
 - phase `briefing`/`planning` → re-enter that skill where its artifact left off.
 - phase `verifying`/`landing` → `verifying-done` (gates re-run from scratch; stale evidence is no evidence).
-- `status: idle` but the user references unfinished work → the record and the user disagree; show them the last `done` entry and ask what they're seeing. Their answer is probably a new task — `sizing-the-task`.
+- the task is no longer on the roster (already landed) but the user references unfinished work → the record and the user disagree; show them the last `done` entry and ask what they're seeing. Their answer is probably a new task — `sizing-the-task`.
 
 ## Stop conditions
 
 - No `.ratchet/` but the user says "continue": say plainly that no state exists on disk, summarize what git history shows, and ask what they want carried forward. Do not fabricate continuity.
-- STATE.md is internally contradictory or stale beyond reconciliation (>1 task tangled): present what you verified from the repo, propose a corrected STATE.md, get a nod before proceeding.
+- A single task's state file is internally contradictory or stale beyond reconciliation: present what you verified from the repo, propose a corrected state file, get a nod before proceeding. (Multiple active tasks in the roster is NOT this case — that's normal; resume only the one you own, leaving the others' files byte-unchanged.)
 
 ## Rationalization check
 
 | Thought | Reality |
 |---|---|
 | "I can infer where things stand from the code" | The code shows *what*; the worklog shows *why* and *what was rejected*. Skipping it re-makes settled decisions, wrongly. |
-| "STATE.md says step 5, so step 5" | STATE.md is a claim by a dead session. Verify against git and tests first — two minutes. |
+| "The state file says step 5, so step 5" | It's a claim by a dead session. Verify against git and tests first — two minutes. |
 | "I'd rather start fresh, it's cleaner" | Restarting discards verified, committed progress. The ratchet only works if clicks hold. |
