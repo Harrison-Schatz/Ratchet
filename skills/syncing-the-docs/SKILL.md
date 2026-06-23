@@ -9,6 +9,8 @@ Documentation is the human-facing half of "disk beats conversation" — it's wha
 
 **Prevents:** failure mode #11 (documentation drift — docs contradicting shipped code mislead users and future sessions; stale docs are worse than no docs because they're trusted).
 
+**Dispatched as a sub-agent?** `landing-the-change` may run you in parallel with the retro. If so: edit the working tree exactly as below and stay entirely out of `.ratchet/` (the retro owns `LESSONS.md`), but skip Step 5's land actions — you do NOT commit, push, or write the worklog/PR body. Instead report your edits verbatim (files changed, gaps flagged, diagram drift); the dispatcher verifies them, records them, and lands them in the same commit as the code.
+
 ## Step 1 — Inventory the change and the docs
 
 1. `git diff <base>...HEAD --stat` and `--name-only` — what shipped.

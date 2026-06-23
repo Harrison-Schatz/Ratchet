@@ -61,7 +61,7 @@ Each maps to a concrete, checkable mechanism — never a value statement. The fu
 | | Tier 0 — Patch | Tier 1 — Task | Tier 2 — Feature | Tier 3 — Project |
 | --- | --- | --- | --- | --- |
 | **Looks like** | typo, rename, config tweak | one subsystem, ≤~5 files, unambiguous | new components, ambiguity, new deps, or any risk surface* | multi-session, needs decomposition |
-| **Process** | just do it | Definition of Done → test-first → gate | brief → plan → checkpointed execution → review → gate → retro | Tier 2 per milestone |
+| **Process** | just do it | Definition of Done → test-first → gate | brief → plan → checkpointed execution → review → gate → land (docs + retro in parallel) | Tier 2 per milestone |
 | **Human gates** | none | none | brief approval; merge | brief + decomposition; per-milestone |
 
 \* **Risk surfaces** (any one forces minimum Tier 2): auth/authz, payments, data migration or deletion, secrets, concurrency primitives, public API contracts.
@@ -107,6 +107,7 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`debugging-to-root-cause`](skills/debugging-to-root-cause/SKILL.md) | confident wrong fixes |
 | [`delegating-to-agents`](skills/delegating-to-agents/SKILL.md) | subagent completion theater |
 | [`reviewing-the-diff`](skills/reviewing-the-diff/SKILL.md) | scope creep; late intent misses |
+| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with `reviewing-the-diff` |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
 
@@ -134,8 +135,6 @@ There is deliberately **no dependency on hooks or tooling**: even if nothing is 
 
 Ratchet was designed by deeply studying [obra/superpowers](https://github.com/obra/superpowers), keeping what survived an adversarial critique (the verification gate, root-cause debugging, zero-context plan readability, fresh-context delegation, descriptions-as-triggers, progressive disclosure) and rebuilding the rest from first principles. The receipts are in this repo:
 
-- [`analysis/superpowers-map.md`](analysis/superpowers-map.md) — full map of the studied system: every skill, the flow graph, the implicit design principles
-- [`analysis/critique.md`](analysis/critique.md) — the adversarial case: ceremony costs, under-specification, baked-in assumptions, and the compliance-vs-outcome evidence gap
 - [`METHODOLOGY.md`](METHODOLOGY.md) — the manifesto: failure modes, mechanisms, tiers, principles, and every divergence with its stated reason
 - [`stress-tests.md`](stress-tests.md) — five scenarios traced skill-by-skill (typo fix, OAuth in an untested Express app, ambiguous greenfield CLI, mid-plan disaster, dead-session resume), including the ambiguities the traces exposed and the fixes applied
 
@@ -146,7 +145,6 @@ Every divergence from the original has a written reason. Every skill answers "wh
 ```
 METHODOLOGY.md      # the one-page manifesto — start here
 skills/             # the 20 skills (SKILL.md + optional references/)
-analysis/           # the study and critique that produced the design
 stress-tests.md     # the five dry-run traces
 ```
 

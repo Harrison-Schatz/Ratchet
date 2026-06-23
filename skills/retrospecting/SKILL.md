@@ -9,6 +9,8 @@ A lesson that lives in the conversation dies with the conversation. This skill m
 
 **Prevents:** failure mode #10 (repeating the same project-specific mistakes session after session).
 
+**Not a sub-agent.** When `landing-the-change` parallelizes the record step it delegates the docs audit, but not you: you run in the main session, concurrently with that sub-agent. Picking the right lessons needs the friction the session actually lived through — not just what the worklog captured — and `LESSONS.md` is loaded by every future session, so what earns a line in it is a main-session judgment call.
+
 ## Step 1 — Mine the task record (not your impressions)
 
 Re-read this task's worklog entries. The signal lives in:

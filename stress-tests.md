@@ -34,8 +34,8 @@ Five scenarios traced skill-by-skill against the catalog as written. Where a tra
 | 9 | `testing-by-default` / loop | OAuth routes and token handling built test-first (happy path, failure paths: bad state param, expired code, provider 500). Each step: prove → commit → evidence line → STATE tick. |
 | 10 | `reviewing-the-diff` | Motion A, both checklists; **risk surface → second independent reviewer pass over the auth files** (different subagent). Findings triaged; Critical/Important fixed and re-checked. |
 | 11 | `verifying-done` | T2: full suite + lint, every acceptance check in the brief individually demonstrated (curl transcript for the redirect chain), diff-vs-scope check against the out-of-scope list. Evidence entry written. |
-| 12 | `landing-the-change` | Convention detected (repo has PRs) → push + PR; body lifted from brief + evidence. Worklog `done`; STATE → idle. |
-| 13 | `retrospecting` | Mandatory at Tier 2. Mined from the record: "app has import-time side effects; always test through `createApp()`" → LESSONS.md L1 with `when/rule/because`. |
+| 12 | `landing-the-change` (+ `syncing-the-docs`, `retrospecting`) | Convention detected (repo has PRs). **Parallel record pass:** `syncing-the-docs` dispatched as a sub-agent to audit docs against the diff (new `/login` + callback routes, OAuth env vars) while `retrospecting` mines the record in the main session. Doc edits verified, then docs + code committed together → push + PR (body lifted from brief + evidence, plus a Documentation section). Worklog `done`; STATE → idle. |
+| 13 | `retrospecting` (finalized) | Finalized once the land is known-good, before landing reports completion (mandatory at Tier 2). Mined from the record: "app has import-time side effects; always test through `createApp()`" → LESSONS.md L1 with `when/rule/because`. |
 
 **Artifacts afterward:** `.ratchet/{STATE.md(idle), WORKLOG.md, LESSONS.md, briefs/…, plans/…}`, test infrastructure, characterization + feature tests, seam commit, feature commits, PR.
 
@@ -49,7 +49,7 @@ Five scenarios traced skill-by-skill against the catalog as written. Where a tra
 | 2 | `writing-the-brief` | The ambiguity is the work: one-way or two-way sync? conflict policy (newest-wins? source-of-truth?)? full or incremental? auth/secrets handling (→ would add a risk surface)? failure semantics (partial sync = abort or resume?)? Approaches (e.g., timestamp diff vs changelog cursor) with recommendation. Acceptance checks made observable ("`sync --dry-run` prints a correct plan against fixture APIs; a record updated in A appears in B within one run; conflict per policy X, test proves it"). **User approval gates.** |
 | 3 | `planning-the-work` | Greenfield: no characterization steps; all steps `test-first` (fixture/fake API servers are part of step 1's proof harness). Steps sized to provable outcomes; parallel-safe steps marked (e.g., the two API clients). |
 | 4 | `executing-with-checkpoints` | Branch; baseline trivially green; loop with per-step commit + evidence + STATE tick. Optionally `delegating-to-agents` for the two independent API clients (disjoint files) — dispatcher re-runs each proof itself before checkpointing. |
-| 5 | `reviewing-the-diff` → `verifying-done` → `landing-the-change` → `retrospecting` | As in scenario 2, minus the second reviewer pass (no risk surface). |
+| 5 | `reviewing-the-diff` → `verifying-done` → `landing-the-change` → `retrospecting` | As in scenario 2 — including the parallel record pass at landing (docs audit dispatched as a sub-agent while the retro runs in the main session), minus the second reviewer pass (no risk surface). |
 
 **Artifacts afterward:** state dir with brief/plan/worklog, fixture servers, tested CLI, branch/PR per convention, retro entry (possibly zero lessons).
 

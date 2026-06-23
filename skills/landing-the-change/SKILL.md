@@ -24,7 +24,12 @@ In order of authority:
 
 ## Step 2 — Land it
 
-**Tier 2/3, before pushing or merging:** invoke `syncing-the-docs` — the diff-driven docs audit. Documentation lands in the SAME change as the code; a docs "fast follow" is a fast never. (Tier 0/1: skip unless the change touched public surface that docs describe.)
+**Tier 2/3 — run the docs audit and the retro in parallel.** Both are slow and independent, so don't do them end-to-end. When both have real work (the diff touched public surface docs describe, AND the worklog holds surprises/escalations/review findings worth mining):
+
+- **Dispatch `syncing-the-docs` as a sub-agent** (per `delegating-to-agents`) — it's diff-driven and auditable, the same profile as the review agents in `reviewing-the-diff`. Brief it with `BASE..HEAD`, the public-surface delta, and the doc set; forbid it from touching `.ratchet/` (that's the retro's write-set — the ban keeps the two disjoint, which is what makes the parallelism safe). It edits the working tree and reports its edits back; it does NOT commit or push.
+- **Run `retrospecting` yourself, in the main session — never as a sub-agent.** It needs the friction you actually lived (not just what the worklog caught), and it writes `LESSONS.md`, which every session loads; that judgment isn't delegable. Do its mining and lesson-drafting now, while the docs agent runs; finalize it in Step 4 once the land is known-good.
+
+When the sub-agent returns, **verify its doc edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope?) before they ride into the commit; a "done" report is a claim, not evidence. Docs land in the SAME commit as the code — a docs "fast follow" is a fast never. Only one of the two has real work → skip the fan-out and run it inline. (Tier 0/1: skip the docs audit unless the change touched public surface that docs describe.)
 
 **Common path (PR):**
 ```
@@ -45,9 +50,9 @@ Whatever lands: never force-push shared branches; never delete work without the 
 2. Remove this task's row from the roster (STATE.md) — move it to "Recently landed" if useful — and archive/delete its `.ratchet/state/<task-id>.md`. The task's `.ratchet/worklog/<task-id>.md` STAYS in place as the permanent record (the journal is not deleted; only the ephemeral state snapshot is). Do NOT flip a global idle while other tasks are active; only THIS task closes. (Tier 3 with milestones remaining: keep the row, point its "Next action" at the next milestone.)
 3. Uncommitted strays in the tree that aren't yours → leave them, mention them; yours → they should not exist (the scope check would have caught them — if one appears now, resolve it before closing).
 
-## Step 4 — Trigger the retro
+## Step 4 — Finalize the retro
 
-- **Tier 2/3:** invoke `retrospecting` now, while the friction is fresh. Not optional.
+- **Tier 2/3:** `retrospecting` already started in Step 2, concurrent with the docs sub-agent (when it had lessons to mine). Finalize it here, now that the land is known-good — fold in any surprise the land itself produced (a CI fail or a conflict is retro material too), then write its worklog `retro` entry. Not optional. (Nothing to mine back in Step 2 → run it here from scratch.)
 - **Tier 0/1:** invoke `retrospecting` only if something surprised you (any `surprise` entry in this task's worklog, or a lesson candidate you noticed). Zero surprises → skip it by rule; the task is closed.
 
 ## Stop conditions
@@ -62,3 +67,4 @@ Whatever lands: never force-push shared branches; never delete work without the 
 | "Gate passed locally, skip re-testing the merge" | The merged tree is code nobody has run. One suite run; cheap; occasionally a lifesaver. |
 | "I'll clean up STATE.md next session" | Next session might be a different agent reading a state file that lies. Thirty seconds, now. |
 | "Retro later, while it's fresh → actually never" | Correct, that's why Step 4 fires it now, before this skill reports completion to the user. |
+| "Docs then retro, one after the other — simpler" | They're independent and both slow; sequential wastes the overlap. Delegate the docs audit, run the retro yourself, concurrently. |
