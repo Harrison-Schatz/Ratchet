@@ -135,8 +135,6 @@ There is deliberately **no dependency on hooks or tooling**: even if nothing is 
 
 Ratchet was designed by deeply studying [obra/superpowers](https://github.com/obra/superpowers), keeping what survived an adversarial critique (the verification gate, root-cause debugging, zero-context plan readability, fresh-context delegation, descriptions-as-triggers, progressive disclosure) and rebuilding the rest from first principles. The receipts are in this repo:
 
-- [`analysis/superpowers-map.md`](analysis/superpowers-map.md) — full map of the studied system: every skill, the flow graph, the implicit design principles
-- [`analysis/critique.md`](analysis/critique.md) — the adversarial case: ceremony costs, under-specification, baked-in assumptions, and the compliance-vs-outcome evidence gap
 - [`METHODOLOGY.md`](METHODOLOGY.md) — the manifesto: failure modes, mechanisms, tiers, principles, and every divergence with its stated reason
 - [`stress-tests.md`](stress-tests.md) — five scenarios traced skill-by-skill (typo fix, OAuth in an untested Express app, ambiguous greenfield CLI, mid-plan disaster, dead-session resume), including the ambiguities the traces exposed and the fixes applied
 
@@ -147,7 +145,6 @@ Every divergence from the original has a written reason. Every skill answers "wh
 ```
 METHODOLOGY.md      # the one-page manifesto — start here
 skills/             # the 20 skills (SKILL.md + optional references/)
-analysis/           # the study and critique that produced the design
 stress-tests.md     # the five dry-run traces
 ```
 
