@@ -61,7 +61,7 @@ Each maps to a concrete, checkable mechanism — never a value statement. The fu
 | | Tier 0 — Patch | Tier 1 — Task | Tier 2 — Feature | Tier 3 — Project |
 | --- | --- | --- | --- | --- |
 | **Looks like** | typo, rename, config tweak | one subsystem, ≤~5 files, unambiguous | new components, ambiguity, new deps, or any risk surface* | multi-session, needs decomposition |
-| **Process** | just do it | Definition of Done → test-first → gate | brief → plan → checkpointed execution → review → gate → retro | Tier 2 per milestone |
+| **Process** | just do it | Definition of Done → test-first → gate | brief → plan → checkpointed execution → review → gate → land (docs + retro in parallel) | Tier 2 per milestone |
 | **Human gates** | none | none | brief approval; merge | brief + decomposition; per-milestone |
 
 \* **Risk surfaces** (any one forces minimum Tier 2): auth/authz, payments, data migration or deletion, secrets, concurrency primitives, public API contracts.
@@ -107,6 +107,7 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`debugging-to-root-cause`](skills/debugging-to-root-cause/SKILL.md) | confident wrong fixes |
 | [`delegating-to-agents`](skills/delegating-to-agents/SKILL.md) | subagent completion theater |
 | [`reviewing-the-diff`](skills/reviewing-the-diff/SKILL.md) | scope creep; late intent misses |
+| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with `reviewing-the-diff` |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
 
