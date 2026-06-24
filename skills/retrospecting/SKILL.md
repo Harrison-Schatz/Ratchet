@@ -36,12 +36,14 @@ Append to `.ratchet/LESSONS.md`:
 
 ```markdown
 ## L7: Restart dev server after editing config/*.yaml
-when: any edit under config/
-rule: restart the dev server before trusting behavior; it caches yaml at boot
-because: 2026-06-09-oauth-login — 40 min debugging a "stale" client id (worklog 14:20)
+when: edit under config/
+rule: restart dev server before trusting behavior — caches yaml at boot
+because: 2026-06-09-oauth-login — 40 min debugging "stale" client id (worklog 14:20)
 ```
 
 Format is binding: `when` is the recognizable trigger; `rule` is the checkable behavior; `because` cites task + worklog so a future skeptic can audit it. One lesson per heading, numbered sequentially.
+
+**Write each line in caveman-full style — max signal per line.** Drop articles, filler, and hedging; fragments are fine; prefer the short word. Keep verbatim, never compress: code, paths, API names, CLI commands, flags, and exact error strings. One carve-out: if dropping a conjunction or reordering would make an order-sensitive `rule` misread ("do X *before* Y"), keep enough grammar to stay unambiguous — a lesson that misreads costs more than the saved tokens. LESSONS.md loads at every session start (Step 4); terse lines get followed, prose gets skimmed.
 
 ## Step 4 — Prune while you're here (the file must stay loadable)
 

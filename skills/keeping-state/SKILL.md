@@ -44,9 +44,6 @@ updated: 2026-06-09 15:42
 |---|---|---|---|---|---|---|---|
 | 2026-06-09-oauth-login | alice | 2 | executing | 3/7 | 2026-06-09-oauth-login | .ratchet/state/2026-06-09-oauth-login.md | .ratchet/worklog/2026-06-09-oauth-login.md |
 
-## Recently landed (drop once acknowledged)
-- <task-id> — how it landed (PR URL / merge SHA)
-
 ## Open backlog (unowned)
 - <items not tied to any active task>
 ```
