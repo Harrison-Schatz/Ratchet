@@ -35,6 +35,11 @@ STATE.md is an INDEX of active tasks, not one task's snapshot. One row per activ
 the row's details live in `state/<task-id>.md`. Multiple active tasks are normal — two
 agents in parallel, or one person juggling two threads.
 
+Projects may add coordination columns to the roster — e.g. a claim on a shared,
+collision-prone resource (the next version number, a port, a migration slot) that a
+landing task has reserved. The project's own docs define the semantics; agents keep
+their row's value current and respect other rows' claims.
+
 ```markdown
 # Ratchet State — Roster
 updated: 2026-06-09 15:42
