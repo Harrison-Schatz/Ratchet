@@ -107,6 +107,7 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`debugging-to-root-cause`](skills/debugging-to-root-cause/SKILL.md) | confident wrong fixes |
 | [`delegating-to-agents`](skills/delegating-to-agents/SKILL.md) | subagent completion theater |
 | [`reviewing-the-diff`](skills/reviewing-the-diff/SKILL.md) | scope creep; late intent misses |
+| [`fresh-eyes-review`](skills/fresh-eyes-review/SKILL.md) | the author reviewing their own reasoning; intent misses; the “is it right” lens, run in parallel with `ponytail-review` |
 | [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with `reviewing-the-diff` |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
