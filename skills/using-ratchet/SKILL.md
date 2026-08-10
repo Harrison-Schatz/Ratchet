@@ -49,7 +49,8 @@ The tier set by `sizing-the-task` determines the BUILD path:
 
 | Trigger | Skill |
 |---|---|
-| You learned something a fresh session would need; phase boundary crossed; work deferred or a finding declined and its reason needs a durable home | `keeping-state` |
+| You learned something a fresh session would need; phase boundary crossed | `keeping-state` |
+| A problem identified but not being fixed now — deferred, declined, a known limitation; "log that", "note it for later" | `writing-the-issue` |
 | Reality contradicted the plan or brief; estimate blown; second surprise | `replanning-on-surprise` |
 | About to modify code that has no tests | `characterizing-legacy-code` |
 | Can't get legacy code under test — dependencies block you | `finding-seams` |

@@ -9,6 +9,8 @@ The changelog is the one document written for someone who did not watch the work
 
 **Prevents:** failure mode #11 (documentation drift) in the release record specifically — a commit-dump changelog tells users nothing, and one that restates rationale kept elsewhere guarantees the two eventually disagree. Used strictly below: an **entry** is one release's whole block; a **bullet** is one line inside it.
 
+**Dispatched as a sub-agent?** `landing-the-change` may run you concurrently with `syncing-the-docs`, `writing-the-issue`, and the retro. If so: do Steps 1–4 in the working tree, then stop before Step 5's land actions. **Your write-set is the changelog and the version file, nothing else** — not the issue records, not user-facing docs, not `.ratchet/`; those belong to the other three, and disjoint sets are the only reason the four can run at once. Do **not** commit, push, or write the worklog or PR body. Report back: the entry verbatim, the version you set and the consequence you mapped it from, any reference you were given and used, and any rule you had to bend and why. The dispatcher verifies your files before they ride into the commit — a "done" report is a claim, not evidence.
+
 ## Step 1 — Find the convention, or establish one
 
 **Every project keeps a changelog.** It is not a project-type question and not the user's to opt out of: a release nobody can read is the drift this skill exists to prevent. So the first check is whether the project already has one.
@@ -61,7 +63,7 @@ Internal only — no user-facing change.
 
 ## Step 3 — One sentence, one reference
 
-A bullet carries one sentence, plus a reference when something else holds the depth. That somewhere is whatever the project already uses as its durable record — a tracker, or in-repo issue docs where there is none (`keeping-state` > Durable records decides which). History, alternatives, known limitations and declined findings live there, never here. **Detail has exactly one home:** if the bullet and the record it cites explain the same thing, the bullet is wrong — cut it back to a sentence and the reference. Equally, don't mint a record just to give a bullet something to point at.
+A bullet carries one sentence, plus a reference when something else holds the depth. That somewhere is whatever the project already uses as its durable record — a tracker, or in-repo issue docs where there is none (`writing-the-issue` decides which, and writes it). History, alternatives, known limitations and declined findings live there, never here. **Detail has exactly one home:** if the bullet and the record it cites explain the same thing, the bullet is wrong — cut it back to a sentence and the reference. Equally, don't mint a record just to give a bullet something to point at.
 
 ## Step 4 — Cross-check magnitude against the version
 

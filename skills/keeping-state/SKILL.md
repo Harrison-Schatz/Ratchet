@@ -50,28 +50,12 @@ updated: 2026-06-09 15:42
 | 2026-06-09-oauth-login | alice | 2 | executing | 3/7 | 2026-06-09-oauth-login | .ratchet/state/2026-06-09-oauth-login.md | .ratchet/worklog/2026-06-09-oauth-login.md |
 ```
 
-### Durable records — which home
+### Durable records
 
-A deferred problem, a declined finding, or a known limitation needs a home that outlives this task. In order:
-
-1. **The project's issue tracker**, if it has one. Never build a parallel corpus beside GitHub Issues, Jira or Linear; cite the ticket and stop. (Exception: a tracker the repo's own readers cannot open — private to one team, or behind a login they lack — fails the legibility test that makes option 3 exist. Then it is not a home.)
-2. **The worklog** — durable *only* if it is version-controlled with the repo (above). A worklog the user chose to gitignore, or that lives outside the repo, is invisible to a repo reader.
-3. **In-repo issue docs**, when a problem must be legible to someone who never had your session and neither of the above holds. Sequentially numbered from `#1` in `issues/` unless the project already has somewhere better:
-
-```markdown
-# #12 — Scheduled jobs silently skip the hour a clock change removes
-
-Status: open · opened 2026-08-10
-
-## Problem            <what is wrong, present tense, verified against current code>
-## History            <what was tried or deliberately deferred, dated — on a new issue, the one line saying when it was identified>
-## Proposed behavior  <what "fixed" would mean, not a patch>
-## Why it matters     <who is affected and how badly; "nobody yet, but" is legitimate>
-```
-
-`opened` is the day the file was written. Add `(raised <date>)` after it when the problem was found earlier, so a backfilled record doesn't read as a new one. Status is **`open`**, **`closed (<date>)`** when a change resolved it, or **`declined (<date>)`** when it was judged not worth fixing — a decision worth keeping, since it stops the same finding being re-raised every review. Extending that vocabulary is fine; leaving it to each writer is not, and the first record in a fresh corpus should pin it in the folder's README. **A change that resolves a record flips its status in the same commit**; skip that and the corpus becomes a list of things that look open forever. Two branches will eventually claim the same number: that collides as an add/add conflict, which is the point — re-check the highest number at land.
-
-Issue docs are **living documents**, rewritten freely as understanding improves. Changelog entries are the opposite (`writing-the-changelog`), and detail belongs to exactly one of them.
+A problem you are not fixing now — work deferred, a review finding declined, a known
+limitation accepted — does not belong in the roster or a state file, both of which are
+ephemeral. It gets a durable record: **`writing-the-issue`** decides which home (tracker,
+version-controlled worklog, or in-repo issue docs) and what goes in it.
 
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
