@@ -48,16 +48,11 @@ updated: 2026-06-09 15:42
 | task-id | owner | tier | phase | step | branch | state file | worklog |
 |---|---|---|---|---|---|---|---|
 | 2026-06-09-oauth-login | alice | 2 | executing | 3/7 | 2026-06-09-oauth-login | .ratchet/state/2026-06-09-oauth-login.md | .ratchet/worklog/2026-06-09-oauth-login.md |
-
-## Open backlog (unowned)
-- <items not tied to any active task>
 ```
-
-**A backlog row is an index line, not a home.** The roster is ephemeral: closing a task deletes its row, so rationale left there goes with it. Anything worth keeping — a deferred problem, a declined finding, a known limitation — gets a durable record, and the row shrinks to one line plus a reference to it. A row that legitimately has no record should say why on the row, or the next reader cannot tell it from an oversight.
 
 ### Durable records — which home
 
-In order:
+A deferred problem, a declined finding, or a known limitation needs a home that outlives this task. In order:
 
 1. **The project's issue tracker**, if it has one. Never build a parallel corpus beside GitHub Issues, Jira or Linear; cite the ticket and stop. (Exception: a tracker the repo's own readers cannot open — private to one team, or behind a login they lack — fails the legibility test that makes option 3 exist. Then it is not a home.)
 2. **The worklog** — durable *only* if it is version-controlled with the repo (above). A worklog the user chose to gitignore, or that lives outside the repo, is invisible to a repo reader.

@@ -14,7 +14,7 @@ Documentation is the human-facing half of "disk beats conversation" — it's wha
 ## Step 1 — Inventory the change and the docs
 
 1. `git diff <base>...HEAD --stat` and `--name-only` — what shipped.
-2. Find the docs: `*.md` files at depth ≤2 (skip `node_modules`, `.git`, `.ratchet/`, and the issue corpus if the project keeps one — worklogs and problem statements are not user documentation, and they are exempt from Step 4's reachability check too).
+2. Find the docs: `*.md` files at depth ≤2 (skip `node_modules`, `.git`, `.ratchet/`, and the issue corpus where there is one — worklogs and problem statements are not user documentation, and they are exempt from Step 4's reachability check too).
 3. Extract the **public-surface delta** from the diff: new/renamed/removed commands, CLI flags, config options, API endpoints, env vars, user-visible capabilities. This list drives everything below.
 
 ## Step 2 — Coverage map (audit lens, never a generator)

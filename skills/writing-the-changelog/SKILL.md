@@ -1,6 +1,6 @@
 ---
 name: writing-the-changelog
-description: Use when a change is about to land in a project that keeps a changelog or release notes — invoked from landing-the-change before the PR/merge, at every tier including Tier 0 — and whenever the user says "add a changelog entry", "write the release notes", "what shipped in this version", or bumps a version. A changelog that reads like a commit dump tells a reader nothing they couldn't get from git.
+description: Use whenever a change is about to land — invoked from landing-the-change before every PR/merge, at every tier including Tier 0 — and whenever the user says "add a changelog entry", "write the release notes", "what shipped in this version", or bumps a version. Also use the moment you find a project without a changelog, because it needs one. A changelog that reads like a commit dump tells a reader nothing they couldn't get from git.
 ---
 
 # Writing the Changelog
@@ -9,11 +9,13 @@ The changelog is the one document written for someone who did not watch the work
 
 **Prevents:** failure mode #11 (documentation drift) in the release record specifically — a commit-dump changelog tells users nothing, and one that restates rationale kept elsewhere guarantees the two eventually disagree. Used strictly below: an **entry** is one release's whole block; a **bullet** is one line inside it.
 
-## Step 1 — Find the convention first
+## Step 1 — Find the convention, or establish one
+
+**Every project keeps a changelog.** It is not a project-type question and not the user's to opt out of: a release nobody can read is the drift this skill exists to prevent. So the first check is whether the project already has one.
 
 Authority: the existing changelog, then the project's docs, then observable practice. Match an existing corpus's **layout** — heading level, group style, citation form. Do not match its voice or content where that breaks a Quality or Banned rule below; those override the corpus.
 
-No changelog at all → a single `CHANGELOG.md` at the repo root, in the shape below, and note the choice in the PR; don't block a land on the question. Other layouts are fine where already in place (one file per release under `changelog/<version>.md` trades discoverability for merge behavior — concurrent branches add separate files instead of racing on the same lines). Never convert an existing project as a side effect of adding an entry. **Every merge a release, or batched?** If batched, the bullet goes under `Unreleased` at the top now; the version and date are stamped when the release is cut, and that stamping is not a rewrite.
+**No changelog yet → create one, in this change.** A single `CHANGELOG.md` at the repo root, in the shape below, holding this release as its first entry; say so in the PR. Don't ask permission and don't defer it to a follow-up task — a project acquires its changelog on the first release that lands after this skill is loaded, and backfilling the releases that predate it is separate, optional work. Other layouts are fine where already in place (one file per release under `changelog/<version>.md` trades discoverability for merge behavior — concurrent branches add separate files instead of racing on the same lines). Never convert an existing project as a side effect of adding an entry. **Every merge a release, or batched?** If batched, the bullet goes under `Unreleased` at the top now; the version and date are stamped when the release is cut, and that stamping is not a rewrite.
 
 ## Step 2 — Write the entry
 

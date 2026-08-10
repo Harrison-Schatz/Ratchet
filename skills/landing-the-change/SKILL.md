@@ -31,7 +31,7 @@ In order of authority:
 
 When the sub-agent returns, **verify its doc edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope?) before they ride into the commit; a "done" report is a claim, not evidence. Docs land in the SAME commit as the code — a docs "fast follow" is a fast never. Only one of the two has real work → skip the fan-out and run it inline. (Tier 0/1: skip the docs audit unless the change touched public surface that docs describe.)
 
-**Project keeps a changelog?** Write this release's entry now — `writing-the-changelog`, **at every tier including Tier 0**, since a shipped patch is a release too. It rides the SAME commit as the code (an entry written after the fact gets written from the commit log, which is the failure that skill exists to prevent), and if the project versions releases, the bump goes with it. The bump is not prose — if a version file is read at runtime or asserted by a test, re-run the suite, because Step 0's gate never saw it.
+**Write this release's changelog entry now** — `writing-the-changelog`, **at every tier including Tier 0**, since a shipped patch is a release too. Every project keeps a changelog; if this one has none yet, that skill creates it here rather than deferring it. It rides the SAME commit as the code (an entry written after the fact gets written from the commit log, which is the failure that skill exists to prevent), and if the project versions releases, the bump goes with it. The bump is not prose — if a version file is read at runtime or asserted by a test, re-run the suite, because Step 0's gate never saw it.
 
 **Common path (PR):**
 ```
