@@ -5,36 +5,30 @@ description: Use when Tier 2/3 implementation is complete (before the final veri
 
 # Reviewing the Diff
 
-Review is a fresh set of eyes on the diff before it becomes permanent. Ratchet runs ONE review with two checklists — does it match intent, and is it well built — rather than two ceremonial passes. Risk, not ritual, decides depth.
+Review is a fresh set of eyes on the diff before it becomes permanent. Ratchet runs **two lenses over the same diff, concurrently** — `fresh-eyes-review` (was the right thing built, and is it built well) and `ponytail-review` (should any of it exist at all) — then triages both into one list. Two lenses, not two ceremonial passes: each asks a question the other structurally cannot. Risk, not ritual, decides depth.
+
+This skill orchestrates; the reviewers' own instructions live in their own skills.
 
 **Prevents:** failure mode #2 (scope creep caught at the exit), #1's late echo (intent misses caught before merge), and — in the receiving motion — wrong "fixes" applied to satisfy a reviewer.
 
 ## Motion A — Running a review (Tier 2+, or any risk surface)
 
-### Step 1 — Set up fresh-eyes reviewers (two, in parallel)
+### Step 1 — Dispatch both reviewers, in parallel
 
-Dispatch a subagent (per `delegating-to-agents`) with: the brief (verbatim), the plan's step list + change log, `BASE..HEAD`, and the checklists below. Deliberately exclude your session narrative — a reviewer who heard you reason yourself into the bug will reason the same way past it. No subagent available → review it yourself in a deliberately separate pass: re-read the brief FIRST, then the diff file-by-file, never diff-then-brief (or you'll review what you built instead of what was asked).
+Two subagents (per `delegating-to-agents`), same `BASE..HEAD`, at the same time:
 
-**In parallel, dispatch a second reviewer — `ponytail-review` — over the same `BASE..HEAD`.** It judges a different axis: not "is this right?" but "should any of this exist?" — the lazy-senior-dev / minimalism lens. Send it the diff, the decision ladder, and a one-line statement of what the change is for; NOT the brief's full text or your narrative (intent context only softens its YAGNI rung). The two reviewers run concurrently and independently (parallel-safe per `delegating-to-agents`: both read-only over the same diff, disjoint outputs). It hands back a **delete-list** that feeds Step 4. No subagent available → after your own intent+quality pass, run the ponytail lens as a separate second self-pass over the diff.
+- **`fresh-eyes-review`** — "is this the right thing, built well?" Send the brief **verbatim**, the plan's step list + change log, and `BASE..HEAD`. **Deliberately withhold your session narrative** — a reviewer who heard you reason yourself into the bug will reason the same way straight past it. Hands back **ranked findings**.
+- **`ponytail-review`** — "should any of this exist?", the lazy-senior-dev / minimalism lens. Send the diff, the decision ladder, and one line on what the change is for; NOT the brief's full text and NOT your narrative (intent context only softens its YAGNI rung). Hands back a **delete-list**.
 
-### Step 2 — Checklist 1: Intent (against the brief, not the code)
+Parallel-safe per `delegating-to-agents`: both are read-only over the same diff with disjoint outputs. Both feed Step 2.
 
-- Every acceptance check implemented? Point at the code per check.
-- Anything built that no check asked for? (Scope creep — flag, don't admire. The out-of-scope list is binding.)
-- Requirements interpreted differently than the brief's words? Name the divergence.
-- Plan change-log entries all reflected? Amendments that didn't land are silent drift.
+**Risk surfaces get a second, independent pass** — auth, payments, migrations, secrets, concurrency, public APIs. It is mandatory on those files and it comes from a different subagent or the user, per the brief's risk notes. `fresh-eyes-review` reports the surfaces it found precisely so you know what to order; a diff you *know* touches one doesn't wait for permission.
 
-### Step 3 — Checklist 2: Quality (against the craft)
+No subagent available → run both lenses yourself, as two separate passes in this order, per each skill's own self-pass note. One pass wearing both hats is not two lenses.
 
-- **Correctness:** failure paths handled where the happy path is; off-by-ones at boundaries; resources closed; concurrent access where state is shared.
-- **Tests:** do they assert real behavior (not mock theater)? Does each new behavior have its failure-path test? Would they catch the change being reverted?
-- **Fit:** follows the codebase's existing patterns? New abstractions earn their existence?
-- **Risk surfaces:** secrets out of code/logs; injection surfaces parameterized; migrations reversible or staged. **Any risk surface present → a second, independent reviewer pass on those files is mandatory** (different subagent, or the user, per the brief's risk notes).
-- Pre-existing mess NOT introduced by this diff: note at most one line; not this task's burden (a recurring one belongs in `retrospecting`).
+### Step 2 — Triage and resolve
 
-### Step 4 — Triage and resolve
-
-Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient).
+Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it — and when the *reason* for declining it will be re-litigated by someone who never had this session, it wants a durable record instead: `writing-the-issue`). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient). A pre-existing-mess note is not this task's burden — but a *recurring* one belongs in `retrospecting`, not in this diff.
 
 **Ponytail's delete-list** merges into this same triage. Default each item to **Minor** — a simplification, not a defect. Escalate to **Important** when the diff introduced a new dependency or a new abstraction that a lower ladder rung (stdlib, native platform, an already-installed dep, or a one-liner) already covered: unnecessary surface area is a cost paid forever. Never **Critical** — removing over-engineering doesn't break intent, data, or security, and the floor (trust-boundary validation, data-loss, security, accessibility) is off ponytail's list by construction. Apply each item only after verifying it against the repo per Motion B — a reviewer that only deletes is as dangerous as one that only adds.
 

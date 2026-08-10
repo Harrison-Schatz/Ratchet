@@ -9,12 +9,12 @@ Documentation is the human-facing half of "disk beats conversation" — it's wha
 
 **Prevents:** failure mode #11 (documentation drift — docs contradicting shipped code mislead users and future sessions; stale docs are worse than no docs because they're trusted).
 
-**Dispatched as a sub-agent?** `landing-the-change` may run you in parallel with the retro. If so: edit the working tree exactly as below and stay entirely out of `.ratchet/` (the retro owns `LESSONS.md`), but skip Step 5's land actions — you do NOT commit, push, or write the worklog/PR body. Instead report your edits verbatim (files changed, gaps flagged, diagram drift); the dispatcher verifies them, records them, and lands them in the same commit as the code.
+**Dispatched from `landing-the-change`?** It owns the fan-out contract — write-sets, verification, the single commit — and runs you concurrently with `writing-the-changelog`, `writing-the-issue`, and the retro. Your write-set is the user-facing docs: during a land the changelog and the version file belong to `writing-the-changelog`, so Step 3's factual-fix lane and the VERSION question are standalone-only — report those findings to the dispatcher instead of editing or asking. Skip Step 5's land actions: no commit, no push, no worklog or PR body. Report: files changed (one line each), gaps flagged, diagram drift.
 
 ## Step 1 — Inventory the change and the docs
 
 1. `git diff <base>...HEAD --stat` and `--name-only` — what shipped.
-2. Find the docs: `*.md` files at depth ≤2 (skip `node_modules`, `.git`, `.ratchet/` — the worklog is not user documentation).
+2. Find the docs: `*.md` files at depth ≤2 (skip `node_modules`, `.git`, `.ratchet/`, and the issue corpus where there is one — worklogs and problem statements are not user documentation, and they are exempt from Step 4's reachability check too).
 3. Extract the **public-surface delta** from the diff: new/renamed/removed commands, CLI flags, config options, API endpoints, env vars, user-visible capabilities. This list drives everything below.
 
 ## Step 2 — Coverage map (audit lens, never a generator)
@@ -37,7 +37,7 @@ Read each doc fully, cross-reference against the diff, and classify every needed
 **Ask first (narrative, intent territory):** positioning/philosophy text, security-model descriptions, removing any section, rewrites longer than ~10 lines, anything where the "fix" requires deciding what the project *means* rather than what the code *does*.
 
 **Never:**
-- Regenerate or reorder CHANGELOG entries. Polish wording in place with exact-match Edit only; never Write over the file. The entry was derived from the actual change — it is history, and history doesn't get rewritten by a docs pass.
+- Regenerate, reorder, or reword CHANGELOG entries. Correcting a **factual** error inside one is legal here — a stale path, a wrong count, a renamed flag — with exact-match Edit only, never Write over the file. Rewriting how an entry *reads* is not: it was derived from the actual change, so it is history, and history doesn't get reworded by a docs pass. (Format and authoring rules belong to `writing-the-changelog`, which the task owner runs at land. Reformatting a whole corpus is Tier 2 work needing the user's go-ahead — never this audit, and never justified by calling it a separate task mid-land.)
 - Bump VERSION silently. If a VERSION file exists and wasn't bumped, ask once; default recommendation is no bump for docs-only edits.
 - Auto-edit architecture diagrams (ASCII/Mermaid). Diagram drift — entities renamed/removed in code but still in the picture — is flagged in Step 5; updating a diagram correctly needs human judgment.
 

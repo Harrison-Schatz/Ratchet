@@ -48,10 +48,14 @@ updated: 2026-06-09 15:42
 | task-id | owner | tier | phase | step | branch | state file | worklog |
 |---|---|---|---|---|---|---|---|
 | 2026-06-09-oauth-login | alice | 2 | executing | 3/7 | 2026-06-09-oauth-login | .ratchet/state/2026-06-09-oauth-login.md | .ratchet/worklog/2026-06-09-oauth-login.md |
-
-## Open backlog (unowned)
-- <items not tied to any active task>
 ```
+
+### Durable records
+
+A problem you are not fixing now — work deferred, a review finding declined, a known
+limitation accepted — does not belong in the roster or a state file, both of which are
+ephemeral. It gets a durable record: **`writing-the-issue`** decides which home (tracker,
+version-controlled worklog, or in-repo issue docs) and what goes in it.
 
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
