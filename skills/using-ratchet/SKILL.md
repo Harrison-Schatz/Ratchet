@@ -40,7 +40,7 @@ ORIENT → SIZE → BUILD → VERIFY → RECORD
 
 The tier set by `sizing-the-task` determines the BUILD path:
 
-- **Tier 0 (patch):** implement directly → `verifying-done` (T0 evidence) → one line in its worklog file (`worklog/<task-id>.md`, or the commit message if no `.ratchet/` yet). Done. No brief, no plan, no questions.
+- **Tier 0 (patch):** implement directly → `verifying-done` (T0 evidence) → one line in its worklog file (`worklog/<task-id>.md`, or the commit message if no `.ratchet/` yet). Done. No brief, no plan, no questions. (If the project keeps a changelog, its entry still rides the same commit — `writing-the-changelog`. "Every release gets an entry" has no tier exemption.)
 - **Tier 1 (task):** write Definition of Done in the task's worklog file → implement per `testing-by-default` → `verifying-done` (T1) → `landing-the-change`.
 - **Tier 2 (feature):** `writing-the-brief` → `planning-the-work` → `executing-with-checkpoints` → `verifying-done` (T2) → `landing-the-change` → `retrospecting`.
 - **Tier 3 (project):** as Tier 2, plus decomposition into milestones inside the brief; each milestone runs the Tier 2 loop.
@@ -49,7 +49,7 @@ The tier set by `sizing-the-task` determines the BUILD path:
 
 | Trigger | Skill |
 |---|---|
-| You learned something a fresh session would need; phase boundary crossed | `keeping-state` |
+| You learned something a fresh session would need; phase boundary crossed; work deferred or a finding declined and its reason needs a durable home | `keeping-state` |
 | Reality contradicted the plan or brief; estimate blown; second surprise | `replanning-on-surprise` |
 | About to modify code that has no tests | `characterizing-legacy-code` |
 | Can't get legacy code under test — dependencies block you | `finding-seams` |
@@ -59,6 +59,7 @@ The tier set by `sizing-the-task` determines the BUILD path:
 | Work splittable across agents, or context running long | `delegating-to-agents` |
 | Tier 2+ implementation complete | `reviewing-the-diff` |
 | Landing a Tier 2/3 change; diff touches public surface docs describe; "update the docs" | `syncing-the-docs` |
+| Landing in a project that keeps a changelog; "release notes"; "what shipped in this version" | `writing-the-changelog` |
 | About to say "done", "fixed", "passing", or any synonym | `verifying-done` |
 
 ## The three structural rules

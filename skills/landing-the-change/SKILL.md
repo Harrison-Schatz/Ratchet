@@ -26,10 +26,12 @@ In order of authority:
 
 **Tier 2/3 — run the docs audit and the retro in parallel.** Both are slow and independent, so don't do them end-to-end. When both have real work (the diff touched public surface docs describe, AND the worklog holds surprises/escalations/review findings worth mining):
 
-- **Dispatch `syncing-the-docs` as a sub-agent** (per `delegating-to-agents`) — it's diff-driven and auditable, the same profile as the review agents in `reviewing-the-diff`. Brief it with `BASE..HEAD`, the public-surface delta, and the doc set; forbid it from touching `.ratchet/` (that's the retro's write-set — the ban keeps the two disjoint, which is what makes the parallelism safe). It edits the working tree and reports its edits back; it does NOT commit or push.
+- **Dispatch `syncing-the-docs` as a sub-agent** (per `delegating-to-agents`) — it's diff-driven and auditable, the same profile as the review agents in `reviewing-the-diff`. Brief it with `BASE..HEAD`, the public-surface delta, and the doc set; forbid it from touching `.ratchet/` **and the changelog and issue corpus** (the retro owns the first; you write the second yourself below, in this same Step — the bans keep all three write-sets disjoint, which is what makes the parallelism safe). It edits the working tree and reports its edits back; it does NOT commit or push.
 - **Run `retrospecting` yourself, in the main session — never as a sub-agent.** It needs the friction you actually lived (not just what the worklog caught), and it writes `LESSONS.md`, which every session loads; that judgment isn't delegable. Do its mining and lesson-drafting now, while the docs agent runs; finalize it in Step 4 once the land is known-good.
 
 When the sub-agent returns, **verify its doc edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope?) before they ride into the commit; a "done" report is a claim, not evidence. Docs land in the SAME commit as the code — a docs "fast follow" is a fast never. Only one of the two has real work → skip the fan-out and run it inline. (Tier 0/1: skip the docs audit unless the change touched public surface that docs describe.)
+
+**Project keeps a changelog?** Write this release's entry now — `writing-the-changelog`, **at every tier including Tier 0**, since a shipped patch is a release too. It rides the SAME commit as the code (an entry written after the fact gets written from the commit log, which is the failure that skill exists to prevent), and if the project versions releases, the bump goes with it. The bump is not prose — if a version file is read at runtime or asserted by a test, re-run the suite, because Step 0's gate never saw it.
 
 **Common path (PR):**
 ```

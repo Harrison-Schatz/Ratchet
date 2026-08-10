@@ -14,7 +14,7 @@ Documentation is the human-facing half of "disk beats conversation" — it's wha
 ## Step 1 — Inventory the change and the docs
 
 1. `git diff <base>...HEAD --stat` and `--name-only` — what shipped.
-2. Find the docs: `*.md` files at depth ≤2 (skip `node_modules`, `.git`, `.ratchet/` — the worklog is not user documentation).
+2. Find the docs: `*.md` files at depth ≤2 (skip `node_modules`, `.git`, `.ratchet/`, and the issue corpus if the project keeps one — worklogs and problem statements are not user documentation, and they are exempt from Step 4's reachability check too).
 3. Extract the **public-surface delta** from the diff: new/renamed/removed commands, CLI flags, config options, API endpoints, env vars, user-visible capabilities. This list drives everything below.
 
 ## Step 2 — Coverage map (audit lens, never a generator)
@@ -37,7 +37,7 @@ Read each doc fully, cross-reference against the diff, and classify every needed
 **Ask first (narrative, intent territory):** positioning/philosophy text, security-model descriptions, removing any section, rewrites longer than ~10 lines, anything where the "fix" requires deciding what the project *means* rather than what the code *does*.
 
 **Never:**
-- Regenerate or reorder CHANGELOG entries. Polish wording in place with exact-match Edit only; never Write over the file. The entry was derived from the actual change — it is history, and history doesn't get rewritten by a docs pass.
+- Regenerate, reorder, or reword CHANGELOG entries. Correcting a **factual** error inside one is legal here — a stale path, a wrong count, a renamed flag — with exact-match Edit only, never Write over the file. Rewriting how an entry *reads* is not: it was derived from the actual change, so it is history, and history doesn't get reworded by a docs pass. (Format and authoring rules belong to `writing-the-changelog`, which the task owner runs at land. Reformatting a whole corpus is Tier 2 work needing the user's go-ahead — never this audit, and never justified by calling it a separate task mid-land.)
 - Bump VERSION silently. If a VERSION file exists and wasn't bumped, ask once; default recommendation is no bump for docs-only edits.
 - Auto-edit architecture diagrams (ASCII/Mermaid). Diagram drift — entities renamed/removed in code but still in the picture — is flagged in Step 5; updating a diagram correctly needs human judgment.
 

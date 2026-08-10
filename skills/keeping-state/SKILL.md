@@ -53,6 +53,31 @@ updated: 2026-06-09 15:42
 - <items not tied to any active task>
 ```
 
+**A backlog row is an index line, not a home.** The roster is ephemeral: closing a task deletes its row, so rationale left there goes with it. Anything worth keeping — a deferred problem, a declined finding, a known limitation — gets a durable record, and the row shrinks to one line plus a reference to it. A row that legitimately has no record should say why on the row, or the next reader cannot tell it from an oversight.
+
+### Durable records — which home
+
+In order:
+
+1. **The project's issue tracker**, if it has one. Never build a parallel corpus beside GitHub Issues, Jira or Linear; cite the ticket and stop. (Exception: a tracker the repo's own readers cannot open — private to one team, or behind a login they lack — fails the legibility test that makes option 3 exist. Then it is not a home.)
+2. **The worklog** — durable *only* if it is version-controlled with the repo (above). A worklog the user chose to gitignore, or that lives outside the repo, is invisible to a repo reader.
+3. **In-repo issue docs**, when a problem must be legible to someone who never had your session and neither of the above holds. Sequentially numbered from `#1` in `issues/` unless the project already has somewhere better:
+
+```markdown
+# #12 — Scheduled jobs silently skip the hour a clock change removes
+
+Status: open · opened 2026-08-10
+
+## Problem            <what is wrong, present tense, verified against current code>
+## History            <what was tried or deliberately deferred, dated — on a new issue, the one line saying when it was identified>
+## Proposed behavior  <what "fixed" would mean, not a patch>
+## Why it matters     <who is affected and how badly; "nobody yet, but" is legitimate>
+```
+
+`opened` is the day the file was written. Add `(raised <date>)` after it when the problem was found earlier, so a backfilled record doesn't read as a new one. Status is **`open`**, **`closed (<date>)`** when a change resolved it, or **`declined (<date>)`** when it was judged not worth fixing — a decision worth keeping, since it stops the same finding being re-raised every review. Extending that vocabulary is fine; leaving it to each writer is not, and the first record in a fresh corpus should pin it in the folder's README. **A change that resolves a record flips its status in the same commit**; skip that and the corpus becomes a list of things that look open forever. Two branches will eventually claim the same number: that collides as an add/add conflict, which is the point — re-check the highest number at land.
+
+Issue docs are **living documents**, rewritten freely as understanding improves. Changelog entries are the opposite (`writing-the-changelog`), and detail belongs to exactly one of them.
+
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
 One file per active task, written ONLY by that task's owner — the old single-STATE body,

@@ -110,8 +110,9 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with `reviewing-the-diff` |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
+| [`writing-the-changelog`](skills/writing-the-changelog/SKILL.md) | release notes that read like a commit dump; rationale with no durable home |
 
-Each SKILL.md is 50–90 lines: pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed.
+Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelog` run longer — they carry the state layout, the durable-record template, and the changelog entry format): pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed.
 
 ## Getting started
 
