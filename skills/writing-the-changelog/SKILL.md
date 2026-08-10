@@ -1,6 +1,6 @@
 ---
 name: writing-the-changelog
-description: Use whenever a change is about to land — invoked from landing-the-change before every PR/merge, at every tier including Tier 0 — and whenever the user says "add a changelog entry", "write the release notes", "what shipped in this version", or bumps a version. Also use the moment you find a project without a changelog, because it needs one. A changelog that reads like a commit dump tells a reader nothing they couldn't get from git.
+description: Use whenever a change is about to land, at every tier — invoked from landing-the-change before every PR/merge, or inline where Tier 0 lands directly — and whenever the user says "add a changelog entry", "write the release notes", "what shipped in this version", or bumps a version. Also use the moment you find a project without a changelog, because it needs one. A changelog that reads like a commit dump tells a reader nothing they couldn't get from git.
 ---
 
 # Writing the Changelog
@@ -9,7 +9,7 @@ The changelog is the one document written for someone who did not watch the work
 
 **Prevents:** failure mode #11 (documentation drift) in the release record specifically — a commit-dump changelog tells users nothing, and one that restates rationale kept elsewhere guarantees the two eventually disagree. Used strictly below: an **entry** is one release's whole block; a **bullet** is one line inside it.
 
-**Dispatched as a sub-agent?** `landing-the-change` may run you concurrently with `syncing-the-docs`, `writing-the-issue`, and the retro. If so: do Steps 1–4 in the working tree, then stop before Step 5's land actions. **Your write-set is the changelog and the version file, nothing else** — not the issue records, not user-facing docs, not `.ratchet/`; those belong to the other three, and disjoint sets are the only reason the four can run at once. Do **not** commit, push, or write the worklog or PR body. Report back: the entry verbatim, the version you set and the consequence you mapped it from, any reference you were given and used, and any rule you had to bend and why. The dispatcher verifies your files before they ride into the commit — a "done" report is a claim, not evidence.
+**Dispatched from `landing-the-change`?** It owns the fan-out contract — write-sets, verification, the single commit — and runs you concurrently with `syncing-the-docs`, `writing-the-issue`, and the retro. Your write-set is the changelog and the version file, plus whatever your brief hands you (a reserved version, a record number to cite). Do Steps 1–3 in the working tree, then stop: no commit, no push, no worklog or PR body — the land actions in Step 4 are the dispatcher's. Report: the entry verbatim, the version you set and the consequence you mapped it from, and any rule you had to bend and why.
 
 ## Step 1 — Find the convention, or establish one
 
@@ -22,6 +22,10 @@ Authority: the existing changelog, then the project's docs, then observable prac
 ## Step 2 — Write the entry
 
 ```markdown
+## 1.5.1 — 2026-08-12
+
+Internal only — no user-facing change.
+
 ## 1.5.0 — 2026-08-10
 
 ### Added
@@ -32,10 +36,6 @@ Authority: the existing changelog, then the project's docs, then observable prac
 
 ### Removed
 - `--legacy-csv` was removed; `--format csv` produced the same file.
-
-## 1.5.1 — 2026-08-12
-
-Internal only — no user-facing change.
 ```
 
 **Core rules**
@@ -44,7 +44,7 @@ Internal only — no user-facing change.
 - **Group by type: Added, Changed, Removed, Fixed**, in that order, omitting empty groups. Those four are the floor: a project already using Keep a Changelog's `Deprecated` and `Security` keeps them in its order (Added, Changed, Deprecated, Removed, Fixed, Security). Without those groups a deprecation notice is **Changed** and a security fix is **Fixed**. Headings or inline labels — match what's there.
 - **Newest first**, each with its version and an **ISO 8601 date** — the release's date, not the day you wrote the bullet.
 - **Every release gets an entry**, at every tier. No silent releases.
-- **Link out when something else holds the depth** — a tracker ticket, an issue doc, or the PR. Match the project's citation form, or `(#N)` if it has none yet. A change with nothing deeper behind it gets no reference.
+- **Link out when something else holds the depth** — a tracker ticket, an issue doc, or the PR (`writing-the-issue` decides which home, and writes it). Match the project's citation form, or `(#N)` if it has none yet; a change with nothing deeper behind it gets no reference. **Detail has exactly one home:** history, alternatives, and declined findings live in the record, never in the bullet — if the bullet and the record it cites explain the same thing, the bullet is wrong. Equally, don't mint a record just to give a bullet something to point at.
 
 **Quality rules**
 
@@ -61,11 +61,7 @@ Internal only — no user-facing change.
 - Contributor-facing sections: build notes, refactor commentary, "for maintainers".
 - **Deploy and run instructions** — they belong in the PR/release description and the project's deploy doc. (What a *user* should use instead of something removed is impact, not operations; keep that.)
 
-## Step 3 — One sentence, one reference
-
-A bullet carries one sentence, plus a reference when something else holds the depth. That somewhere is whatever the project already uses as its durable record — a tracker, or in-repo issue docs where there is none (`writing-the-issue` decides which, and writes it). History, alternatives, known limitations and declined findings live there, never here. **Detail has exactly one home:** if the bullet and the record it cites explain the same thing, the bullet is wrong — cut it back to a sentence and the reference. Equally, don't mint a record just to give a bullet something to point at.
-
-## Step 4 — Cross-check magnitude against the version
+## Step 3 — Cross-check magnitude against the version
 
 **The changelog explains content; the version explains magnitude.** Wherever the version can carry magnitude you need both, and they must not contradict each other. Read the current version from wherever the project keeps it — a version file, the latest tag, the package manifest.
 
@@ -77,7 +73,7 @@ A bullet carries one sentence, plus a reference when something else holds the de
 
 Batched releases: the cross-check runs when the release is cut, across the accumulated bullets — whoever stamps the version owns it. And it is **forward-only** — a shipped release whose number disagrees with its content stands as shipped; record the discrepancy in the durable record and move on, because renumbering breaks every reference that points at it.
 
-## Step 5 — Land it, and leave history alone
+## Step 4 — Land it, and leave history alone
 
 The entry and any version bump are **part of the change** — same commit, authored by whoever made it. A changelog written afterwards is written from the commit log, which is the failure the Core rules exist to prevent. If the version is read at runtime or asserted by a test, re-run the suite after bumping; the gate never saw that file. **Shipped entries are history.** Correcting a factual error in place — a stale path, a wrong number — is `syncing-the-docs`' auto-fix lane and stays legal. Rewording, reordering or regenerating them while landing something else is not.
 

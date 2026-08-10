@@ -2,7 +2,7 @@
 
 **Evidence-gated progress that survives interruption.**
 
-Ratchet is a software development methodology for coding agents, packaged as 20 composable skills. A ratchet moves freely forward and never slips back: each click is a verified step, and the pawl that holds it is *evidence on disk* — not the agent's memory, not the conversation, not a confident claim.
+Ratchet is a software development methodology for coding agents, packaged as 23 composable skills. A ratchet moves freely forward and never slips back: each click is a verified step, and the pawl that holds it is *evidence on disk* — not the agent's memory, not the conversation, not a confident claim.
 
 It is built on two observations:
 
@@ -108,13 +108,13 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`delegating-to-agents`](skills/delegating-to-agents/SKILL.md) | subagent completion theater |
 | [`reviewing-the-diff`](skills/reviewing-the-diff/SKILL.md) | scope creep; late intent misses |
 | [`fresh-eyes-review`](skills/fresh-eyes-review/SKILL.md) | the author reviewing their own reasoning; intent misses; the “is it right” lens, run in parallel with `ponytail-review` |
-| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with `reviewing-the-diff` |
+| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with `fresh-eyes-review` |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
 | [`writing-the-changelog`](skills/writing-the-changelog/SKILL.md) | release notes that read like a commit dump |
 | [`writing-the-issue`](skills/writing-the-issue/SKILL.md) | deferrals and declined findings that get re-discovered and re-argued |
 
-Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelog` run longer — they carry the state layout, the durable-record template, and the changelog entry format): pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed.
+Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelog` run longer — one carries the state layout, the other the changelog entry format and its guards): pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed.
 
 ## Getting started
 
@@ -147,7 +147,7 @@ Every divergence from the original has a written reason. Every skill answers "wh
 
 ```
 METHODOLOGY.md      # the one-page manifesto — start here
-skills/             # the 20 skills (SKILL.md + optional references/)
+skills/             # the 23 skills (SKILL.md + optional references/)
 stress-tests.md     # the five dry-run traces
 ```
 

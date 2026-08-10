@@ -7,6 +7,8 @@ description: Use to review a diff against the brief that asked for it and hand b
 
 You are reviewing a diff you did not write, and you were deliberately not told how the author got there. That absence is the whole point: a reviewer who hears someone reason their way into a bug reasons the same way straight past it. Two questions, in this order — **was the right thing built**, then **is it built well**. Findings only, ranked, each one checkable against the repo.
 
+**Prevents:** failure mode #1's late echo (intent misses caught before merge) and #2 at the exit (scope creep flagged instead of admired) — the catches `reviewing-the-diff` promises are made here.
+
 ## What you get, and what you must not ask for
 
 The brief verbatim, the plan's step list and change log, and `BASE..HEAD`. Nothing else. If a session narrative reaches you anyway, ignore it — and if part of the diff seems to *need* that narrative to make sense, that is itself a finding: code a reviewer cannot follow is code the next maintainer cannot follow.

@@ -9,7 +9,7 @@ Documentation is the human-facing half of "disk beats conversation" — it's wha
 
 **Prevents:** failure mode #11 (documentation drift — docs contradicting shipped code mislead users and future sessions; stale docs are worse than no docs because they're trusted).
 
-**Dispatched as a sub-agent?** `landing-the-change` may run you in parallel with the retro. If so: edit the working tree exactly as below and stay entirely out of `.ratchet/` (the retro owns `LESSONS.md`), but skip Step 5's land actions — you do NOT commit, push, or write the worklog/PR body. Instead report your edits verbatim (files changed, gaps flagged, diagram drift); the dispatcher verifies them, records them, and lands them in the same commit as the code.
+**Dispatched from `landing-the-change`?** It owns the fan-out contract — write-sets, verification, the single commit — and runs you concurrently with `writing-the-changelog`, `writing-the-issue`, and the retro. Your write-set is the user-facing docs: during a land the changelog and the version file belong to `writing-the-changelog`, so Step 3's factual-fix lane and the VERSION question are standalone-only — report those findings to the dispatcher instead of editing or asking. Skip Step 5's land actions: no commit, no push, no worklog or PR body. Report: files changed (one line each), gaps flagged, diagram drift.
 
 ## Step 1 — Inventory the change and the docs
 

@@ -47,14 +47,9 @@ Numbering collides when two branches claim `#N` at once. That collides as an add
 - **Detail lives here, not in two places.** Whatever cites this record — a changelog bullet, a roster line, a code comment — carries one sentence and the reference. If the citation explains as much as the record, one of them is wrong.
 - **Declining is a decision, not a dismissal.** A `declined` record says what was judged and why, so the next reviewer can disagree with the reasoning instead of re-deriving it.
 
-## Dispatched as a sub-agent?
+## Dispatched from `landing-the-change`?
 
-`landing-the-change` may run you concurrently with `syncing-the-docs`, `writing-the-changelog`, and the retro. If so:
-
-- **Your write-set is the records and nothing else.** Not the changelog, not the version file, not user-facing docs, not `.ratchet/`. Those belong to the other three, and the only reason the four can run at once is that the sets are disjoint — one stray edit can silently clobber another agent's exact-match `Edit`.
-- **Do not commit, push, or write the worklog or PR body.** The dispatcher lands your files in the same commit as the code.
-- **Use the number you were assigned.** Do not scan for the next free one; a concurrent land may hold it.
-- **Report back:** each record written or status flipped, one line each, with its number; anything you could not verify against current code; and anything you declined to record, with the reason. The dispatcher verifies your files before they ride into the commit — a "done" report is a claim, not evidence.
+It owns the fan-out contract — write-sets, verification, the single commit — and runs you concurrently with `syncing-the-docs`, `writing-the-changelog`, and the retro. Your write-set is the records, using the number your brief assigns rather than scanning — a concurrent land may hold the next one. A record whose right home sits outside that set (the worklog, a tracker) goes back in your report as text for the dispatcher to place. No commit, no push, no worklog or PR body. Report: each record written or status flipped, one line each with its number; anything you could not verify against current code; anything you declined to record, with the reason.
 
 ## Stop conditions
 

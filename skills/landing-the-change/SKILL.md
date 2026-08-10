@@ -27,17 +27,15 @@ In order of authority:
 **Tier 2/3 — fan out the record-keeping; keep only the retro yourself.** Four jobs run at a land. Three are diff-driven and auditable, the same profile as the review agents in `reviewing-the-diff`, so dispatch them **concurrently** as sub-agents (per `delegating-to-agents`) and spend your own context on the land instead:
 
 - **`syncing-the-docs`** — brief it with `BASE..HEAD`, the public-surface delta, and the doc set. Write-set: user-facing docs.
-- **`writing-the-changelog`** — brief it with `BASE..HEAD`, where the current version lives, and any record number the entry should cite. It maps the bump itself (that is its Step 4; don't pre-decide it for them) — **except** where a project reserves numbers in the roster, which is outside its write-set, so hand it the reserved number. Write-set: the changelog and the version file.
-- **`writing-the-issue`** — brief it with the review's declined findings, anything deferred out of scope, and which records this release resolved so it can flip their status. **Assign it the next free number** rather than letting it scan, so two concurrent lands cannot claim the same one. Write-set: the durable records.
+- **`writing-the-changelog`** — brief it with `BASE..HEAD`, where the current version lives, and any record number the entry should cite. It maps the bump itself (that is its Step 3; don't pre-decide it for them) — **except** where a project reserves numbers in the roster, which is outside its write-set, so hand it the reserved number. Write-set: the changelog and the version file.
+- **`writing-the-issue`** — brief it with the review's declined findings, anything deferred out of scope, and which records this release resolved so it can flip their status. **Assign it the next free number** rather than letting it scan. Write-set: the durable records.
 - **`retrospecting` — yourself, in the main session, never delegated.** It needs the friction you actually lived, not just what the worklog caught, and it writes `LESSONS.md`, which every session loads; that judgment isn't delegable. Mine and draft now, while the three run; finalize in Step 4 once the land is known-good.
 
-**The four write-sets are disjoint — docs / changelog+version / records / `.ratchet/` — and that is the only reason this is safe to run at once.** State each agent's ban list in its brief; one stray edit outside its set can silently clobber another agent's exact-match `Edit`, or land against a file that moved underneath it. Nothing else couples them: the number you assigned is enough for the entry to cite a record the issue agent is still writing.
+**The four write-sets are disjoint — docs / changelog+version / records / `.ratchet/` — and that is the only reason this is safe to run at once.** This paragraph is the contract's one home; the three skills carry a pointer back here, not a copy. State each agent's write-set and its bans in its brief — one stray edit outside a set can silently clobber another agent's exact-match `Edit`, or land against a file that moved underneath it. Two boundary rules ride every brief: the docs agent's factual-fix lane stops at the changelog and the version file (it reports those errors to you instead of editing or asking), and anything whose right home sits outside an agent's own set comes back in its report, as text, for you to place. None of the three commits, pushes, or writes the worklog or PR body — you do. Nothing else couples them: the number you assigned is enough for the entry to cite a record the issue agent is still writing.
 
-As each returns, **verify its edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope?) before they ride into the commit; a "done" report is a claim, not evidence. It all lands in the SAME commit as the code — a docs or changelog "fast follow" is a fast never. An agent with no real work → skip it rather than dispatching it to find nothing.
+As each returns, **verify its edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope?) before they ride into the commit; a "done" report is a claim, not evidence. It all lands in the SAME commit as the code — a docs or changelog "fast follow" is a fast never — and a bumped version file that is read at runtime or asserted by a test re-runs the suite, because Step 0's gate never saw it. An agent with no real work → skip it rather than dispatching it to find nothing (never the changelog agent — an internal-only release still gets its entry).
 
-(**Tier 0/1: no fan-out.** One entry and maybe one status flip is not worth three agents — run `writing-the-changelog` inline, and `writing-the-issue` only if something was actually deferred or declined. The changelog entry is still mandatory; the fan-out is an economy, not the rule.)
-
-Whatever tier: the entry and any version bump ride the SAME commit as the code, and the bump is not prose — if a version file is read at runtime or asserted by a test, re-run the suite, because Step 0's gate never saw it.
+(**Tier 0/1: no fan-out.** One entry and maybe one status flip is not worth three agents — run `writing-the-changelog` inline, and `writing-the-issue` when something was deferred or declined, or the change resolved a record whose status must flip. The entry is still mandatory; the fan-out is an economy, not the rule.)
 
 **Common path (PR):**
 ```
@@ -60,7 +58,7 @@ Whatever lands: never force-push shared branches; never delete work without the 
 
 ## Step 4 — Finalize the retro
 
-- **Tier 2/3:** `retrospecting` already started in Step 2, concurrent with the docs sub-agent (when it had lessons to mine). Finalize it here, now that the land is known-good — fold in any surprise the land itself produced (a CI fail or a conflict is retro material too), then write its worklog `retro` entry. Not optional. (Nothing to mine back in Step 2 → run it here from scratch.)
+- **Tier 2/3:** `retrospecting` already started in Step 2, concurrent with the record agents (when it had lessons to mine). Finalize it here, now that the land is known-good — fold in any surprise the land itself produced (a CI fail or a conflict is retro material too), then write its worklog `retro` entry. Not optional. (Nothing to mine back in Step 2 → run it here from scratch.)
 - **Tier 0/1:** invoke `retrospecting` only if something surprised you (any `surprise` entry in this task's worklog, or a lesson candidate you noticed). Zero surprises → skip it by rule; the task is closed.
 
 ## Stop conditions
@@ -75,4 +73,4 @@ Whatever lands: never force-push shared branches; never delete work without the 
 | "Gate passed locally, skip re-testing the merge" | The merged tree is code nobody has run. One suite run; cheap; occasionally a lifesaver. |
 | "I'll clean up STATE.md next session" | Next session might be a different agent reading a state file that lies. Thirty seconds, now. |
 | "Retro later, while it's fresh → actually never" | Correct, that's why Step 4 fires it now, before this skill reports completion to the user. |
-| "Docs then retro, one after the other — simpler" | They're independent and both slow; sequential wastes the overlap. Delegate the docs audit, run the retro yourself, concurrently. |
+| "Docs, changelog, records, then retro, one after the other — simpler" | They're independent and all slow; sequential wastes the overlap. Dispatch the three agents, run the retro yourself, concurrently. |

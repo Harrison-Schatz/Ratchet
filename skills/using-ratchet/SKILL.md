@@ -40,7 +40,7 @@ ORIENT → SIZE → BUILD → VERIFY → RECORD
 
 The tier set by `sizing-the-task` determines the BUILD path:
 
-- **Tier 0 (patch):** implement directly → `verifying-done` (T0 evidence) → one line in its worklog file (`worklog/<task-id>.md`, or the commit message if no `.ratchet/` yet). Done. No brief, no plan, no questions. (Its changelog entry still rides the same commit — `writing-the-changelog`. "Every release gets an entry" has no tier exemption.)
+- **Tier 0 (patch):** implement directly → `verifying-done` (T0 evidence) → one line in its worklog file (`worklog/<task-id>.md`, or the commit message if no `.ratchet/` yet). Done. No brief, no plan, no questions. (Its changelog entry still rides the same commit — `writing-the-changelog`.)
 - **Tier 1 (task):** write Definition of Done in the task's worklog file → implement per `testing-by-default` → `verifying-done` (T1) → `landing-the-change`.
 - **Tier 2 (feature):** `writing-the-brief` → `planning-the-work` → `executing-with-checkpoints` → `verifying-done` (T2) → `landing-the-change` → `retrospecting`.
 - **Tier 3 (project):** as Tier 2, plus decomposition into milestones inside the brief; each milestone runs the Tier 2 loop.
