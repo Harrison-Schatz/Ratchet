@@ -20,7 +20,18 @@ Two subagents (per `delegating-to-agents`), same `BASE..HEAD`, at the same time:
 - **`fresh-eyes-review`** — "is this the right thing, built well?" Send the brief **verbatim**, the plan's step list + change log, and `BASE..HEAD`. **Deliberately withhold your session narrative** — a reviewer who heard you reason yourself into the bug will reason the same way straight past it. Hands back **ranked findings**.
 - **`ponytail-review`** — "should any of this exist?", the lazy-senior-dev / minimalism lens. Send the diff, the decision ladder, and one line on what the change is for; NOT the brief's full text and NOT your narrative (intent context only softens its YAGNI rung). Hands back a **delete-list**.
 
-Parallel-safe per `delegating-to-agents`: both are read-only over the same diff with disjoint outputs. Both feed Step 2.
+Tell each reviewer the file to write and the header to open it with —
+`.ratchet/review/<task-id>-<lens>.md`, lens = the reviewer's skill name:
+
+```
+## [YYYY-MM-DD HH:MM] <round label> (BASE..HEAD)
+reviewer: <lens> (subagent | self-pass)
+```
+
+Each appends its own findings there before returning. Anything handed back unwritten, you write —
+verbatim, before you triage.
+
+Parallel-safe per `delegating-to-agents`: both read the same diff and write disjoint record files (so an extra pass needs its own lens name). Both feed Step 2.
 
 **Risk surfaces get a second, independent pass** — auth, payments, migrations, secrets, concurrency, public APIs. It is mandatory on those files and it comes from a different subagent or the user, per the brief's risk notes. `fresh-eyes-review` reports the surfaces it found precisely so you know what to order; a diff you *know* touches one doesn't wait for permission.
 
@@ -31,6 +42,13 @@ No subagent available → run both lenses yourself, as two separate passes in th
 Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it — and when the *reason* for declining it will be re-litigated by someone who never had this session, it wants a durable record instead: `writing-the-issue`). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient). A pre-existing-mess note is not this task's burden — but a *recurring* one belongs in `retrospecting`, not in this diff.
 
 **Ponytail's delete-list** merges into this same triage. Default each item to **Minor** — a simplification, not a defect. Escalate to **Important** when the diff introduced a new dependency or a new abstraction that a lower ladder rung (stdlib, native platform, an already-installed dep, or a one-liner) already covered: unnecessary surface area is a cost paid forever. Never **Critical** — removing over-engineering doesn't break intent, data, or security, and the floor (trust-boundary validation, data-loss, security, accessibility) is off ponytail's list by construction. Apply each item only after verifying it against the repo per Motion B — a reviewer that only deletes is as dangerous as one that only adds.
+
+**Every finding gets a disposition, in the record.** This is your write, not the reviewer's:
+as triage resolves each item, insert one line beneath it, editing nothing else in the file:
+
+```
+  → disposition: FIXED @ <commit> | DECLINED — <evidence> | ISSUE #<n> | DEFERRED — <worklog ref>
+```
 
 ## Motion B — Receiving review feedback
 
@@ -49,3 +67,4 @@ Findings come back as **Critical** (breaks intent/data/security — blocks the g
 | "Review will just slow down landing" | Tier 0/1 doesn't require this skill. Tier 2+ earned it by being big enough to be wrong in expensive ways. |
 | "The reviewer is a bot, just do what it says" | Verified-then-applied beats applied-then-broken. Every suggestion gets checked against the repo first. |
 | "I'll fix the minor stuff later" | Fine — "later" is a worklog line, not a memory. Unwritten laters don't exist. |
+| "The findings are in the transcript" | The transcript is not disk, and it ends with this session. |

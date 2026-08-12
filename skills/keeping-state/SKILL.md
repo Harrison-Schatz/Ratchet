@@ -16,6 +16,7 @@ The conversation is volatile memory; `.ratchet/` is disk. Anything a fresh sessi
 ├── STATE.md        # ROSTER — index of all active tasks (one row each). Overwritten.
 ├── state/          # <task-id>.md — one per active task: that task's full snapshot
 ├── worklog/        # <task-id>.md — one append-only journal per task
+├── review/         # <task-id>-<lens>.md — findings from each review round, verbatim + disposition
 ├── LESSONS.md      # project rules earned from retrospectives (see retrospecting)
 ├── briefs/         # <task-id>-brief.md
 └── plans/          # <task-id>-plan.md
@@ -26,6 +27,7 @@ Task id: `YYYY-MM-DD-<slug>` (date the task started). Add `.ratchet/` to version
 ## What goes where — the only rule you need
 
 - **Will a fresh session need it to act correctly *right now*?** → the task's `state/<task-id>.md` (and its roster row in STATE.md)
+- **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (the reviewer writes it; survives the task's close)
 - **Might anyone need to know it happened?** → the task's `worklog/<task-id>.md`
 - **Should every future session change behavior because of it?** → LESSONS.md (via `retrospecting` — don't write it directly mid-task)
 
@@ -82,6 +84,7 @@ Implement step 4 (token refresh): see plan. Step 3 evidence is in the worklog.
 brief:   .ratchet/briefs/2026-06-09-oauth-login-brief.md
 plan:    .ratchet/plans/2026-06-09-oauth-login-plan.md
 worklog: .ratchet/worklog/2026-06-09-oauth-login.md
+review:  .ratchet/review/2026-06-09-oauth-login-*.md
 ```
 
 "Next action" is the most important line in the system: ONE imperative sentence a stranger could execute. "Continue working" is a violation; "Run step 4 of the plan; note the refresh endpoint returns 204 not 200 (worklog 15:30)" is the standard. A task with no work left does not sit idle-in-place — it LANDS: its row leaves the roster and its state file is archived/removed (see `landing-the-change`). An empty roster means nothing is active.
@@ -137,6 +140,7 @@ Entry types: `sizing`, `decision`, `surprise`, `evidence`, `escalation`, `blocke
 | Non-obvious choice made | worklog `decision` (one line: what + why) |
 | Reality contradicted an assumption | worklog `surprise` (then `replanning-on-surprise`) |
 | Waiting on the user | task state file `blocked` + worklog `blocked` |
+| Finding triaged | its `→ disposition:` line in the review record `review/<task-id>-<lens>.md` (mechanics: `reviewing-the-diff`) |
 | Gate passed, change landed | worklog `done`; row leaves roster; state file archived (the worklog file stays as the record) |
 
 Tier 0 writes exactly one line to its `worklog/<task-id>.md` at the end (`done`, with its evidence) and touches nothing else. If no `.ratchet/` exists yet, Tier 0 does not create it — the evidence line goes in the commit message and the report to the user; the directory (and the task's `worklog/` file) is born at the first Tier 1+ task.

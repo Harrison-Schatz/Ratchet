@@ -17,6 +17,7 @@ roster, or there's exactly one active row. Then, in order:
 2. `.ratchet/LESSONS.md` — rules that bind you this session.
 3. That task's brief and plan (pointers in its state file), including the plan's **change log**.
 4. The task's worklog file `.ratchet/worklog/<task-id>.md` — decisions and surprises are context the plan alone won't give you.
+5. Its review record `.ratchet/review/<task-id>-*.md` — bare findings are the work left; a `FIXED @` line records what was true at that commit, so re-check it against HEAD before trusting it.
 
 ## Step 2 — Verify reality matches the record
 

@@ -51,6 +51,10 @@ Return findings ONLY. No preamble, no "great work overall." Each item:
 
 If the diff is already minimal, say so in one line and return an empty list.
 
+**Append** this list to the review record you were given, under the header you were given, never
+touching an earlier section. If you cannot write it (no path given, no filesystem), hand the list
+back and say it went unrecorded.
+
 ## When NOT to be lazy
 
 - Never simplify away: input validation at trust boundaries, error handling
@@ -76,8 +80,8 @@ test, YAGNI applies to tests too.
 - You produce a delete-list, you do not delete. 
 - Deletion over addition. Boring over clever, clever is what someone decodes at 3am.
 - Fewest files possible. Shortest working diff wins.
-- Read-only. Never edit files.
+- Read-only over the code — your review record is the one file you may write, and nothing else, anywhere.
 
 ## When you are the same session that wrote the diff
 
-No subagent available? Run this as its own pass, separate from the fresh-eyes pass and after it. Your own additions all feel earned — you just wrote them — so don't ask whether each is justified; ask which ladder rung it sits on, and name the rung before moving on. Write the whole delete-list before acting on any line of it: deleting as you go is how the easy cuts crowd out the real ones.
+No subagent available? Run this as its own pass, separate from the fresh-eyes pass and after it. Your own additions all feel earned — you just wrote them — so don't ask whether each is justified; ask which ladder rung it sits on, and name the rung before moving on. Write the whole delete-list into the review record before acting on any line of it — name it yourself here, since no dispatcher did: `.ratchet/review/<task-id>-<lens>.md`. Deleting as you go is how the easy cuts crowd out the real ones.

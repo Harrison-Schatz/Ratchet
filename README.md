@@ -75,6 +75,7 @@ Everything a fresh session needs lives in `.ratchet/` at the repo root:
 ├── STATE.md      # roster of active tasks (one row each) — id, tier, phase, step, NEXT ACTION, pointers
 ├── state/        # <task-id>.md — per-task snapshot (cold-resume detail per active task)
 ├── worklog/      # <task-id>.md — per-task append-only journal: sizings, decisions, surprises, evidence
+├── review/       # <task-id>-<lens>.md — each review round's findings, verbatim, with every disposition
 ├── LESSONS.md    # project rules earned from retrospectives, loaded at every session start
 ├── briefs/       # confirmed intent: goals, observable acceptance checks, out-of-scope lists
 └── plans/        # step sequences with proofs and a change log
