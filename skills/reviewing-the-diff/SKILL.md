@@ -20,19 +20,18 @@ Two subagents (per `delegating-to-agents`), same `BASE..HEAD`, at the same time:
 - **`fresh-eyes-review`** — "is this the right thing, built well?" Send the brief **verbatim**, the plan's step list + change log, and `BASE..HEAD`. **Deliberately withhold your session narrative** — a reviewer who heard you reason yourself into the bug will reason the same way straight past it. Hands back **ranked findings**.
 - **`ponytail-review`** — "should any of this exist?", the lazy-senior-dev / minimalism lens. Send the diff, the decision ladder, and one line on what the change is for; NOT the brief's full text and NOT your narrative (intent context only softens its YAGNI rung). Hands back a **delete-list**.
 
-Tell each reviewer where to write: `.ratchet/review/<task-id>-<lens>.md` (lens = `fresh-eyes`,
-`ponytail`, or the lens name of any extra pass), and the header to open with:
+Tell each reviewer the file to write and the header to open it with —
+`.ratchet/review/<task-id>-<lens>.md`, lens = the reviewer's skill name:
 
 ```
 ## [YYYY-MM-DD HH:MM] <round label> (BASE..HEAD)
 reviewer: <lens> (subagent | self-pass)
 ```
 
-Each writes its own findings there before returning — that file is the only file it may write — so
-the round is on disk before you have read a word of it. One that hands back findings without
-writing them (no filesystem, a different working copy) leaves you the write.
+Each appends its own findings there before returning. Anything handed back unwritten, you write —
+verbatim, before you triage.
 
-Parallel-safe per `delegating-to-agents`: both are read-only over the same diff with disjoint outputs. Both feed Step 2.
+Parallel-safe per `delegating-to-agents`: both read the same diff and write disjoint record files (so an extra pass needs its own lens name). Both feed Step 2.
 
 **Risk surfaces get a second, independent pass** — auth, payments, migrations, secrets, concurrency, public APIs. It is mandatory on those files and it comes from a different subagent or the user, per the brief's risk notes. `fresh-eyes-review` reports the surfaces it found precisely so you know what to order; a diff you *know* touches one doesn't wait for permission.
 
@@ -68,4 +67,4 @@ as triage resolves each item, insert one line beneath it, editing nothing else i
 | "Review will just slow down landing" | Tier 0/1 doesn't require this skill. Tier 2+ earned it by being big enough to be wrong in expensive ways. |
 | "The reviewer is a bot, just do what it says" | Verified-then-applied beats applied-then-broken. Every suggestion gets checked against the repo first. |
 | "I'll fix the minor stuff later" | Fine — "later" is a worklog line, not a memory. Unwritten laters don't exist. |
-| "The findings are in the transcript" | The transcript is not disk, and it ends with this session. An unrecorded round is one nobody can audit — including you, next week, holding the same diff. |
+| "The findings are in the transcript" | The transcript is not disk, and it ends with this session. |

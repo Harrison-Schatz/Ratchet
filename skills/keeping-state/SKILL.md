@@ -27,7 +27,7 @@ Task id: `YYYY-MM-DD-<slug>` (date the task started). Add `.ratchet/` to version
 ## What goes where — the only rule you need
 
 - **Will a fresh session need it to act correctly *right now*?** → the task's `state/<task-id>.md` (and its roster row in STATE.md)
-- **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (the reviewer writes it)
+- **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (the reviewer writes it; survives the task's close)
 - **Might anyone need to know it happened?** → the task's `worklog/<task-id>.md`
 - **Should every future session change behavior because of it?** → LESSONS.md (via `retrospecting` — don't write it directly mid-task)
 
@@ -59,11 +59,6 @@ limitation accepted — does not belong in the roster or a state file, both of w
 ephemeral. It gets a durable record: **`writing-the-issue`** decides which home (tracker,
 version-controlled worklog, or in-repo issue docs) and what goes in it.
 
-Review findings are durable records too, and the ones most often lost: a round's list arrives
-in the session and nowhere else. Each review lens writes its own findings to
-`review/<task-id>-<lens>.md`; like the worklog and unlike the state snapshot, those files
-**survive the task's close**.
-
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
 One file per active task, written ONLY by that task's owner — the old single-STATE body,
@@ -89,7 +84,7 @@ Implement step 4 (token refresh): see plan. Step 3 evidence is in the worklog.
 brief:   .ratchet/briefs/2026-06-09-oauth-login-brief.md
 plan:    .ratchet/plans/2026-06-09-oauth-login-plan.md
 worklog: .ratchet/worklog/2026-06-09-oauth-login.md
-review:  .ratchet/review/2026-06-09-oauth-login-<lens>.md   # once a round has been recorded
+review:  .ratchet/review/2026-06-09-oauth-login-*.md
 ```
 
 "Next action" is the most important line in the system: ONE imperative sentence a stranger could execute. "Continue working" is a violation; "Run step 4 of the plan; note the refresh endpoint returns 204 not 200 (worklog 15:30)" is the standard. A task with no work left does not sit idle-in-place — it LANDS: its row leaves the roster and its state file is archived/removed (see `landing-the-change`). An empty roster means nothing is active.
@@ -145,7 +140,7 @@ Entry types: `sizing`, `decision`, `surprise`, `evidence`, `escalation`, `blocke
 | Non-obvious choice made | worklog `decision` (one line: what + why) |
 | Reality contradicted an assumption | worklog `surprise` (then `replanning-on-surprise`) |
 | Waiting on the user | task state file `blocked` + worklog `blocked` |
-| Review round dispatched / finding triaged | review record `review/<task-id>-<lens>.md`: each reviewer writes its own findings there; you insert each finding's disposition as triage resolves it |
+| Finding triaged | its `→ disposition:` line in the review record `review/<task-id>-<lens>.md` (mechanics: `reviewing-the-diff`) |
 | Gate passed, change landed | worklog `done`; row leaves roster; state file archived (the worklog file stays as the record) |
 
 Tier 0 writes exactly one line to its `worklog/<task-id>.md` at the end (`done`, with its evidence) and touches nothing else. If no `.ratchet/` exists yet, Tier 0 does not create it — the evidence line goes in the commit message and the report to the user; the directory (and the task's `worklog/` file) is born at the first Tier 1+ task.

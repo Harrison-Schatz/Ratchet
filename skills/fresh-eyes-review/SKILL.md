@@ -50,10 +50,9 @@ Severity, and hold the boundaries:
 
 "I would have done it differently" is not a finding at any severity. If the diff is clean, say so in one line and return an empty list — a review that manufactures findings to look thorough costs more than it saves, because every false finding spends the author's trust and their afternoon.
 
-Write this output to the review record you were given, under the header you were given — it
-outlives the session, so findings must stand alone: file, line, concrete failure, no reliance on
-anything said in chat. No path given means a standalone invocation: hand the findings back and
-say they went unrecorded.
+**Append** this output to the review record you were given, under the header you were given, never
+touching an earlier section — the file outlives the session, so rely on nothing said in chat. If you
+cannot write it (no path given, no filesystem), hand the findings back and say they went unrecorded.
 
 ## Rules
 
@@ -65,4 +64,4 @@ say they went unrecorded.
 
 ## When you are the same session that wrote the diff
 
-No subagent available? Then this is a deliberately separate pass, and the discipline gets *harder*, not softer: re-read the brief in full before you open the diff, go file-by-file, and write every finding down before you decide which to fix — into the review record, not a scratch list. Deciding as you read is how findings quietly become "actually that's fine". "I just wrote it, I know it's right" is the disqualification, not the credential.
+No subagent available? Then this is a deliberately separate pass, and the discipline gets *harder*, not softer: re-read the brief in full before you open the diff, go file-by-file, and write every finding down before you decide which to fix — into the review record, which you name yourself here since no dispatcher did: `.ratchet/review/<task-id>-<lens>.md`. Deciding as you read is how findings quietly become "actually that's fine". "I just wrote it, I know it's right" is the disqualification, not the credential.
