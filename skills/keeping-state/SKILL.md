@@ -27,7 +27,7 @@ Task id: `YYYY-MM-DD-<slug>` (date the task started). Add `.ratchet/` to version
 ## What goes where — the only rule you need
 
 - **Will a fresh session need it to act correctly *right now*?** → the task's `state/<task-id>.md` (and its roster row in STATE.md)
-- **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (`reviewing-the-diff` writes it)
+- **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (the reviewer writes it)
 - **Might anyone need to know it happened?** → the task's `worklog/<task-id>.md`
 - **Should every future session change behavior because of it?** → LESSONS.md (via `retrospecting` — don't write it directly mid-task)
 
@@ -60,7 +60,7 @@ ephemeral. It gets a durable record: **`writing-the-issue`** decides which home 
 version-controlled worklog, or in-repo issue docs) and what goes in it.
 
 Review findings are durable records too, and the ones most often lost: a round's list arrives
-in the session and nowhere else. `reviewing-the-diff` records each lens to
+in the session and nowhere else. Each review lens writes its own findings to
 `review/<task-id>-<lens>.md`; like the worklog and unlike the state snapshot, those files
 **survive the task's close**.
 
@@ -145,7 +145,7 @@ Entry types: `sizing`, `decision`, `surprise`, `evidence`, `escalation`, `blocke
 | Non-obvious choice made | worklog `decision` (one line: what + why) |
 | Reality contradicted an assumption | worklog `surprise` (then `replanning-on-surprise`) |
 | Waiting on the user | task state file `blocked` + worklog `blocked` |
-| Review round received / finding triaged | review record `review/<task-id>-<lens>.md`: the reviewer's output verbatim ON RECEIPT, then each finding's disposition as triage resolves it |
+| Review round dispatched / finding triaged | review record `review/<task-id>-<lens>.md`: each reviewer writes its own findings there; you insert each finding's disposition as triage resolves it |
 | Gate passed, change landed | worklog `done`; row leaves roster; state file archived (the worklog file stays as the record) |
 
 Tier 0 writes exactly one line to its `worklog/<task-id>.md` at the end (`done`, with its evidence) and touches nothing else. If no `.ratchet/` exists yet, Tier 0 does not create it — the evidence line goes in the commit message and the report to the user; the directory (and the task's `worklog/` file) is born at the first Tier 1+ task.

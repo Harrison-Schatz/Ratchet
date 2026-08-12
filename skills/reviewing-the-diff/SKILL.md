@@ -20,41 +20,32 @@ Two subagents (per `delegating-to-agents`), same `BASE..HEAD`, at the same time:
 - **`fresh-eyes-review`** — "is this the right thing, built well?" Send the brief **verbatim**, the plan's step list + change log, and `BASE..HEAD`. **Deliberately withhold your session narrative** — a reviewer who heard you reason yourself into the bug will reason the same way straight past it. Hands back **ranked findings**.
 - **`ponytail-review`** — "should any of this exist?", the lazy-senior-dev / minimalism lens. Send the diff, the decision ladder, and one line on what the change is for; NOT the brief's full text and NOT your narrative (intent context only softens its YAGNI rung). Hands back a **delete-list**.
 
+Tell each reviewer where to write: `.ratchet/review/<task-id>-<lens>.md` (lens = `fresh-eyes`,
+`ponytail`, or the lens name of any extra pass), and the header to open with:
+
+```
+## [YYYY-MM-DD HH:MM] <round label> (BASE..HEAD)
+reviewer: <lens> (subagent | self-pass)
+```
+
+Each writes its own findings there before returning — that file is the only file it may write — so
+the round is on disk before you have read a word of it. One that hands back findings without
+writing them (no filesystem, a different working copy) leaves you the write.
+
 Parallel-safe per `delegating-to-agents`: both are read-only over the same diff with disjoint outputs. Both feed Step 2.
 
 **Risk surfaces get a second, independent pass** — auth, payments, migrations, secrets, concurrency, public APIs. It is mandatory on those files and it comes from a different subagent or the user, per the brief's risk notes. `fresh-eyes-review` reports the surfaces it found precisely so you know what to order; a diff you *know* touches one doesn't wait for permission.
 
 No subagent available → run both lenses yourself, as two separate passes in this order, per each skill's own self-pass note. One pass wearing both hats is not two lenses.
 
-### Step 2 — Record what came back, before triaging any of it
-
-Both lenses' output goes to disk the moment it arrives: append it to the review record
-`.ratchet/review/<task-id>-<lens>.md` — one file per lens per task (`fresh-eyes`, `ponytail`,
-and the lens name of any extra pass), a new section per round:
-
-```
-## [YYYY-MM-DD HH:MM] <round label> (BASE..HEAD)
-reviewer: <lens> (subagent | self-pass)
-
-<the reviewer's output, verbatim>
-  → disposition: <added by Step 3, beneath each finding — the only text ever inserted here>
-```
-
-Record before triaging, not after: triage is where findings get argued, merged and quietly
-downgraded, and a session that dies mid-argument leaves the next one re-deriving the review.
-
-You write these files, not the reviewers: they are read-only by contract, and a subagent may
-not even share your working copy. Running the lenses yourself instead → each pass records
-before the next one starts, or a death during the second pass takes the first with it.
-
-### Step 3 — Triage and resolve
+### Step 2 — Triage and resolve
 
 Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it — and when the *reason* for declining it will be re-litigated by someone who never had this session, it wants a durable record instead: `writing-the-issue`). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient). A pre-existing-mess note is not this task's burden — but a *recurring* one belongs in `retrospecting`, not in this diff.
 
 **Ponytail's delete-list** merges into this same triage. Default each item to **Minor** — a simplification, not a defect. Escalate to **Important** when the diff introduced a new dependency or a new abstraction that a lower ladder rung (stdlib, native platform, an already-installed dep, or a one-liner) already covered: unnecessary surface area is a cost paid forever. Never **Critical** — removing over-engineering doesn't break intent, data, or security, and the floor (trust-boundary validation, data-loss, security, accessibility) is off ponytail's list by construction. Apply each item only after verifying it against the repo per Motion B — a reviewer that only deletes is as dangerous as one that only adds.
 
-**Every finding gets a disposition, in the record.** As triage resolves each item, insert one
-line beneath it in the review record — never editing or deleting what the reviewer wrote:
+**Every finding gets a disposition, in the record.** This is your write, not the reviewer's:
+as triage resolves each item, insert one line beneath it, editing nothing else in the file:
 
 ```
   → disposition: FIXED @ <commit> | DECLINED — <evidence> | ISSUE #<n> | DEFERRED — <worklog ref>

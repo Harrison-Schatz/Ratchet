@@ -51,9 +51,9 @@ Return findings ONLY. No preamble, no "great work overall." Each item:
 
 If the diff is already minimal, say so in one line and return an empty list.
 
-When a dispatcher sent you, they record this list **verbatim** into the project's review record,
-where it outlives the session (`reviewing-the-diff` Step 2) — so each item must stand alone:
-location, rung, replacement.
+Write this list to the review record you were given, under the header you were given — it outlives
+the session, so each item must stand alone: location, rung, replacement. No path given means a
+standalone invocation: hand the list back and say it went unrecorded.
 
 ## When NOT to be lazy
 
@@ -80,8 +80,8 @@ test, YAGNI applies to tests too.
 - You produce a delete-list, you do not delete. 
 - Deletion over addition. Boring over clever, clever is what someone decodes at 3am.
 - Fewest files possible. Shortest working diff wins.
-- Read-only. Never edit files — the single exception is the self-pass record below, where you are also the dispatcher.
+- Read-only over the code — your review record is the one file you may write, and nothing else, anywhere.
 
 ## When you are the same session that wrote the diff
 
-No subagent available? Run this as its own pass, separate from the fresh-eyes pass and after it. Your own additions all feel earned — you just wrote them — so don't ask whether each is justified; ask which ladder rung it sits on, and name the rung before moving on. Write the whole delete-list before acting on any line of it, into the review record rather than a scratch buffer — you are the dispatcher too here, so that file is the one write this skill sanctions. Deleting as you go is how the easy cuts crowd out the real ones.
+No subagent available? Run this as its own pass, separate from the fresh-eyes pass and after it. Your own additions all feel earned — you just wrote them — so don't ask whether each is justified; ask which ladder rung it sits on, and name the rung before moving on. Write the whole delete-list into the review record before acting on any line of it. Deleting as you go is how the easy cuts crowd out the real ones.
