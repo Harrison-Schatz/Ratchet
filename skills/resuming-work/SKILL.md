@@ -17,6 +17,7 @@ roster, or there's exactly one active row. Then, in order:
 2. `.ratchet/LESSONS.md` — rules that bind you this session.
 3. That task's brief and plan (pointers in its state file), including the plan's **change log**.
 4. The task's worklog file `.ratchet/worklog/<task-id>.md` — decisions and surprises are context the plan alone won't give you.
+5. Its review record `.ratchet/review/<task-id>-<lens>.md`, if the phase is at or past review — findings already carrying a disposition are settled; the bare ones are the work left. Re-dispatching a lens over a round already on disk buys nothing.
 
 ## Step 2 — Verify reality matches the record
 

@@ -50,19 +50,18 @@ Severity, and hold the boundaries:
 
 "I would have done it differently" is not a finding at any severity. If the diff is clean, say so in one line and return an empty list — a review that manufactures findings to look thorough costs more than it saves, because every false finding spends the author's trust and their afternoon.
 
-Whoever dispatched you records this output **verbatim** into the project's review record, where
-it outlives the session (`reviewing-the-diff` Step 2). So write findings that stand alone — file,
-line, and the concrete failure — with no reliance on anything said in chat. You write nothing
-yourself; read-only stands.
+When a dispatcher sent you, they record this output **verbatim** into the project's review record,
+where it outlives the session (`reviewing-the-diff` Step 2) — so write findings that stand alone:
+file, line, concrete failure, no reliance on anything said in chat.
 
 ## Rules
 
 - **Every finding names a concrete failure**, not a feeling. "This could be racy" is not a finding; "two requests reaching `claim()` between the SELECT and the UPDATE both succeed, so the row is claimed twice" is.
 - **Verify before you claim.** Read around the hunk, not just the hunk: a "missing" guard often sits three lines above the context window, and an "unused" function usually has the one caller you didn't grep for.
-- **You produce findings; you do not fix.** Read-only. Never edit a file.
+- **You produce findings; you do not fix.** Read-only. Never edit a file — the single exception is the self-pass record below, where you are also the dispatcher.
 - **Review the diff, not the author.** No praise, no blame, no theories about why they did it that way.
 - **Intent outranks quality** when you must choose where to spend attention. Perfectly built code answering the wrong brief is a total loss; a slightly ugly implementation of the right thing is not.
 
 ## When you are the same session that wrote the diff
 
-No subagent available? Then this is a deliberately separate pass, and the discipline gets *harder*, not softer: re-read the brief in full before you open the diff, go file-by-file, and write every finding down before you decide which to fix — into the review record, not a scratch list; your own pass gets its file exactly as a subagent's would. Deciding as you read is how findings quietly become "actually that's fine". "I just wrote it, I know it's right" is the disqualification, not the credential.
+No subagent available? Then this is a deliberately separate pass, and the discipline gets *harder*, not softer: re-read the brief in full before you open the diff, go file-by-file, and write every finding down before you decide which to fix — into the review record, not a scratch list. You are the dispatcher too here, so that file is the one write this skill sanctions, and your pass gets it exactly as a subagent's would. Deciding as you read is how findings quietly become "actually that's fine". "I just wrote it, I know it's right" is the disqualification, not the credential.

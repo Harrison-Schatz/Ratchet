@@ -36,18 +36,16 @@ and the lens name of any extra pass), a new section per round:
 ## [YYYY-MM-DD HH:MM] <round label> (BASE..HEAD)
 reviewer: <lens> (subagent | self-pass)
 
-<the reviewer's output, verbatim — nothing edited, nothing summarized, nothing dropped>
+<the reviewer's output, verbatim>
+  → disposition: <added by Step 3, beneath each finding — the only text ever inserted here>
 ```
 
-**Verbatim, and before triage.** Triage is where findings get argued, merged, and quietly
-downgraded; a session that dies mid-argument takes an unrecorded list with it and the next
-one re-derives the whole review. Recording first also preserves the reviewer's own wording
-against your reading of it — the finding you decline today gets re-litigated by someone who
-never saw this session.
+Record before triaging, not after: triage is where findings get argued, merged and quietly
+downgraded, and a session that dies mid-argument leaves the next one re-deriving the review.
 
-The dispatcher writes these files. The reviewers do not: they are read-only by contract, and
-a subagent may not even share your working copy. No subagent available → your two self-passes
-record identically. Two passes, two files.
+You write these files, not the reviewers: they are read-only by contract, and a subagent may
+not even share your working copy. Running the lenses yourself instead → each pass records
+before the next one starts, or a death during the second pass takes the first with it.
 
 ### Step 3 — Triage and resolve
 
@@ -59,15 +57,8 @@ Findings come back as **Critical** (breaks intent/data/security — blocks the g
 line beneath it in the review record — never editing or deleting what the reviewer wrote:
 
 ```
-  → disposition: FIXED @ <commit> | DECLINED — <reason> | ISSUE #<n> | DEFERRED — <worklog ref>
+  → disposition: FIXED @ <commit> | DECLINED — <evidence> | ISSUE #<n> | DEFERRED — <worklog ref>
 ```
-
-A record where every finding carries one is the proof the round was finished rather than
-abandoned; a finding still bare when the gate closes is an unanswered question, not a Minor.
-`DECLINED` carries the evidence that beat the finding, in one line — and a declined finding
-deserves the same scrutiny as an accepted one, since it is the one nobody re-checks. When the
-reasoning is bigger than a line, or will be re-litigated later, it wants `writing-the-issue`'s
-durable record and the disposition cites it (`ISSUE #<n>`) instead of replacing it.
 
 ## Motion B — Receiving review feedback
 

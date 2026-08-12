@@ -27,6 +27,7 @@ Task id: `YYYY-MM-DD-<slug>` (date the task started). Add `.ratchet/` to version
 ## What goes where — the only rule you need
 
 - **Will a fresh session need it to act correctly *right now*?** → the task's `state/<task-id>.md` (and its roster row in STATE.md)
+- **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (`reviewing-the-diff` writes it)
 - **Might anyone need to know it happened?** → the task's `worklog/<task-id>.md`
 - **Should every future session change behavior because of it?** → LESSONS.md (via `retrospecting` — don't write it directly mid-task)
 
@@ -58,14 +59,10 @@ limitation accepted — does not belong in the roster or a state file, both of w
 ephemeral. It gets a durable record: **`writing-the-issue`** decides which home (tracker,
 version-controlled worklog, or in-repo issue docs) and what goes in it.
 
-Review findings are durable records too, and the ones most often lost: a review round
-returns its list into the session and nowhere else, so the reasoning behind each fix and
-each decline dies with the session. Every round is written to `review/<task-id>-<lens>.md`
-— one file per review lens per task, appended per round, the reviewer's output kept verbatim
-with each finding's disposition recorded beneath it. `reviewing-the-diff` owns the mechanics;
-the reviewers themselves stay read-only. Like the worklog and unlike the state snapshot,
-these files **survive the task's close** — someone re-litigating a declined finding cannot
-reconstruct that reasoning from the diff alone.
+Review findings are durable records too, and the ones most often lost: a round's list arrives
+in the session and nowhere else. `reviewing-the-diff` records each lens to
+`review/<task-id>-<lens>.md`; like the worklog and unlike the state snapshot, those files
+**survive the task's close**.
 
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
@@ -92,6 +89,7 @@ Implement step 4 (token refresh): see plan. Step 3 evidence is in the worklog.
 brief:   .ratchet/briefs/2026-06-09-oauth-login-brief.md
 plan:    .ratchet/plans/2026-06-09-oauth-login-plan.md
 worklog: .ratchet/worklog/2026-06-09-oauth-login.md
+review:  .ratchet/review/2026-06-09-oauth-login-<lens>.md   # once a round has been recorded
 ```
 
 "Next action" is the most important line in the system: ONE imperative sentence a stranger could execute. "Continue working" is a violation; "Run step 4 of the plan; note the refresh endpoint returns 204 not 200 (worklog 15:30)" is the standard. A task with no work left does not sit idle-in-place — it LANDS: its row leaves the roster and its state file is archived/removed (see `landing-the-change`). An empty roster means nothing is active.
