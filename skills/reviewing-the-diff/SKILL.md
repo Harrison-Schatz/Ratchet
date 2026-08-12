@@ -26,11 +26,48 @@ Parallel-safe per `delegating-to-agents`: both are read-only over the same diff 
 
 No subagent available → run both lenses yourself, as two separate passes in this order, per each skill's own self-pass note. One pass wearing both hats is not two lenses.
 
-### Step 2 — Triage and resolve
+### Step 2 — Record what came back, before triaging any of it
+
+Both lenses' output goes to disk the moment it arrives: append it to the review record
+`.ratchet/review/<task-id>-<lens>.md` — one file per lens per task (`fresh-eyes`, `ponytail`,
+and the lens name of any extra pass), a new section per round:
+
+```
+## [YYYY-MM-DD HH:MM] <round label> (BASE..HEAD)
+reviewer: <lens> (subagent | self-pass)
+
+<the reviewer's output, verbatim — nothing edited, nothing summarized, nothing dropped>
+```
+
+**Verbatim, and before triage.** Triage is where findings get argued, merged, and quietly
+downgraded; a session that dies mid-argument takes an unrecorded list with it and the next
+one re-derives the whole review. Recording first also preserves the reviewer's own wording
+against your reading of it — the finding you decline today gets re-litigated by someone who
+never saw this session.
+
+The dispatcher writes these files. The reviewers do not: they are read-only by contract, and
+a subagent may not even share your working copy. No subagent available → your two self-passes
+record identically. Two passes, two files.
+
+### Step 3 — Triage and resolve
 
 Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it — and when the *reason* for declining it will be re-litigated by someone who never had this session, it wants a durable record instead: `writing-the-issue`). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient). A pre-existing-mess note is not this task's burden — but a *recurring* one belongs in `retrospecting`, not in this diff.
 
 **Ponytail's delete-list** merges into this same triage. Default each item to **Minor** — a simplification, not a defect. Escalate to **Important** when the diff introduced a new dependency or a new abstraction that a lower ladder rung (stdlib, native platform, an already-installed dep, or a one-liner) already covered: unnecessary surface area is a cost paid forever. Never **Critical** — removing over-engineering doesn't break intent, data, or security, and the floor (trust-boundary validation, data-loss, security, accessibility) is off ponytail's list by construction. Apply each item only after verifying it against the repo per Motion B — a reviewer that only deletes is as dangerous as one that only adds.
+
+**Every finding gets a disposition, in the record.** As triage resolves each item, insert one
+line beneath it in the review record — never editing or deleting what the reviewer wrote:
+
+```
+  → disposition: FIXED @ <commit> | DECLINED — <reason> | ISSUE #<n> | DEFERRED — <worklog ref>
+```
+
+A record where every finding carries one is the proof the round was finished rather than
+abandoned; a finding still bare when the gate closes is an unanswered question, not a Minor.
+`DECLINED` carries the evidence that beat the finding, in one line — and a declined finding
+deserves the same scrutiny as an accepted one, since it is the one nobody re-checks. When the
+reasoning is bigger than a line, or will be re-litigated later, it wants `writing-the-issue`'s
+durable record and the disposition cites it (`ISSUE #<n>`) instead of replacing it.
 
 ## Motion B — Receiving review feedback
 
@@ -49,3 +86,4 @@ Findings come back as **Critical** (breaks intent/data/security — blocks the g
 | "Review will just slow down landing" | Tier 0/1 doesn't require this skill. Tier 2+ earned it by being big enough to be wrong in expensive ways. |
 | "The reviewer is a bot, just do what it says" | Verified-then-applied beats applied-then-broken. Every suggestion gets checked against the repo first. |
 | "I'll fix the minor stuff later" | Fine — "later" is a worklog line, not a memory. Unwritten laters don't exist. |
+| "The findings are in the transcript" | The transcript is not disk, and it ends with this session. An unrecorded round is one nobody can audit — including you, next week, holding the same diff. |
