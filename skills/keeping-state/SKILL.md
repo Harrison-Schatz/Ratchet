@@ -16,6 +16,7 @@ The conversation is volatile memory; `.ratchet/` is disk. Anything a fresh sessi
 ├── STATE.md        # ROSTER — index of all active tasks (one row each). Overwritten.
 ├── state/          # <task-id>.md — one per active task: that task's full snapshot
 ├── worklog/        # <task-id>.md — one append-only journal per task
+├── review/         # <task-id>-<lens>.md — findings from each review round, verbatim + disposition
 ├── LESSONS.md      # project rules earned from retrospectives (see retrospecting)
 ├── briefs/         # <task-id>-brief.md
 └── plans/          # <task-id>-plan.md
@@ -56,6 +57,15 @@ A problem you are not fixing now — work deferred, a review finding declined, a
 limitation accepted — does not belong in the roster or a state file, both of which are
 ephemeral. It gets a durable record: **`writing-the-issue`** decides which home (tracker,
 version-controlled worklog, or in-repo issue docs) and what goes in it.
+
+Review findings are durable records too, and the ones most often lost: a review round
+returns its list into the session and nowhere else, so the reasoning behind each fix and
+each decline dies with the session. Every round is written to `review/<task-id>-<lens>.md`
+— one file per review lens per task, appended per round, the reviewer's output kept verbatim
+with each finding's disposition recorded beneath it. `reviewing-the-diff` owns the mechanics;
+the reviewers themselves stay read-only. Like the worklog and unlike the state snapshot,
+these files **survive the task's close** — someone re-litigating a declined finding cannot
+reconstruct that reasoning from the diff alone.
 
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
@@ -137,6 +147,7 @@ Entry types: `sizing`, `decision`, `surprise`, `evidence`, `escalation`, `blocke
 | Non-obvious choice made | worklog `decision` (one line: what + why) |
 | Reality contradicted an assumption | worklog `surprise` (then `replanning-on-surprise`) |
 | Waiting on the user | task state file `blocked` + worklog `blocked` |
+| Review round received / finding triaged | review record `review/<task-id>-<lens>.md`: the reviewer's output verbatim ON RECEIPT, then each finding's disposition as triage resolves it |
 | Gate passed, change landed | worklog `done`; row leaves roster; state file archived (the worklog file stays as the record) |
 
 Tier 0 writes exactly one line to its `worklog/<task-id>.md` at the end (`done`, with its evidence) and touches nothing else. If no `.ratchet/` exists yet, Tier 0 does not create it — the evidence line goes in the commit message and the report to the user; the directory (and the task's `worklog/` file) is born at the first Tier 1+ task.
