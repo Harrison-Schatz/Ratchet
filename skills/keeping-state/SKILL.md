@@ -19,7 +19,8 @@ The conversation is volatile memory; `.ratchet/` is disk. Anything a fresh sessi
 ├── review/         # <task-id>-<lens>.md — findings from each review round, verbatim + disposition
 ├── LESSONS.md      # project rules earned from retrospectives (see retrospecting)
 ├── briefs/         # <task-id>-brief.md
-└── plans/          # <task-id>-plan.md
+├── plans/          # <task-id>-plan.md
+└── issues/         # #N records — problems found while developing the application and not fixed now (writing-the-issue); README.md pins the status vocabulary, or points at the project's own tracker/corpus
 ```
 
 Task id: `YYYY-MM-DD-<slug>` (date the task started). Add `.ratchet/` to version control — state that isn't pushed dies with the laptop. (If the user objects, gitignore it and say the durability guarantee is now local-only.)
@@ -56,8 +57,8 @@ updated: 2026-06-09 15:42
 
 A problem you are not fixing now — work deferred, a review finding declined, a known
 limitation accepted — does not belong in the roster or a state file, both of which are
-ephemeral. It gets a durable record: **`writing-the-issue`** decides which home (tracker,
-version-controlled worklog, or in-repo issue docs) and what goes in it.
+ephemeral. It gets a durable record in `.ratchet/issues/` — or in the project's own tracker or
+corpus when `.ratchet/issues/README.md` points there: **`writing-the-issue`** owns the choice and the format.
 
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
@@ -111,6 +112,10 @@ next state write, split it into `STATE.md` (roster) + `state/<task-id>.md`. No f
 Likewise, an older `.ratchet/` may hold a single append-only `WORKLOG.md` and no `worklog/`
 dir. Treat it as legacy history: read it when resuming, leave it in place, and put NEW work in
 `worklog/<task-id>.md` going forward. No flag day.
+
+An older `.ratchet/` may have no `issues/`, or the project may already keep issue records
+somewhere else (a repo-root `issues/`, a tracker). On the first `writing-the-issue` call, create
+`.ratchet/issues/README.md` pointing at the existing corpus; nothing moves. No flag day.
 
 ## worklog/<task-id>.md — append-only per-task entries
 

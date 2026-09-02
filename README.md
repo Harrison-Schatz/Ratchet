@@ -78,7 +78,8 @@ Everything a fresh session needs lives in `.ratchet/` at the repo root:
 ├── review/       # <task-id>-<lens>.md — each review round's findings, verbatim, with every disposition
 ├── LESSONS.md    # project rules earned from retrospectives, loaded at every session start
 ├── briefs/       # confirmed intent: goals, observable acceptance checks, out-of-scope lists
-└── plans/        # step sequences with proofs and a change log
+├── plans/        # step sequences with proofs and a change log
+└── issues/       # problems found developing the application and not fixed now; README.md points at the project's own tracker when one exists
 ```
 
 If the session dies mid-task, the cost is at most one step: the next agent reads STATE.md, verifies it against `git status` and the test suite (state is a *claim* until checked), reconciles, and continues.

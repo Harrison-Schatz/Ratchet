@@ -24,8 +24,7 @@ Try, in order of cheapness:
 
 ## Step 3 — Write characterization tests
 
-1. **Ask the code, not your model of it.** Write a test asserting a *wrong but plausible* value: `expect(fee(100)).toEqual(999)`. Run it. The failure message tells you the real answer. Now assert THAT.
-   This sounds backwards; it is the point — your guesses about legacy behavior are exactly what can't be trusted.
+1. **Ask the code, not your model of it.** Run the current code over each input and assert the value it actually returned — your guesses about legacy behavior are exactly what can't be trusted.
 2. Cover the blast radius, not the module: each input class your change could affect — typical, boundary (empty/zero/null/max), and at least one error path ("what does it currently do with garbage?" — often "returns undefined silently"; pin that too, bugs included).
 3. Name them for what they record: `test('charges 2.9% + 30c on amounts over $1 (current behavior)')`.
 4. **Pin current behavior even when it's wrong.** Found a bug? Worklog `surprise` entry, tell the user, pin it as-is unless fixing it joins the task's scope (via re-sizing). Silent fixes are scope creep wearing a halo.
