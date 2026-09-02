@@ -61,8 +61,7 @@ version-controlled worklog, or in-repo issue docs) and what goes in it.
 
 ## state/<task-id>.md — the per-task snapshot (overwrite at every phase boundary and executed step)
 
-One file per active task, written ONLY by that task's owner — the old single-STATE body,
-now per task:
+One file per active task, written ONLY by that task's owner:
 
 ```markdown
 # Task state: 2026-06-09-oauth-login

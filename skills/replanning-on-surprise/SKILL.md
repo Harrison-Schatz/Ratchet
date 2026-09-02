@@ -41,7 +41,7 @@ Second surprise on the same task = automatic sizing trigger regardless of class 
 2. Salvage audit: which completed steps survive the new approach? Committed work that's now wrong gets reverted deliberately, with a change-log line — not left to rot misleadingly in the tree.
 3. Write replacement steps under the same rules as `planning-the-work` (files + proof, no placeholders); re-run its self-check on the remainder (coverage vs. brief, stranger test).
 4. Change-log entry summarizing old approach → new approach → why.
-5. Update STATE.md (step counts changed; "Next action" points into the new steps). Resume.
+5. Update the task's state file and roster row (step counts changed; "Next action" points into the new steps). Resume.
 
 **Intent-level:**
 1. Update STATE.md: `blocked` (or proceed-on-assumption only if the brief pre-authorized it in `## Assumed without confirmation`).

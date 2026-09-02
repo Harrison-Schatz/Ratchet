@@ -35,6 +35,9 @@ cost; do not even suggest trimming them:
 - data-loss handling (writes, migrations, deletes, retries)
 - security (authz, secrets, injection defenses, crypto)
 - accessibility
+- anything the user explicitly asked for (they want the full version → it stays; no re-arguing)
+- tests that pin a behavior per `testing-by-default` — test *sprawl* (per-function suites, fixtures serving nothing) is a finding; the failure-path test never is
+- calibration knobs on physical-world inputs — clocks drift, sensors read off; a minimal model can't see what needs tuning
 
 If a chunk of the diff exists to serve one of these, it has already earned its place.
 
@@ -54,24 +57,6 @@ If the diff is already minimal, say so in one line and return an empty list.
 **Append** this list to the review record you were given, under the header you were given, never
 touching an earlier section. If you cannot write it (no path given, no filesystem), hand the list
 back and say it went unrecorded.
-
-## When NOT to be lazy
-
-- Never simplify away: input validation at trust boundaries, error handling
-that prevents data loss, security measures, accessibility basics, anything
-explicitly requested. User insists on the full version → build it, no
-re-arguing.
-
-- Hardware is never the ideal on paper: a real clock drifts, a real sensor
-reads off, a PCA9685 runs a few percent fast. Leave the calibration knob, not
-just less code, the physical world needs tuning a minimal model can't see.
-
-- Lazy code without its check is unfinished. Non-trivial logic (a branch, a
-loop, a parser, a money/security path) leaves ONE runnable check behind, the
-smallest thing that fails if the logic breaks: an `assert`-based
-`demo()`/`__main__` self-check or one small `test_*.py`. No frameworks, no
-fixtures, no per-function suites unless asked. Trivial one-liners need no
-test, YAGNI applies to tests too.
 
 ## Rules
 

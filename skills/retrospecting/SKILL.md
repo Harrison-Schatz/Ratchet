@@ -56,7 +56,7 @@ LESSONS.md is read at EVERY session start (`using-ratchet` Step 0) — it compet
 ## Step 5 — Close
 
 1. Worklog `retro` entry: lessons added/merged/pruned (or "no lessons — clean task", which is a fine outcome).
-2. Report to the user in one or two lines: what was learned, or that nothing recurring surfaced.
+2. Report to the user, briefly: what was learned, or that nothing recurring surfaced.
 
 ## Rationalization check
 

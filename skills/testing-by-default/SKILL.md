@@ -58,7 +58,7 @@ When the unknown is a state model, data shape, or UI design, invoke `prototyping
 
 | Thought | Reality |
 |---|---|
-| "Too simple to test" | Simple = 30-second test. If it's too trivial for a test, why does the change exist? |
+| "Too simple to test" | Then it's Tier 0, and one proving command is its test (`verifying-done`). At Tier 1+ the change alters behavior — name what would break and test that; the failure-path test is the one that pays. |
 | "I'll add tests after this works" | Tests-after verify what you built; tests-first verify what was wanted. Different questions; only one catches the misunderstanding. |
 | "Mocking everything is the only way" | That's the code telling you it has no seams. `finding-seams`. |
 | "This is exploratory" | Fine — declare a spike with a timebox. Undeclared exploration that quietly ships IS the failure. |
