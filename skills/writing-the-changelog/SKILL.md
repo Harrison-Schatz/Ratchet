@@ -49,7 +49,7 @@ Internal only — no user-facing change.
 **Quality rules**
 
 - **Impact first, mechanism in parentheses** — as in the Changed bullet above. Never the mechanism alone, never the reverse order.
-- **One sentence per bullet**, 40 words or fewer, at most one parenthetical **besides the reference**. Longer means it carries two facts and wants to be two bullets.
+- **One sentence per bullet**, with at most one parenthetical **besides the reference**. A bullet that runs long carries two facts and wants to be two bullets.
 - **Fewer words, more clarity.** Every line earns its place — if the same intent fits in fewer words, use fewer.
 - **Past tense**, describing the release's effect rather than the author's action: "the export finished", never "fixed the export"; a removal reads "was removed". (Carve-out: a standing condition that is still true reads present — "requires a restart" — because past tense would imply it stopped being true.)
 

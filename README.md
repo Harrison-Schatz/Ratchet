@@ -72,7 +72,7 @@ Everything a fresh session needs lives in `.ratchet/` at the repo root:
 
 ```
 .ratchet/
-├── STATE.md      # roster of active tasks (one row each) — id, tier, phase, step, NEXT ACTION, pointers
+├── STATE.md      # roster of active tasks (one row each) — id, owner, tier, phase, step, branch, pointers to its state file and worklog
 ├── state/        # <task-id>.md — per-task snapshot (cold-resume detail per active task)
 ├── worklog/      # <task-id>.md — per-task append-only journal: sizings, decisions, surprises, evidence
 ├── review/       # <task-id>-<lens>.md — each review round's findings, verbatim, with every disposition

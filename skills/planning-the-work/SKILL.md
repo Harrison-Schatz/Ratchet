@@ -55,7 +55,7 @@ Fix inline; no re-review ceremony.
 
 ## Step 4 — Hand off
 
-Update `.ratchet/STATE.md`: phase `executing`, step `0 of N`, pointer to the plan. Then invoke `executing-with-checkpoints`. Plan approval by the user is NOT required (the brief was the intent gate) — but show the plan path and one-paragraph summary so they can object cheaply.
+Update the task's state file and roster row: phase `executing`, step `0 of N`, plan pointer. Then invoke `executing-with-checkpoints`. Plan approval by the user is NOT required (the brief was the intent gate) — but show the plan path and one-paragraph summary so they can object cheaply.
 
 ## Stop conditions
 

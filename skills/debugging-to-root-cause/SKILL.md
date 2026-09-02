@@ -15,13 +15,9 @@ A fix you can't explain is a coin flip wearing a confidence interval. The rule: 
 2. Can't reproduce → that IS the current task: vary environment, data, timing; add instrumentation at the failure site. Do not fix what you cannot make happen — you'd never know you fixed it.
 3. Reproducible only sometimes → capture the conditions (1-in-5 with what data? under load?). Flakiness is data: it points at timing, ordering, or shared state.
 
-## Step 2 — Gather evidence (cheap to expensive)
+## Step 2 — Gather evidence
 
-1. **Read the entire error.** Stack trace, line numbers, the wording. Errors usually name their cause; agents usually skim them.
-2. **Diff against last-known-good.** `git log`/`git diff` since it worked; new dependencies; environment differences. "Worked yesterday" means the cause is in yesterday's diff — usually.
-3. **Trace the bad value backward.** From where the symptom appears, walk UP the call chain: what produced this value? what called that with what arguments? Continue until you reach the origin. The fix belongs at the origin, not where the error happened to surface.
-4. **Instrument boundaries in multi-component failures** (request → service → DB; CI → build → deploy): log what enters and exits each layer, run once, find the layer where good data turns bad. Then investigate THAT layer only.
-5. **Compare against the working sibling.** Similar code that works? List every difference; refuse to assume any "can't matter."
+Read the full error and the diff since it last worked, then trace the bad value backward to where it was born — the fix belongs at that origin, not where the error surfaced. Record what you find; the hypothesis in Step 3 has to cite it.
 
 ## Step 3 — One hypothesis, in writing
 

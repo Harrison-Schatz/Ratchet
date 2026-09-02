@@ -26,7 +26,7 @@ Run the plan one step at a time. Every step ends in a provable, committed, recor
 4. **Checkpoint** (the click — all four, in order):
    1. Commit with the step's message.
    2. Append worklog evidence line: `## [time] <task-id> — evidence` + the command run + result summary ("14 passed, 0 failed").
-   3. Tick the step in STATE.md (`step 3 of 7`), update "Next action" to the next step's name.
+   3. Tick the step in the task's state file and its roster row (`step 3 of 7`); set the state file's "Next action" to the next step's name.
    4. One line for anything learned that a fresh session would need (decisions, gotchas) — `keeping-state` has the formats.
 5. **Next step.** Do not pause to ask "should I continue?" — the plan was the authorization. Stop only for the stop conditions below.
 

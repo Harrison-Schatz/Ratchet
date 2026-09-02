@@ -1,6 +1,6 @@
 ---
 name: resuming-work
-description: Use at the start of any session where .ratchet/STATE.md shows status active or blocked, when the user says "continue", "pick up where we left off", "where were we", or references work you have no memory of, or after a context compaction mid-task. Resume from disk — do not reconstruct from guesswork or restart work that already exists.
+description: Use at the start of any session where .ratchet/STATE.md lists an active or blocked task, when the user says "continue", "pick up where we left off", "where were we", or references work you have no memory of, or after a context compaction mid-task. Resume from disk — do not reconstruct from guesswork or restart work that already exists.
 ---
 
 # Resuming Work
@@ -40,11 +40,11 @@ git log --oneline -10       # do commits match the plan's checkpointed steps?
 
 1. Correct your task's state file (and its roster row) to match verified reality (this is the one case where you rewrite outside a phase boundary). Touch only your task's files — never another active task's.
 2. Append a worklog entry: `— decision: resumed; repo state <matched | reconciled: how>`.
-3. Tell the user in 2–4 sentences where things stand: task, step N of M, anything reconciled, what you'll do next. Do not re-litigate decisions already recorded in the brief/worklog — they were made; the record is the memory.
+3. Tell the user where things stand — task, step N of M, anything reconciled, what you'll do next — as a short recap a reader with no context can follow. Do not re-litigate decisions already recorded in the brief/worklog — they were made; the record is the memory.
 
 ## Step 4 — Continue
 
-- `status: blocked` → check whether the blocking answer has arrived (in the user's message, or overtaken by events). If not, ask it again — once — and stop.
+- The state file's **Blocked on** names a question → check whether the blocking answer has arrived (in the user's message, or overtaken by events). If not, ask it again — once — and stop.
 - phase `executing` → re-enter `executing-with-checkpoints` at the recorded step.
 - phase `briefing`/`planning` → re-enter that skill where its artifact left off.
 - phase `verifying`/`landing` → `verifying-done` (gates re-run from scratch; stale evidence is no evidence).
