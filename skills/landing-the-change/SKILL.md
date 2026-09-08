@@ -37,6 +37,8 @@ As each returns, **verify its edits like the gate** (`delegating-to-agents` Step
 
 (**Tier 0/1: no fan-out.** One entry and maybe one status flip is not worth three agents — run `writing-the-changelog` inline, and `writing-the-issue` when something was deferred or declined, or the change resolved a record whose status must flip. The entry is still mandatory; the fan-out is an economy, not the rule.)
 
+**The base moves while you work — landing is a loop, not a step.** Fetch, merge the base branch, re-run the suite, push, and verify the CI run by its own id (a list view can report a stale verdict); repeat until the run on your LATEST commit is green. Before the entry and the PR body are written, re-read the project's landing contracts — changelog format, versioning rules, any number reserved in the roster — as of the CURRENT base, because another landing may have changed them; and a PR description that went stale is rewritten, never appended to.
+
 **Common path (PR):**
 ```
 git push -u origin <task-id>

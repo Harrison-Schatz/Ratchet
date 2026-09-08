@@ -118,6 +118,8 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 
 Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelog` run longer — one carries the state layout, the other the changelog entry format and its guards): pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed.
 
+**Editing a skill:** every SKILL.md restates its rules twice more — in the frontmatter `description` and in the Rationalization table at the end. When you change a step, re-read both restatements for a surviving contradiction. An agent that meets a new step and an old rationalization line resolves toward the old line.
+
 ## Getting started
 
 The skills use the standard `SKILL.md` format (YAML frontmatter + body) and work with any agent harness that supports it (Claude Code and compatibles).

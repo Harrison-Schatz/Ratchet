@@ -33,6 +33,8 @@ verbatim, before you triage.
 
 Parallel-safe per `delegating-to-agents`: both read the same diff and write disjoint record files (so an extra pass needs its own lens name). Both feed Step 2.
 
+One thing both briefs must carry: a seam this diff adds with no caller BY DESIGN — its consumer lives in another active task, or lands in the next step — reads as dead code to every lens. Name the consumer and why it cannot ship here, or expect the same deletion finding from both reviewers.
+
 **Risk surfaces get a second, independent pass** — auth, payments, migrations, secrets, concurrency, public APIs. It is mandatory on those files and it comes from a different subagent or the user, per the brief's risk notes. `fresh-eyes-review` reports the surfaces it found precisely so you know what to order; a diff you *know* touches one doesn't wait for permission.
 
 No subagent available → run both lenses yourself, as two separate passes in this order, per each skill's own self-pass note. One pass wearing both hats is not two lenses.
@@ -40,6 +42,8 @@ No subagent available → run both lenses yourself, as two separate passes in th
 ### Step 2 — Triage and resolve
 
 Findings come back as **Critical** (breaks intent/data/security — blocks the gate), **Important** (fix before landing), **Minor** (note; fix if free, else worklog it — and when the *reason* for declining it will be re-litigated by someone who never had this session, it wants a durable record instead: `writing-the-issue`). Loop fixes → re-check the specific finding. All Critical/Important resolved → proceed to `verifying-done` (the gate re-runs the proofs; review approval is necessary, not sufficient). A pre-existing-mess note is not this task's burden — but a *recurring* one belongs in `retrospecting`, not in this diff.
+
+**Read both records in full before applying either.** The lenses overlap on the same lines, and a replacement text from one can preserve the exact claim the other just falsified — applied in arrival order, the falsified sentence survives with a new shape.
 
 **Ponytail's delete-list** merges into this same triage. Default each item to **Minor** — a simplification, not a defect. Escalate to **Important** when the diff introduced a new dependency or a new abstraction that a lower ladder rung (stdlib, native platform, an already-installed dep, or a one-liner) already covered: unnecessary surface area is a cost paid forever. Never **Critical** — removing over-engineering doesn't break intent, data, or security, and the floor (trust-boundary validation, data-loss, security, accessibility) is off ponytail's list by construction. Apply each item only after verifying it against the repo per Motion B — a reviewer that only deletes is as dangerous as one that only adds.
 

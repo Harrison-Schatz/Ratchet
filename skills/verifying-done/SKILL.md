@@ -34,13 +34,15 @@ description: Use BEFORE saying "done", "fixed", "complete", "passing", "works no
 | **T2** | T1 + full suite & lint/build + EVERY acceptance check in the brief individually demonstrated + `reviewing-the-diff` completed with Critical/Important findings resolved |
 | **T3** | T2 per milestone; project-level: all milestone gates passed + the brief's milestone list reconciled |
 
-A claim above your evidence is capped: tests passing but acceptance check 4 undemonstrated = "5 of 6 verified; #4 pending because X" — not "done."
+A claim above your evidence is capped: tests passing but acceptance check 4 undemonstrated = "5 of 6 verified; #4 pending because X" — not "done." Rendered UI is the standing case: no suite here looks at a screen, and a reviewer reading markup is as blind as you are, so a layout or styling claim stays "expected, pending visual" until a person or a browser observed it on the build serving THAT change.
 
 ## Hard rules
 
 - **Subagent and tool reports are claims, not evidence.** An agent saying "all tests pass" obligates YOU to run the tests. (See `delegating-to-agents`.)
 - **Verification cannot be waived** — not by the user's "just ship it" (then the *user's instruction* is recorded and evidence still gathered for what was actually checked), not by tier, not by deadline. Tier scales how MUCH evidence; never whether.
 - **Satisfaction language counts as a claim.** "Great, that should do it!" asserts success. Hold it until after the gate.
+- **Prose is a claim too.** Every superlative, count, and mechanism sentence bound for a changelog, PR body, or comment gets executed before it is written: grep the "last one", count the count, read the code path the sentence describes — every name in a mechanism sentence can be real while the sentence is false. A green test proves its assertion and a 2xx proves the route answered; neither proves the effect the sentence names. Observe that directly.
+- **A proof gate must be able to fail.** A grep sweep, a threshold, a fixture-based check: plant the defect it guards against, watch it go red, remove the plant, watch it go green. A gate that never went red proves only that it ran.
 
 ## On failure at the gate
 

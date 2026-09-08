@@ -18,6 +18,7 @@ Untested code is a claim; tested code is a fact. The default is test-first — b
 | Genuine unknowns — unfamiliar API, feasibility question, "will this even work?" | **Spike-then-stabilize** (below; for state-model or UI questions, `prototyping-to-decide` is the structured playbook) |
 | Bugfix, any territory | **Test-first, always** — reproduce as a failing test before fixing; no exceptions, because a bug is by definition a behavior you can demonstrate |
 | Not provable by automated test (visual polish, copy, perf feel) | **Declared manual proof**: state in the worklog WHAT you will observe to verify, then observe it at the gate. Unprovable ≠ unverified. |
+| A schema or data-invariant change, where the suite's fixtures are minimal or empty | **Declared populated proof**: empty tables pass every migration, so run the change against a realistic snapshot (a restored backup, a seeded copy) and record what it could have FAILED on — a check that had nothing to fail on proved nothing. |
 
 Declare the choice where the work is recorded. An undeclared discipline is a missing one.
 
