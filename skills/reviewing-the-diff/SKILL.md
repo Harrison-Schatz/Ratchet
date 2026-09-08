@@ -33,6 +33,8 @@ verbatim, before you triage.
 
 Parallel-safe per `delegating-to-agents`: both read the same diff and write disjoint record files (so an extra pass needs its own lens name). Both feed Step 2.
 
+Both briefs name any seam this diff adds with no caller BY DESIGN — consumer in another active task, or the next step — and why the caller cannot ship here; unnamed, it reads as dead code to every lens.
+
 **Risk surfaces get a second, independent pass** — auth, payments, migrations, secrets, concurrency, public APIs. It is mandatory on those files and it comes from a different subagent or the user, per the brief's risk notes. `fresh-eyes-review` reports the surfaces it found precisely so you know what to order; a diff you *know* touches one doesn't wait for permission.
 
 No subagent available → run both lenses yourself, as two separate passes in this order, per each skill's own self-pass note. One pass wearing both hats is not two lenses.
@@ -52,7 +54,7 @@ as triage resolves each item, insert one line beneath it, editing nothing else i
 
 ## Motion B — Receiving review feedback
 
-1. **Read all of it before reacting to any of it.** Items often interlock; partial understanding produces wrong fixes.
+1. **Read all of it before reacting to any of it** — both lens records, when two ran: one lens's replacement text can preserve the exact claim the other falsified. Items often interlock; partial understanding produces wrong fixes.
 2. **Verify each claim against the repo before implementing.** Reviewers (human, bot, or the checklists above) are sometimes wrong: check whether the suggestion breaks existing behavior, whether the current code is this way for a reason (git blame, comments, LESSONS.md), whether the "missing" feature is actually called anywhere.
 3. Anything unclear → ask about ALL unclear items before implementing ANY item.
 4. **Disagree technically when warranted**: state the evidence ("this path is unreachable because X; test Y pins it"), propose the alternative, let the author/user arbitrate. Implementing a change you believe is wrong, silently, is the worst available move.

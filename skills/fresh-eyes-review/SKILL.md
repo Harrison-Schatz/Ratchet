@@ -27,6 +27,7 @@ The brief verbatim, the plan's step list and change log, and `BASE..HEAD`. Nothi
 - **Correctness:** failure paths handled wherever the happy path is; off-by-ones at boundaries; resources closed; concurrent access wherever state is shared.
 - **Tests:** do they assert real behavior or mock theater? Does each new behavior have its failure-path test? Would they actually fail if the change were reverted?
 - **Fit:** does it follow the patterns already in this codebase? Do new abstractions earn their existence?
+- **Deletions:** what fed the removed code — a parameter, config key, payload field — still there, still type-checking? The diff shows the removal, never the orphan: name each, or the comment saying the discard is deliberate.
 - **Risk surfaces:** secrets out of code and logs; injection surfaces parameterized; migrations reversible or staged. **Name every risk surface this diff touches, explicitly, even where you found nothing wrong** — the dispatcher owes those files a second independent pass and cannot order one for a surface you never named.
 - **Pre-existing mess** not introduced by this diff: at most one line, labelled as pre-existing. It is not this task's burden.
 

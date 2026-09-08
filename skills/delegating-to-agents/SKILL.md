@@ -20,7 +20,7 @@ A subagent is a fresh context: it knows exactly what you tell it, nothing else. 
 Every dispatch contains, pasted inline (a delegate told to "read the plan" reads it without the conversation that gave it meaning):
 1. **Goal** — one sentence.
 2. **Full task text** — the plan step / DoD verbatim, plus only the context that makes it actionable (relevant file paths, the surprising API behavior from the worklog, the project's test command, applicable LESSONS.md rules).
-3. **Constraints** — files it may touch; files it must NOT touch; discipline expected (`test-first per RED-GREEN`); "do NOT fix unrelated things you find — report them."
+3. **Constraints** — files it may touch; files it must NOT touch; discipline expected (`test-first per RED-GREEN`); "do NOT fix unrelated things you find — report them." When delegates coexist, three more: "write nothing into the working tree — scratch in your own temp dir"; which checkout to read and verify against, when more than one exists; and, when they share one test environment (database, dev stack, port), exactly ONE runs the suite — the rest get read-only analysis, or targeted test ids only where the runner isolates them from the shared resource, plus "never report a red you did not reproduce alone." Concurrent runs corrupt each other and surface as failures in files nobody touched.
 4. **Output contract** — exactly what to return: files changed, commands run **with verbatim output**, what was NOT done, surprises encountered.
 5. **Escalation permission** — "if blocked or the task seems wrong, STOP and say so; a clear question beats a confident mess."
 
@@ -34,7 +34,7 @@ Every dispatch contains, pasted inline (a delegate told to "read the plan" reads
 ## Step 3 — Verify like the gate, because it is the gate
 
 **A delegate's report is a claim. Evidence is what YOU observe.** For each returned task:
-1. Look at the actual diff (`git diff` / read the files). Changes exist? Within the allowed file set?
+1. Look at the actual diff (`git diff` / read the files). Changes exist? Within the allowed file set? Untracked strays (`git status --short`) count too — a probe script left behind ships with the next `add -A`.
 2. Run the proving command yourself (the plan step's "Prove it", or the suite). The delegate's pasted output is *its* evidence; the gate needs *yours* — agents misread their own output, run stale commands, or test the wrong thing, without lying once.
 3. Cross-delegate check after parallel work: full suite once (delegates can each pass alone and conflict together), plus skim for overlapping edits.
 4. Only then checkpoint per `executing-with-checkpoints` (commit, evidence line, STATE tick — the evidence line cites YOUR run).
