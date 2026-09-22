@@ -1,0 +1,13 @@
+{
+  "name": "ratchet",
+  "version": "0.1.0",
+  "description": "Ratchet: an evidence-gated operating methodology for agent-driven software work, as 23 Claude Code skills.",
+  "author": {
+    "name": "Harrison Schatz",
+    "url": "https://github.com/Harrison-Schatz"
+  },
+  "homepage": "https://github.com/Harrison-Schatz/Ratchet",
+  "repository": "https://github.com/Harrison-Schatz/Ratchet",
+  "license": "MIT",
+  "keywords": ["methodology", "skills", "agent-workflow", "verification"]
+}

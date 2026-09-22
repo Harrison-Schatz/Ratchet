@@ -9,6 +9,8 @@ Ratchet is the operating methodology for this project. It exists because agent w
 
 **Prevents:** skills never firing at all (the meta-failure). If you don't route, nothing downstream works.
 
+**Naming.** Installed as a Claude Code plugin, every skill in this catalog is listed as `ratchet:<name>` (e.g. `ratchet:sizing-the-task`); a bare name anywhere in these skills means that entry. Copied into a skills directory instead, the names are bare.
+
 ## Step 0 — Orient (always, before anything else)
 
 1. Check for `.ratchet/STATE.md` (the roster of active tasks).
