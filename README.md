@@ -122,9 +122,21 @@ Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelo
 
 The skills use the standard `SKILL.md` format (YAML frontmatter + body) and work with any agent harness that supports it (Claude Code and compatibles).
 
-1. Copy the `skills/` directories into your harness's skills location (e.g. `.claude/skills/` for a project, or your user-level skills directory).
-2. Ensure `using-ratchet` loads at session start — via your harness's session hook, or by listing it first in your project instructions (`CLAUDE.md`/`AGENTS.md`).
-3. Work normally. The first Tier 1+ task creates `.ratchet/`; commit it — state that isn't pushed dies with the laptop.
+**Claude Code (plugin, recommended).** The repo is its own plugin marketplace:
+
+```bash
+claude plugin marketplace add Harrison-Schatz/Ratchet
+claude plugin install ratchet@ratchet
+```
+
+Skills then list under the `ratchet` source (e.g. `ratchet:sizing-the-task`), and `claude plugin update ratchet@ratchet` pulls the latest release. Do not also copy `skills/` into `.claude/skills/`: the harness loads both and every skill costs its context twice. The companion [Ratchet-Testing](https://github.com/Harrison-Schatz/Ratchet-Testing) installs the same way.
+
+**Any other harness.** Copy the `skills/` directories into its skills location. The repo checks out LF (`.gitattributes`); keep it that way — a CRLF `SKILL.md` whose description contains `": "` fails frontmatter parsing in some harnesses and the skill loses its trigger text.
+
+Then, either way:
+
+1. Ensure `using-ratchet` loads at session start — via your harness's session hook, or by listing it first in your project instructions (`CLAUDE.md`/`AGENTS.md`).
+2. Work normally. The first Tier 1+ task creates `.ratchet/`; commit it — state that isn't pushed dies with the laptop.
 
 There is deliberately **no dependency on hooks or tooling**: even if nothing is injected, `.ratchet/STATE.md` sitting in the repo root is discoverable by any agent that lists the directory. The methodology degrades gracefully instead of failing silently.
 
@@ -151,6 +163,7 @@ Every divergence from the original has a written reason. Every skill answers "wh
 METHODOLOGY.md      # the one-page manifesto — start here
 skills/             # the 23 skills (SKILL.md + optional references/)
 stress-tests.md     # the five dry-run traces
+.claude-plugin/     # plugin + marketplace manifests (Claude Code install)
 ```
 
 ## License

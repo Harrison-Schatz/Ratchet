@@ -1,0 +1,15 @@
+{
+  "name": "ratchet",
+  "description": "Ratchet: an evidence-gated operating methodology for agent-driven software work.",
+  "owner": {
+    "name": "Harrison Schatz",
+    "url": "https://github.com/Harrison-Schatz"
+  },
+  "plugins": [
+    {
+      "name": "ratchet",
+      "description": "The 23 Ratchet skills: size, brief, plan, execute with checkpoints, verify by evidence, land, retrospect. Router: using-ratchet.",
+      "source": "./"
+    }
+  ]
+}

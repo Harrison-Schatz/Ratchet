@@ -2,9 +2,12 @@
 
 Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated ISO 8601.
 
-## Unreleased
+## 0.1.0 — 2026-09-22
+
+First versioned release; the plugin manifest needs a version and the changelog now dates one.
 
 ### Added
+- The repo installs as a Claude Code plugin: `.claude-plugin/plugin.json` + `marketplace.json`, so `claude plugin marketplace add Harrison-Schatz/Ratchet` and `claude plugin install ratchet@ratchet` replace hand-copying `skills/`, and installed skills list under the `ratchet` source instead of the user's own. `.gitattributes` forces LF so a plugin clone on an `autocrlf=true` machine cannot break `SKILL.md` frontmatter parsing. README "Getting started" documents both paths. (#10)
 - `.ratchet/issues/` joins the state layout as the default home for problems found while developing the application, with `issues/README.md` pointing at a project's own tracker or corpus when one exists (`keeping-state`, `writing-the-issue`, README). (#8)
 
 ### Changed
