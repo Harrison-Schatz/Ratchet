@@ -33,9 +33,11 @@ In order of authority:
 
 **The four write-sets are disjoint — docs / changelog+version / records / `.ratchet/` — and that is the only reason this is safe to run at once.** State each agent's write-set and its bans in its brief — one stray edit outside a set can silently clobber another agent's exact-match `Edit`, or land against a file that moved underneath it. Two boundary rules ride every brief: the docs agent's factual-fix lane stops at the changelog and the version file (it reports those errors to you instead of editing or asking), and anything whose right home sits outside an agent's own set comes back in its report, as text, for you to place. None of the three commits, pushes, or writes the worklog or PR body — you do. Nothing else couples them: the number you assigned is enough for the entry to cite a record the issue agent is still writing.
 
-As each returns, **verify its edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope?) before they ride into the commit; a "done" report is a claim, not evidence. It all lands in the SAME commit as the code — a docs or changelog "fast follow" is a fast never — and a bumped version file that is read at runtime or asserted by a test re-runs the suite, because Step 0's gate never saw it. An agent with no real work → skip it rather than dispatching it to find nothing (never the changelog agent — an internal-only release still gets its entry).
+As each returns, **verify its edits like the gate** (`delegating-to-agents` Step 3 — read the diff; real and in-scope? prose included, per `verifying-done`'s Hard rules) before they ride into the commit; a "done" report is a claim, not evidence. It all lands in the SAME commit as the code — a docs or changelog "fast follow" is a fast never — and a bumped version file that is read at runtime or asserted by a test re-runs the suite, because Step 0's gate never saw it. An agent with no real work → skip it rather than dispatching it to find nothing (never the changelog agent — an internal-only release still gets its entry).
 
 (**Tier 0/1: no fan-out.** One entry and maybe one status flip is not worth three agents — run `writing-the-changelog` inline, and `writing-the-issue` when something was deferred or declined, or the change resolved a record whose status must flip. The entry is still mandatory; the fan-out is an economy, not the rule.)
+
+**The base moves while you work — landing is a loop.** Fetch, merge the base, re-run the suite, push, and where CI runs verify its run by its own id (not a list view); repeat until the run on your LATEST commit is green. Re-read the project's landing contracts — changelog format, versioning rules, reserved numbers — as of that base before writing the entry and PR body; another landing may have changed them. A stale PR description is rewritten, never appended to.
 
 **Common path (PR):**
 ```
@@ -44,7 +46,7 @@ gh pr create --title "<imperative summary>" --body "<goal + acceptance checks de
 ```
 The PR body is mostly written already — lift it from the brief and the gate's evidence entry. Tier 2+: link the brief/plan paths in the body.
 
-**Merge-locally path:** merge (or squash-merge per convention) into the base branch, **re-run the test suite on the merged result** (the merge itself is a new state the gate never saw — one command, real protection), push if a remote exists, delete the task branch.
+**Merge-locally path:** merge (or squash-merge per convention) into the base branch, re-run the suite on the merged result, push if a remote exists, delete the task branch.
 
 **Hand-off path** (user will handle integration): push the branch, report its name and the evidence summary, leave the branch alone.
 
