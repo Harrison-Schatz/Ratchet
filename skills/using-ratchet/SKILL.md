@@ -73,6 +73,20 @@ These hold at every tier, with no exceptions to remember because they're cheap:
 2. **Your task's `state/<task-id>.md` is updated at every phase boundary** (and its roster row kept current). A session that dies right now should be resumable from disk alone.
 3. **Never edit the default branch directly past Tier 0.** Branch first; the harness's native isolation tools are fine.
 
+## When setting up or standardizing Ratchet use these examples
+
+Blank templates for the seven `.ratchet/` files below ship with this skill under `templates/`. Copy one to its destination, fill the `<placeholders>`, delete the opening comment. A template carries the shape only; the owning skill carries the rules, and where the two disagree the skill wins.
+
+| `.ratchet/` file | Template | Format owned by |
+|---|---|---|
+| `LESSONS.md` | `templates/LESSONS.md` | `retrospecting` |
+| `STATE.md` | `templates/STATE.md` | `keeping-state` |
+| `state/<task-id>.md` | `templates/state-task.md` | `keeping-state` |
+| `worklog/<task-id>.md` | `templates/worklog-task.md` | `keeping-state`; entry shapes: `sizing-the-task`, `verifying-done`, `landing-the-change`, `retrospecting` |
+| `review/<task-id>-<lens>.md` | `templates/review-task-lens.md` | `reviewing-the-diff`, `fresh-eyes-review`, `ponytail-review` |
+| `plans/<task-id>-plan.md` | `templates/plan-task.md` | `planning-the-work` |
+| `briefs/<task-id>-brief.md` | `templates/brief-task.md` | `writing-the-brief` |
+
 ## If you're tempted to skip routing
 
 The proportionality judgment you're about to make ("this is too small for process") is exactly what `sizing-the-task` formalizes — it takes under a minute and its Tier 0 answer is "just do it." Skipping sizing doesn't save the minute; it discards the record that lets anyone trust the shortcut was legitimate.

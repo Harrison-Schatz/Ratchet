@@ -1,6 +1,6 @@
 {
   "name": "ratchet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Ratchet: an evidence-gated operating methodology for agent-driven software work, as 23 Claude Code skills.",
   "author": {
     "name": "Harrison Schatz",
