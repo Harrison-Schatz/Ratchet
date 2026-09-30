@@ -5,7 +5,7 @@ Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated I
 ## 0.2.0 — 2026-09-30
 
 ### Added
-- `using-ratchet` ships blank templates for seven `.ratchet/` files under `skills/using-ratchet/templates/` (LESSONS, roster, per-task state, worklog, review, plan, brief); a project copies one instead of transcribing the format out of six skills. (#N)
+- `using-ratchet` ships blank templates for seven `.ratchet/` files under `skills/using-ratchet/templates/` (LESSONS, roster, per-task state, worklog, review, plan, brief); a project copies one instead of transcribing the format out of six skills. (#11)
 
 ## 0.1.0 — 2026-09-22
 
