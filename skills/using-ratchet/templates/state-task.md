@@ -8,17 +8,13 @@ tier: <2 | 3>
 phase: <sizing | briefing | planning | executing | verifying | landing | retro>
 step: <N> of <M plan steps | - until the plan exists>
 branch: <branch name | - until branched>
-owned paths: <repo-relative glob>, <repo-relative glob>   <!-- rule: keeping-state > Ownership -->
+owned paths: <repo-relative glob>, <repo-relative glob>
 worktree: <checkout path>                      <!-- optional: separate checkout -->
 stack: <running-env label, host:port or url>   <!-- optional: dev environment -->
 PR: <url>                                      <!-- optional: once opened -->
-app: <clone folder owning the paths>           <!-- optional: multi-repo workspace -->
-
-## Decisions on record   <!-- optional: decisions the next session must not re-argue -->
-- <decision, one line>
 
 ## Next action
-<one imperative sentence a stranger could execute>   <!-- rule: keeping-state > state/<task-id>.md — the per-task snapshot -->
+<one imperative sentence a stranger could execute>
 
 ## Blocked on
 <nothing | the specific question + who can answer it>

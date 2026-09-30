@@ -116,7 +116,7 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`writing-the-changelog`](skills/writing-the-changelog/SKILL.md) | release notes that read like a commit dump |
 | [`writing-the-issue`](skills/writing-the-issue/SKILL.md) | deferrals and declined findings that get re-discovered and re-argued |
 
-Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelog` run longer — one carries the state layout, the other the changelog entry format and its guards): pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed, and blank templates for every `.ratchet/` file in `using-ratchet/templates/`, copied rather than loaded. Those restate each other — when you change a step, re-read the `description` and the table, where there is one, for a surviving contradiction; an agent that meets a new step and an old line resolves toward the old line.
+Most SKILL.md files are 50–90 lines (`keeping-state` and `writing-the-changelog` run longer — one carries the state layout, the other the changelog entry format and its guards): pushy trigger description, numbered steps, explicit outputs and stop conditions, and a short rationalization table where the discipline needs armor. Depth lives in `references/` files loaded only when needed. Those restate each other — when you change a step, re-read the `description` and the table, where there is one, for a surviving contradiction; an agent that meets a new step and an old line resolves toward the old line. Blank `.ratchet/` file templates in `using-ratchet/templates/` mirror each owning skill's format block — change one, re-check the other.
 
 ## Getting started
 
@@ -161,7 +161,7 @@ Every divergence from the original has a written reason. Every skill answers "wh
 
 ```
 METHODOLOGY.md      # the one-page manifesto — start here
-skills/             # the 23 skills (SKILL.md + optional references/; using-ratchet/templates/ holds the blank .ratchet/ files)
+skills/             # the 23 skills (SKILL.md + optional references/; using-ratchet/templates/ holds blank .ratchet/ file templates)
 stress-tests.md     # the five dry-run traces
 .claude-plugin/     # plugin + marketplace manifests (Claude Code install)
 ```

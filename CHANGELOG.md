@@ -5,7 +5,7 @@ Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated I
 ## 0.2.0 — 2026-09-30
 
 ### Added
-- A project setting up or standardizing its `.ratchet/` folder copies a blank template instead of transcribing the format out of six skills: `using-ratchet` gained the section "When setting up or standardizing Ratchet use these examples", a table pointing at seven templates under `skills/using-ratchet/templates/` (LESSONS, the roster, and the per-task state, worklog, review, plan and brief files), each naming the skill that owns its format. (#N)
+- `using-ratchet` ships blank templates for seven `.ratchet/` files under `skills/using-ratchet/templates/` (LESSONS, roster, per-task state, worklog, review, plan, brief); a project copies one instead of transcribing the format out of six skills. (#N)
 
 ## 0.1.0 — 2026-09-22
 

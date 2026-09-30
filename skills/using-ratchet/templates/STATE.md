@@ -5,8 +5,7 @@
 updated: <YYYY-MM-DD HH:MM>
 
 ## Active tasks
-<!-- phase values: rule: keeping-state > state/<task-id>.md — the per-task snapshot -->
-<!-- optional: a coordination column, e.g. `version claim`; rule: keeping-state > STATE.md — the roster -->
+<!-- optional: a coordination column, e.g. `version claim` -->
 | task-id | owner | tier | phase | step | branch | state file | worklog |
 |---|---|---|---|---|---|---|---|
 | <task-id> | <owner> | <tier> | <phase> | <N/M> | <branch> | .ratchet/state/<task-id>.md | .ratchet/worklog/<task-id>.md |

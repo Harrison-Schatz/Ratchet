@@ -25,7 +25,7 @@ The conversation is volatile memory; `.ratchet/` is disk. Anything a fresh sessi
 
 Task id: `YYYY-MM-DD-<slug>` (date the task started). Add `.ratchet/` to version control — state that isn't pushed dies with the laptop. (If the user objects, gitignore it and say the durability guarantee is now local-only.)
 
-Blank templates for every file above ship with `using-ratchet` (section "When setting up or standardizing Ratchet use these examples").
+Blank templates for every file above except `issues/` (`writing-the-issue` owns that record) ship with `using-ratchet` (section "When setting up or standardizing Ratchet use these examples").
 
 ## What goes where — the only rule you need
 
