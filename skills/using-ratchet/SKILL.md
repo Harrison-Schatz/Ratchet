@@ -1,6 +1,6 @@
 ---
 name: using-ratchet
-description: Load at the start of EVERY session and before responding to ANY request that could change files, fix something, build something, or answer "is it done?" — including requests that look trivial ("fix this typo", "quick question about a bug"). Also load whenever a .ratchet/ directory exists in the repo, whenever you are unsure which Ratchet skill applies, or whenever you are about to act without having sized the task.
+description: Load at the start of EVERY session and before responding to ANY request that could change files, fix something, build something, or answer "is it done?" — including requests that look trivial ("fix this typo", "quick question about a bug"). Also load whenever a .ratchet/ directory exists in the repo, whenever you are unsure which Ratchet skill applies, whenever you are about to act without having sized the task, or when setting up or standardizing a project's .ratchet/ files.
 ---
 
 # Using Ratchet
@@ -72,6 +72,20 @@ These hold at every tier, with no exceptions to remember because they're cheap:
 1. **No completion claim without an evidence line in the task's worklog file** (`.ratchet/worklog/<task-id>.md`). If `verifying-done` hasn't produced one, the claim is blocked.
 2. **Your task's `state/<task-id>.md` is updated at every phase boundary** (and its roster row kept current). A session that dies right now should be resumable from disk alone.
 3. **Never edit the default branch directly past Tier 0.** Branch first; the harness's native isolation tools are fine.
+
+## When setting up or standardizing Ratchet use these examples
+
+Blank templates for every `.ratchet/` file ship with this skill under `templates/`. Copy one to its destination, fill the `<placeholders>`, delete the opening comment. A template carries the shape only; the owning skill carries the rules, and where the two disagree the skill wins.
+
+| `.ratchet/` file | Template | Format owned by |
+|---|---|---|
+| `LESSONS.md` | `templates/LESSONS.md` | `retrospecting` |
+| `STATE.md` | `templates/STATE.md` | `keeping-state` |
+| `state/<task-id>.md` | `templates/state-task.md` | `keeping-state` |
+| `worklog/<task-id>.md` | `templates/worklog-task.md` | `keeping-state`, `sizing-the-task`, `verifying-done` |
+| `review/<task-id>-<lens>.md` | `templates/review-task-lens.md` | `reviewing-the-diff`, `fresh-eyes-review`, `ponytail-review` |
+| `plans/<task-id>-plan.md` | `templates/plan-task.md` | `planning-the-work` |
+| `briefs/<task-id>-brief.md` | `templates/brief-task.md` | `writing-the-brief` |
 
 ## If you're tempted to skip routing
 
