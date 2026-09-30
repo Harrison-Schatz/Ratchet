@@ -6,8 +6,8 @@ updated: <YYYY-MM-DD HH:MM>
 owner: <person or agent name>
 tier: <2 | 3>
 phase: <sizing | briefing | planning | executing | verifying | landing | retro>
-step: <N> of <M plan steps | - until the plan exists>
-branch: <branch name | - until branched>
+step: <N> of <M>
+branch: <branch name>
 owned paths: <repo-relative glob>, <repo-relative glob>
 worktree: <checkout path>                      <!-- optional: separate checkout -->
 stack: <running-env label, host:port or url>   <!-- optional: dev environment -->

@@ -17,7 +17,6 @@ Out of scope: <what you are explicitly NOT doing>
 Tier <old> → Tier <new>: <the trigger that fired>
 
 ## [<YYYY-MM-DD HH:MM>] <task-id> — evidence
-<plan step N of M this proves>
 ran: <command> → <verbatim result summary: counts, exit code>
 
 ## [<YYYY-MM-DD HH:MM>] <task-id> — evidence (gate, T<n>)
@@ -27,7 +26,7 @@ scope: <N files, all within plan or Done-when>; plus <undeclared-but-defensible 
 checks: <brief acceptance check or Done-when check → the evidence that shows it, one per check>
 
 ## [<YYYY-MM-DD HH:MM>] <task-id> — done
-<what landed: merge SHA or PR URL>; evidence: <time of the gate evidence entry>
+<what landed: merge SHA or PR URL>; evidence: <time of the gate evidence entry | Tier 0: ran: <command> → <verbatim result>>
 
 ## [<YYYY-MM-DD HH:MM>] <task-id> — retro
 <lessons added / merged / pruned (L<n>), or "no lessons — clean task">

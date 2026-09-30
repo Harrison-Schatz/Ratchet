@@ -6,7 +6,7 @@ Brief: .ratchet/briefs/<task-id>-brief.md
 
 ## Steps
 ### Step 1: <outcome, not activity — the state that exists when the step is done>
-- Files: `<path>` (<create | modify>)
+- Files: `<path>` (<create | modify | what changes here>)
 - Approach: <2-4 sentences; sketch interfaces or signatures a stranger would need, never full implementations>
 - Test discipline: <test-first | characterize-first | spike-then-stabilize, per testing-by-default>
 - Prove it: <executable command and the observable result that counts as pass>

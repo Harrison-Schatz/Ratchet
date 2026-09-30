@@ -8,7 +8,7 @@ status: <draft | APPROVED <YYYY-MM-DD> by <who>>   <!-- optional: approval recor
 <2-4 sentences: what exists when this is done, and why it's wanted>
 
 ## Acceptance checks
-1. <observable: a command, a user action with visible result, or a test that passes>
+1. <observable — a command, a user action with visible result, or a test that passes; 3-8 items>
 2. ...
 
 ## Out of scope
@@ -16,7 +16,7 @@ status: <draft | APPROVED <YYYY-MM-DD> by <who>>   <!-- optional: approval recor
 
 ## Approach
 <the chosen approach in 3-6 sentences>
-- <rejected alternative> — <why>   <!-- one line each -->
+- <rejected alternative> — <why>
 
 ## Risk notes
 - <risk surface>: <what it obligates>
