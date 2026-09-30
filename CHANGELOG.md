@@ -2,6 +2,11 @@
 
 Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated ISO 8601.
 
+## 0.2.0 — 2026-09-30
+
+### Added
+- A project setting up or standardizing its `.ratchet/` folder copies a blank template instead of transcribing the format out of six skills: `using-ratchet` gained the section "When setting up or standardizing Ratchet use these examples", a table pointing at seven templates under `skills/using-ratchet/templates/` (LESSONS, the roster, and the per-task state, worklog, review, plan and brief files), each naming the skill that owns its format. (#N)
+
 ## 0.1.0 — 2026-09-22
 
 First versioned release; the plugin manifest needs a version and the changelog now dates one.
