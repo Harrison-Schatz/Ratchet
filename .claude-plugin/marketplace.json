@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "ratchet",
-      "description": "The 23 Ratchet skills: size, brief, plan, execute with checkpoints, verify by evidence, land, retrospect. Router: using-ratchet.",
+      "description": "The 24 Ratchet skills: size, brief, plan, execute with checkpoints, verify by evidence, land, retrospect. Router: using-ratchet.",
       "source": "./"
     }
   ]

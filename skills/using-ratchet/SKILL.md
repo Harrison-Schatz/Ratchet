@@ -83,7 +83,7 @@ Blank templates for the seven `.ratchet/` files below ship with this skill under
 | `STATE.md` | `templates/STATE.md` | `keeping-state` |
 | `state/<task-id>.md` | `templates/state-task.md` | `keeping-state` |
 | `worklog/<task-id>.md` | `templates/worklog-task.md` | `keeping-state`; entry shapes: `sizing-the-task`, `verifying-done`, `landing-the-change`, `retrospecting` |
-| `review/<task-id>-<lens>.md` | `templates/review-task-lens.md` | `reviewing-the-diff`, `fresh-eyes-review`, `ponytail-review` |
+| `review/<task-id>-<lens>.md` | `templates/review-task-lens.md` | `reviewing-the-diff`; each finding's shape: the reviewer's own skill (Output) |
 | `plans/<task-id>-plan.md` | `templates/plan-task.md` | `planning-the-work` |
 | `briefs/<task-id>-brief.md` | `templates/brief-task.md` | `writing-the-brief` |
 
