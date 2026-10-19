@@ -5,10 +5,10 @@ Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated I
 ## 0.3.0 — 2026-10-19
 
 ### Added
-- `no-comments-review` joined the review as a third lens: comments are read as claims, constraint comments are pushed to a type, test, assertion or lint, and suppressions survive only scoped, reasoned and able to expire (failure mode 12, constraints held by prose). (#N)
+- `no-comments-review` joined the review as a third lens, reading every comment and suppression in a Tier 2+ diff as a claim the code must back (failure mode 12, constraints held by prose). (#N)
 
 ### Changed
-- `reviewing-the-diff` dispatched three lenses and triaged the comment verdicts, skipping the third lens by rule when a diff adds no comments or suppressions (the review template gained the matching block). (#N)
+- `reviewing-the-diff` skips the new lens by rule when a diff adds no comments or suppressions (the review template gained the matching block). (#N)
 
 ## 0.2.0 — 2026-09-30
 
