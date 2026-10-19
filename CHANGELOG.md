@@ -5,10 +5,10 @@ Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated I
 ## 0.3.0 — 2026-10-19
 
 ### Added
-- `no-comments-review` joined the review as a third lens, reading every comment and suppression in a Tier 2+ diff as a claim the code must back (failure mode 12, constraints held by prose). (#N)
+- `no-comments-review` joined the review as a third lens, reading every comment and suppression in a Tier 2+ diff as a claim the code must back (failure mode 12, constraints held by prose). (#12)
 
 ### Changed
-- `reviewing-the-diff` skips the new lens by rule when a diff adds no comments or suppressions (the review template gained the matching block). (#N)
+- `reviewing-the-diff` skips the new lens by rule when a diff adds no comments or suppressions (the review template gained the matching block). (#12)
 
 ## 0.2.0 — 2026-09-30
 
