@@ -8,7 +8,9 @@ Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated I
 - `no-comments-review` joined the review as a third lens, reading every comment and suppression in a Tier 2+ diff as a claim the code must back (failure mode 12, constraints held by prose). (#12)
 
 ### Changed
-- `reviewing-the-diff` skips the new lens by rule when a diff adds no comments or suppressions (the review template gained the matching block). (#12)
+- `reviewing-the-diff` skips the new lens by rule when a diff adds no comments or suppressions. (#12)
+- The review record template carries only the round header and the disposition line; each lens's finding shape lives in its own skill, so adding or removing a lens no longer touches the template. (#12)
+- METHODOLOGY's review divergence reads as one orchestrated review with one record per reviewer, whatever the lens count. (#12)
 
 ## 0.2.0 — 2026-09-30
 
