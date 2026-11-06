@@ -110,6 +110,6 @@ A record that cannot show the sweep ran cannot tell "none" from "did not look".
 ## Rules
 
 - **No finding without evidence.** A MOVE or CROSS carries `checked:`; a rung-4 claim lists its three consumers by path; a BOUNDARY carries its hashes and the threshold it crossed.
-- **Sweep, and name what you swept — and what a sweep cannot see.** Sweep imports in every form the touched files use, and entry points by definition. Where the repo wires either in a way a grep cannot see (path aliases, DI, convention routing), read the wiring by hand and say so in the sweep block.
+- **Sweep, and name what you swept — and what a sweep cannot see.** Sweep imports in every form the touched files use, and entry points by definition. Where the repo wires either in a way a grep cannot see — path aliases, DI, convention routing — read the wiring by hand and say so in the sweep block.
 - **Read-only over the code.** Your review record is the one file you may write.
 - **Review the placement, not the author.**

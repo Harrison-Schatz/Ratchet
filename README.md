@@ -111,10 +111,10 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`debugging-to-root-cause`](skills/debugging-to-root-cause/SKILL.md) | confident wrong fixes |
 | [`delegating-to-agents`](skills/delegating-to-agents/SKILL.md) | subagent completion theater |
 | [`reviewing-the-diff`](skills/reviewing-the-diff/SKILL.md) | scope creep; late intent misses |
-| [`fresh-eyes-review`](skills/fresh-eyes-review/SKILL.md) | the author reviewing their own reasoning; intent misses; the “is it right” lens, run in parallel with the other three |
-| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with the other three |
-| [`no-comments-review`](skills/no-comments-review/SKILL.md) | constraints held by prose — comments as unenforced rules, suppressions nobody can expire; the “what does it claim” lens, run in parallel with the other three |
-| [`vsa-review`](skills/vsa-review/SKILL.md) | structural drift — code outside its slice, imports across slice boundaries, slices that change as one; the “where does it live” lens, run in parallel with the other three |
+| [`fresh-eyes-review`](skills/fresh-eyes-review/SKILL.md) | the author reviewing their own reasoning; intent misses; the “is it right” lens |
+| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens |
+| [`no-comments-review`](skills/no-comments-review/SKILL.md) | constraints held by prose — comments as unenforced rules, suppressions nobody can expire; the “what does it claim” lens |
+| [`vsa-review`](skills/vsa-review/SKILL.md) | structural drift — code outside its slice, imports across slice boundaries, slices that change as one; the “where does it live” lens |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
 | [`writing-the-changelog`](skills/writing-the-changelog/SKILL.md) | release notes that read like a commit dump |
