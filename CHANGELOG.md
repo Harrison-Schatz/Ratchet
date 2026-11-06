@@ -5,10 +5,10 @@ Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated I
 ## 0.4.0 — 2026-11-06
 
 ### Added
-- `vsa-review` joined the review as a fourth lens, checking that new code lands in its vertical slice, imports nothing across slice boundaries, and flags two slices that keep changing together (failure mode 13, structural drift). (#N)
+- `vsa-review` joined the review as a fourth lens, checking that new code lands in its vertical slice, imports nothing across slice boundaries, and flags two slices that keep changing together (failure mode 13, structural drift). (#13)
 
 ### Changed
-- `reviewing-the-diff` dispatches four lenses, skips the new one by rule when every touched file is on its floor, and triages its verdicts: a misplaced unit or cross-slice import must be fixed before landing; a boundary finding becomes a follow-up issue. (#N)
+- `reviewing-the-diff` dispatches four lenses, skips the new one by rule when every touched file is on its floor, and triages its verdicts: a misplaced unit or cross-slice import must be fixed before landing; a boundary finding becomes a follow-up issue. (#13)
 
 ## 0.3.0 — 2026-10-19
 
