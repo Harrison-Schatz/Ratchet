@@ -2,7 +2,7 @@
 
 **Evidence-gated progress that survives interruption.**
 
-Ratchet is a software development methodology for coding agents, packaged as 24 composable skills. A ratchet moves freely forward and never slips back: each click is a verified step, and the pawl that holds it is *evidence on disk* — not the agent's memory, not the conversation, not a confident claim.
+Ratchet is a software development methodology for coding agents, packaged as 25 composable skills. A ratchet moves freely forward and never slips back: each click is a verified step, and the pawl that holds it is *evidence on disk* — not the agent's memory, not the conversation, not a confident claim.
 
 It is built on two observations:
 
@@ -56,6 +56,7 @@ Each maps to a concrete, checkable mechanism — never a value statement. The fu
 10. Repeating project-specific mistakes
 11. Documentation drift
 12. Constraints held by prose
+13. Structural drift
 
 ## The tiers
 
@@ -110,9 +111,10 @@ Load **`using-ratchet`** first — it routes every request and makes the rest pr
 | [`debugging-to-root-cause`](skills/debugging-to-root-cause/SKILL.md) | confident wrong fixes |
 | [`delegating-to-agents`](skills/delegating-to-agents/SKILL.md) | subagent completion theater |
 | [`reviewing-the-diff`](skills/reviewing-the-diff/SKILL.md) | scope creep; late intent misses |
-| [`fresh-eyes-review`](skills/fresh-eyes-review/SKILL.md) | the author reviewing their own reasoning; intent misses; the “is it right” lens, run in parallel with the other two |
-| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens, run in parallel with the other two |
-| [`no-comments-review`](skills/no-comments-review/SKILL.md) | constraints held by prose — comments as unenforced rules, suppressions nobody can expire; the “what does it claim” lens, run in parallel with the other two |
+| [`fresh-eyes-review`](skills/fresh-eyes-review/SKILL.md) | the author reviewing their own reasoning; intent misses; the “is it right” lens |
+| [`ponytail-review`](skills/ponytail-review/SKILL.md) | over-engineering — scope creep at the code level; the delete-list lens |
+| [`no-comments-review`](skills/no-comments-review/SKILL.md) | constraints held by prose — comments as unenforced rules, suppressions nobody can expire; the “what does it claim” lens |
+| [`vsa-review`](skills/vsa-review/SKILL.md) | structural drift — code outside its slice, imports across slice boundaries, slices that change as one; the “where does it live” lens |
 | [`prototyping-to-decide`](skills/prototyping-to-decide/SKILL.md) | guesses baked into briefs and plans |
 | [`syncing-the-docs`](skills/syncing-the-docs/SKILL.md) | documentation drift |
 | [`writing-the-changelog`](skills/writing-the-changelog/SKILL.md) | release notes that read like a commit dump |
@@ -163,7 +165,7 @@ Every divergence from the original has a written reason. Every skill answers "wh
 
 ```
 METHODOLOGY.md      # the one-page manifesto — start here
-skills/             # the 24 skills (SKILL.md + optional references/; using-ratchet/templates/ holds blank .ratchet/ file templates)
+skills/             # the 25 skills (SKILL.md + optional references/; using-ratchet/templates/ holds blank .ratchet/ file templates)
 stress-tests.md     # the five dry-run traces
 .claude-plugin/     # plugin + marketplace manifests (Claude Code install)
 ```
