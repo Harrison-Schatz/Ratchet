@@ -141,7 +141,7 @@ Skills then list under the `ratchet` source (e.g. `ratchet:sizing-the-task`), an
 Then, either way:
 
 1. Ensure `using-ratchet` loads at session start — via your harness's session hook, or by listing it first in your project instructions (`CLAUDE.md`/`AGENTS.md`).
-2. Work normally. The first Tier 1+ task creates `.ratchet/` (blank templates for each file: `using-ratchet`, section "When setting up or standardizing Ratchet use these examples"); commit it — state that isn't pushed dies with the laptop.
+2. Work normally. The first Tier 1+ task creates `.ratchet/` (blank templates for each file: `using-ratchet`, section "When setting up or standardizing Ratchet use these examples"); commit it — state that isn't pushed dies with the laptop. The first Tier 2 review asks which optional review standards the project follows (the standards and their defaults: `reviewing-the-diff`) and records your answer in `.ratchet/CONFIG.md`.
 
 There is deliberately **no dependency on hooks or tooling**: even if nothing is injected, `.ratchet/STATE.md` sitting in the repo root is discoverable by any agent that lists the directory. The methodology degrades gracefully instead of failing silently.
 
