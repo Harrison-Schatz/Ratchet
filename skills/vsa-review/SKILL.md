@@ -1,6 +1,6 @@
 ---
 name: vsa-review
-description: Use to review a diff for code placed outside its slice, imports that cross slice boundaries, and slices that change as one, and hand back MOVE, CROSS and BOUNDARY verdicts — run on every review round, or standalone when the user says "slice review", "VSA review", "is this in the right slice", "check the feature boundaries", or asks whether a change belongs in features/, shared/ or platform/. Works on any language, in a repo already organized by slices or a layered repo moving to them.
+description: Use to review a diff for code placed outside its slice, imports that cross slice boundaries, and slices that change as one, and hand back MOVE, CROSS and BOUNDARY verdicts — run on every review round of a project that follows the vertical-slice standard, or standalone when the user says "slice review", "VSA review", "is this in the right slice", "check the feature boundaries", or asks whether a change belongs in features/, shared/ or platform/. Works on any language, in a repo already organized by slices or a layered repo moving to them.
 ---
 
 # Vertical Slice Architecture Review

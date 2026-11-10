@@ -1,6 +1,6 @@
 ---
 name: keeping-state
-description: Use whenever something worth surviving the session is learned or decided — a sizing, a decision, a surprise, evidence, a blocker — and at every phase boundary (sized → briefed → planned → executing step N → verifying → done). Also use when creating the .ratchet/ directory for the first time, or when unsure what belongs in STATE.md vs the worklog vs LESSONS.md.
+description: Use whenever something worth surviving the session is learned or decided — a sizing, a decision, a surprise, evidence, a blocker — and at every phase boundary (sized → briefed → planned → executing step N → verifying → done). Also use when creating the .ratchet/ directory for the first time, or when unsure what belongs in STATE.md vs the worklog vs LESSONS.md vs CONFIG.md.
 ---
 
 # Keeping State
@@ -18,6 +18,7 @@ The conversation is volatile memory; `.ratchet/` is disk. Anything a fresh sessi
 ├── worklog/        # <task-id>.md — one append-only journal per task
 ├── review/         # <task-id>-<lens>.md — findings from each review round, verbatim + disposition
 ├── LESSONS.md      # project rules earned from retrospectives (see retrospecting)
+├── CONFIG.md       # project settings the user approved; Standards: which review standards the project follows (see reviewing-the-diff)
 ├── briefs/         # <task-id>-brief.md
 ├── plans/          # <task-id>-plan.md
 └── issues/         # #N records — problems found while developing the application and not fixed now (writing-the-issue); README.md pins the status vocabulary, or points at the project's own tracker/corpus
@@ -33,6 +34,7 @@ Blank templates for every file above except `issues/` (`writing-the-issue` owns 
 - **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (the reviewer writes it; survives the task's close)
 - **Might anyone need to know it happened?** → the task's `worklog/<task-id>.md`
 - **Should every future session change behavior because of it?** → LESSONS.md (via `retrospecting` — don't write it directly mid-task)
+- **A project-wide setting the user decides?** → CONFIG.md. Ask first, naming the setting and the exact change; write it only on the user's approval.
 
 ## STATE.md — the roster (overwrite when the set of active tasks changes)
 
