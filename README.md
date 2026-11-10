@@ -79,6 +79,7 @@ Everything a fresh session needs lives in `.ratchet/` at the repo root:
 ├── worklog/      # <task-id>.md — per-task append-only journal: sizings, decisions, surprises, evidence
 ├── review/       # <task-id>-<lens>.md — each review round's findings, verbatim, with every disposition
 ├── LESSONS.md    # project rules earned from retrospectives, loaded at every session start
+├── CONFIG.md     # project settings the user approved — which review standards the project follows
 ├── briefs/       # confirmed intent: goals, observable acceptance checks, out-of-scope lists
 ├── plans/        # step sequences with proofs and a change log
 └── issues/       # problems found developing the application and not fixed now; README.md points at the project's own tracker when one exists
