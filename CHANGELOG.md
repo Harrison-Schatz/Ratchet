@@ -2,6 +2,15 @@
 
 Newest first. Grouped by Added / Changed / Removed / Fixed; each release dated ISO 8601.
 
+## 0.5.0 — 2026-11-10
+
+### Added
+- Review lenses became project standards: a project records the optional standards it follows in a new `.ratchet/CONFIG.md`, which an agent changes only on the user's approval (template in `using-ratchet`). (#N)
+
+### Changed
+- `no-comments-review` and `vsa-review` stopped running by default; a project upgrading from 0.4.0 gets them back by opting in when its next Tier 2 review asks (`ponytail-review` stays on; `fresh-eyes-review` is required). (#N)
+- A lens whose every finding in a round was declined for one project-wide reason now prompts the review to offer turning its standard off. (#N)
+
 ## 0.4.0 — 2026-11-06
 
 ### Added
