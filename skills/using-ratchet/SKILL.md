@@ -75,7 +75,7 @@ These hold at every tier, with no exceptions to remember because they're cheap:
 
 ## When setting up or standardizing Ratchet use these examples
 
-Blank templates for the eight `.ratchet/` files below ship with this skill under `templates/`. Copy one to its destination, fill the `<placeholders>`, delete the opening comment. A template carries the shape only; the owning skill carries the rules, and where the two disagree the skill wins.
+Blank templates for the `.ratchet/` files below ship with this skill under `templates/`. Copy one to its destination, fill the `<placeholders>`, delete the opening comment. A template carries the shape only; the owning skill carries the rules, and where the two disagree the skill wins.
 
 | `.ratchet/` file | Template | Format owned by |
 |---|---|---|

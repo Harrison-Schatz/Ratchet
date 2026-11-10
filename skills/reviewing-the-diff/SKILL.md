@@ -7,12 +7,12 @@ description: Use when Tier 2/3 implementation is complete (before the final veri
 
 Review is a fresh set of eyes on the diff before it becomes permanent. Each review lens checks the diff against one **standard**: the standard defines the lens, and the lens guides the review. Ratchet runs the lens of **every standard the project follows over the same diff, concurrently**, then triages them into one list. Lenses, not ceremonial passes: each asks a question the others structurally cannot. Risk, not ritual, decides depth.
 
-| Standard | Lens — its question | Required | Default |
-|---|---|---|---|
-| **Built as briefed** — the diff builds what the brief asked, and builds it well | `fresh-eyes-review` — is this the right thing, built well? | yes | on |
-| **Least code** — nothing exists that a lower rung already covers | `ponytail-review` — should any of it exist at all? | no | on |
-| **Enforced claims** — a constraint lives in a test, type or check, not in a comment | `no-comments-review` — what does it claim about itself that nothing checks? | no | off |
-| **Vertical slices** — code lives with the code it changes with | `vsa-review` — does it live with the code it changes with? | no | off |
+| Standard | Lens — its question | Default |
+|---|---|---|
+| **Built as briefed** — the diff builds what the brief asked, and builds it well | `fresh-eyes-review` — is this the right thing, built well? | required |
+| **Least code** — nothing exists that a lower rung already covers | `ponytail-review` — should any of it exist at all? | on |
+| **Enforced claims** — a constraint lives in a test, type or check, not in a comment | `no-comments-review` — what does it claim about itself that nothing checks? | off |
+| **Vertical slices** — code lives with the code it changes with | `vsa-review` — does it live with the code it changes with? | off |
 
 A project records the optional standards it follows in `.ratchet/CONFIG.md` > Standards; this table alone sets which standards are required and what each defaults to.
 
@@ -28,7 +28,7 @@ This skill orchestrates; the reviewers' own instructions live in their own skill
 
 - **An optional standard with no row** — no CONFIG.md yet, or a standard newer than the file → before dispatch, ask the user which of the unlisted standards the project follows, naming each with its definition and default from the table above. On approval, write one row per answer, starting the file from `using-ratchet`'s `templates/CONFIG.md` if it is new. No user this session → the defaults apply to this round, nothing is written, and the worklog says `standards: defaults, unconfirmed — ask at the next review`.
 - **A required standard runs** whatever its row says. A row turning one off is ignored, and you tell the user.
-- **A standard that is off** → its lens is not dispatched. Write `<lens>: skipped — standard off (CONFIG.md, <date>)` under the round header in that lens's record.
+- **A standard that is off** → its lens is not dispatched. Write `<lens>: skipped — standard off (CONFIG.md, <date>)` under the round header in that lens's record — or, off by default with no row, `<lens>: skipped — standard off (default, unconfirmed)`.
 - **The user names a lens** ("VSA review this") → it runs this round whatever its standard's status, and the row stays as it is.
 
 Then one subagent per lens whose standard is on (per `delegating-to-agents`), same `BASE..HEAD`, at the same time:
@@ -65,9 +65,9 @@ Findings come back as **Critical** (breaks intent/data/security — blocks the g
 
 **No-comments' verdicts** merge into this same triage; the lens ranks nothing, so the severity is yours. **KILL** → **Minor**. **ENCODE** → **Important** when the constraint guards correctness, data, or a risk surface (an unenforced invariant is the failure-path test `verifying-done` already demands), else **Minor**; where the lens says the code may be the wrong side, write the deciding test now, and if it fails the finding is **Critical** under fresh-eyes' definition. Resolve an ENCODE at the lowest rung in scope, then delete the prose: a test or assertion inside the diff's own files is a review fix like any other, per `testing-by-default`; an encoding that changes a type other callers see, adds a dependency, or adds a CI check is offered to the user with its rung and cost; declined, deferred, or no user this session → the prose goes and at most the record reference stays on the line (`writing-the-issue` — the record carries the constraint and the proposed rung). An encoding that needs a shape beyond one test, type, or assertion is a plan amendment (`replanning-on-surprise`), not a review fix. **SUPPRESSION** → **Important**. **KEEP?** stands only with its checkable pointer, which you verify. Ambiguity resolves toward deletion, for KILL and KEEP? alike, and neither is ever **Critical** — a comment's absence breaks nothing; what a comment *hides* may, and that is the deciding test above.
 
-**VSA's verdicts** merge into this same triage. **MOVE** and **CROSS** → **Important**: the slice standard is decided, and a misplaced unit or a cross-slice import costs one move now and a migration later. **BOUNDARY** never blocks this diff — its disposition is `ISSUE #<n>` (`writing-the-issue`; the record carries the two slices and the metric). None is ever **Critical** — placement breaks no intent, data, or security.
+**VSA's verdicts** merge into this same triage. **MOVE** and **CROSS** → **Important** when the project follows Vertical slices: a misplaced unit or a cross-slice import costs one move now and a migration later. On a run the user asked for by name with the standard off, they are **Minor** — advice the user asked for, not a gate. **BOUNDARY** never blocks this diff — its disposition is `ISSUE #<n>` (`writing-the-issue`; the record carries the two slices and the metric). None is ever **Critical** — placement breaks no intent, data, or security.
 
-**A lens whose every finding this round was declined for one project-wide reason** (e.g. "SFCC fixes this location") reviews against a standard that may not fit the project. Ask the user whether to turn that standard off, naming the lens, the reason and the declined findings; only on approval does its CONFIG.md row go to `off`, with that reason.
+**A lens whose standard is optional and whose every finding this round was declined for one project-wide reason** (e.g. "SFCC fixes this location") reviews against a standard that may not fit the project. Ask the user whether to turn that standard off, naming the lens, the reason and the declined findings; only on approval does its CONFIG.md row go to `off`, with today's date, who approved, and that reason.
 
 **Every finding gets a disposition, in the record.** This is your write, not the reviewer's:
 as triage resolves each item, insert one line beneath it, editing nothing else in the file:

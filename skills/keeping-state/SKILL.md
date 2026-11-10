@@ -34,7 +34,7 @@ Blank templates for every file above except `issues/` (`writing-the-issue` owns 
 - **Findings from a review round?** → the task's `review/<task-id>-<lens>.md` (the reviewer writes it; survives the task's close)
 - **Might anyone need to know it happened?** → the task's `worklog/<task-id>.md`
 - **Should every future session change behavior because of it?** → LESSONS.md (via `retrospecting` — don't write it directly mid-task)
-- **A project-wide setting the user decides?** → CONFIG.md. Ask first, naming the setting and the exact change; write it only on the user's approval. No setting changes on your own call.
+- **A project-wide setting the user decides?** → CONFIG.md. Ask first, naming the setting and the exact change; write it only on the user's approval.
 
 ## STATE.md — the roster (overwrite when the set of active tasks changes)
 
